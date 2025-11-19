@@ -42,7 +42,7 @@ data-visualisation-project-dvgroup49/
 | Dataset | Records | Usage |
 |---------|---------|-------|
 | ProcessedFines.csv | 11,960 | All enforcement visualizations |
-| ProcessedFatalities.csv | 6,941 | All fatality visualizations |
+| ProcessedFatalities.csv | 5,951 | All fatality visualizations (2020-2024) |
 | Q1-Q7 aggregated CSVs | 4-140 | Individual chart data |
 
 **Processing:** KNIME workflow → cleaned, standardized age groups, consolidated detection methods
