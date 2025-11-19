@@ -104,12 +104,18 @@
                             .attr('stroke', '#26658c')
                             .attr('stroke-width', 3);
 
-                        const tooltipData = {
-                            ageGroup,
-                            offenceType,
-                            fines
-                        };
-                        showTooltip(event, tooltipData, tooltip);
+                        const content = `
+            <strong>${ageGroup} years</strong>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Offence:</span>
+                <span class="tooltip-value">${offenceType}</span>
+            </div>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total fines:</span>
+                <span class="tooltip-value">${d3.format(',')(fines)}</span>
+            </div>
+        `;
+                        showTooltip(event, content, tooltip);
                     })
                     .on('mousemove', (event) => {
                         moveTooltip(event, tooltip);
@@ -293,46 +299,7 @@
     /**
      * Show tooltip
      */
-    function showTooltip(event, data, tooltip) {
-        const content = `
-            <strong>Age: ${data.ageGroup}</strong>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Offence:</span>
-                <span class="tooltip-value">${data.offenceType}</span>
-            </div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Total fines:</span>
-                <span class="tooltip-value">${d3.format(',')(data.fines)}</span>
-            </div>
-        `;
 
-        tooltip
-            .html(content)
-            .style('left', (event.pageX + 15) + 'px')
-            .style('top', (event.pageY - 28) + 'px')
-            .transition()
-            .duration(200)
-            .style('opacity', 1);
-    }
-
-    /**
-     * Move tooltip
-     */
-    function moveTooltip(event, tooltip) {
-        tooltip
-            .style('left', (event.pageX + 15) + 'px')
-            .style('top', (event.pageY - 28) + 'px');
-    }
-
-    /**
-     * Hide tooltip
-     */
-    function hideTooltip(tooltip) {
-        tooltip
-            .transition()
-            .duration(200)
-            .style('opacity', 0);
-    }
 
     /**
      * Update data table

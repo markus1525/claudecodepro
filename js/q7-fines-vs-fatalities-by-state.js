@@ -92,7 +92,19 @@
             .style('cursor', 'pointer')
             .on('mouseenter', function(event, d) {
                 d3.select(this).attr('fill-opacity', 1);
-                showTooltip(event, d, tooltip);
+
+                const content = `
+            <strong>${d.state}</strong>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total fines:</span>
+                <span class="tooltip-value">${d3.format(',')(d.totalFines)}</span>
+            </div>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Fines per fatality:</span>
+                <span class="tooltip-value">${d3.format(',')(d.finesPerFatality.toFixed(0))}</span>
+            </div>
+        `;
+                showTooltip(event, content, tooltip);
             })
             .on('mousemove', (event) => {
                 moveTooltip(event, tooltip);
@@ -150,7 +162,19 @@
             .style('cursor', 'pointer')
             .on('mouseenter', function(event, d) {
                 d3.select(this).attr('r', 8);
-                showTooltip(event, d, tooltip);
+
+                const content = `
+            <strong>${d.state}</strong>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total fatalities:</span>
+                <span class="tooltip-value">${d3.format(',')(d.totalFatalities)}</span>
+            </div>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total fines:</span>
+                <span class="tooltip-value">${d3.format(',')(d.totalFines)}</span>
+            </div>
+        `;
+                showTooltip(event, content, tooltip);
             })
             .on('mousemove', (event) => {
                 moveTooltip(event, tooltip);
@@ -262,7 +286,23 @@
                 d3.select(this)
                     .attr('fill-opacity', 1)
                     .attr('r', 10);
-                showTooltip(event, d, tooltip);
+
+                const content = `
+            <strong>${d.state}</strong>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total fines:</span>
+                <span class="tooltip-value">${d3.format(',')(d.totalFines)}</span>
+            </div>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total fatalities:</span>
+                <span class="tooltip-value">${d3.format(',')(d.totalFatalities)}</span>
+            </div>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Ratio:</span>
+                <span class="tooltip-value">${d3.format(',')(d.finesPerFatality.toFixed(0))} fines/fatality</span>
+            </div>
+        `;
+                showTooltip(event, content, tooltip);
             })
             .on('mousemove', (event) => {
                 moveTooltip(event, tooltip);
@@ -380,50 +420,7 @@
     /**
      * Show tooltip
      */
-    function showTooltip(event, data, tooltip) {
-        const content = `
-            <strong>${data.state}</strong>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Total fines:</span>
-                <span class="tooltip-value">${d3.format(',')(data.totalFines)}</span>
-            </div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Total fatalities:</span>
-                <span class="tooltip-value">${d3.format(',')(data.totalFatalities)}</span>
-            </div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Fines per fatality:</span>
-                <span class="tooltip-value">${d3.format(',.0f')(data.finesPerFatality)}</span>
-            </div>
-        `;
 
-        tooltip
-            .html(content)
-            .style('left', (event.pageX + 15) + 'px')
-            .style('top', (event.pageY - 28) + 'px')
-            .transition()
-            .duration(200)
-            .style('opacity', 1);
-    }
-
-    /**
-     * Move tooltip
-     */
-    function moveTooltip(event, tooltip) {
-        tooltip
-            .style('left', (event.pageX + 15) + 'px')
-            .style('top', (event.pageY - 28) + 'px');
-    }
-
-    /**
-     * Hide tooltip
-     */
-    function hideTooltip(tooltip) {
-        tooltip
-            .transition()
-            .duration(200)
-            .style('opacity', 0);
-    }
 
     /**
      * Update data table
