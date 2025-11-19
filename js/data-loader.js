@@ -472,11 +472,14 @@ function initializeFilters() {
         const fromValue = parseInt(yearFrom.value);
         const toValue = parseInt(yearTo.value);
 
-        const fromPercent = ((fromValue - min) / (max - min)) * 100;
-        const toPercent = ((toValue - min) / (max - min)) * 100;
+        // Calculate percentages within the track space (track has 5px offset on each side)
+        const range = max - min;
+        const fromPercent = ((fromValue - min) / range) * 100;
+        const toPercent = ((toValue - min) / range) * 100;
 
-        sliderRange.style.left = fromPercent + '%';
-        sliderRange.style.width = (toPercent - fromPercent) + '%';
+        // Apply positioning with calc to match track offset
+        sliderRange.style.left = `calc(5px + ${fromPercent}% * (100% - 10px) / 100)`;
+        sliderRange.style.width = `calc(${toPercent - fromPercent}% * (100% - 10px) / 100)`;
     }
 
     // Function to update year labels
