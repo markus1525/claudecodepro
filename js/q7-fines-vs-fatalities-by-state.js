@@ -113,10 +113,6 @@
                 d3.select(this).attr('fill-opacity', 0.7);
                 hideTooltip(tooltip);
             })
-            .on('click', function(event, d) {
-                filterState.states = [d.state];
-                updateAllCharts();
-            })
             .transition()
             .duration(500)
             .delay((d, i) => i * 50)
