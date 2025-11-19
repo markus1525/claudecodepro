@@ -22,7 +22,7 @@ function createTooltip() {
 }
 
 /**
- * Show tooltip with content
+ * Show tooltip with content and smart positioning
  * @param {Event} event - Mouse event
  * @param {string} content - HTML content to display
  * @param {d3.Selection} tooltip - Tooltip selection (optional, will create if not provided)
@@ -32,24 +32,102 @@ function showTooltip(event, content, tooltip = null) {
         tooltip = createTooltip();
     }
 
+    // Set content first to calculate dimensions
+    tooltip.html(content);
+
+    // Get tooltip dimensions
+    const tooltipNode = tooltip.node();
+    const tooltipRect = tooltipNode.getBoundingClientRect();
+    const tooltipWidth = tooltipRect.width;
+    const tooltipHeight = tooltipRect.height;
+
+    // Get viewport dimensions
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Calculate initial position
+    let left = event.pageX + TOOLTIP_CONFIG.offset.x;
+    let top = event.pageY + TOOLTIP_CONFIG.offset.y;
+
+    // Check if tooltip goes beyond right edge
+    if (left + tooltipWidth > scrollX + viewportWidth) {
+        // Flip to left side of cursor
+        left = event.pageX - tooltipWidth - Math.abs(TOOLTIP_CONFIG.offset.x);
+    }
+
+    // Check if tooltip goes beyond left edge
+    if (left < scrollX) {
+        left = scrollX + 10; // 10px padding from edge
+    }
+
+    // Check if tooltip goes beyond bottom edge
+    if (top + tooltipHeight > scrollY + viewportHeight) {
+        // Flip to top of cursor
+        top = event.pageY - tooltipHeight - Math.abs(TOOLTIP_CONFIG.offset.y);
+    }
+
+    // Check if tooltip goes beyond top edge
+    if (top < scrollY) {
+        top = scrollY + 10; // 10px padding from edge
+    }
+
+    // Apply position and show tooltip
     tooltip
-        .html(content)
-        .style('left', (event.pageX + TOOLTIP_CONFIG.offset.x) + 'px')
-        .style('top', (event.pageY + TOOLTIP_CONFIG.offset.y) + 'px')
+        .style('left', left + 'px')
+        .style('top', top + 'px')
         .transition()
         .duration(TOOLTIP_CONFIG.duration.show)
         .style('opacity', 1);
 }
 
 /**
- * Move tooltip with cursor
+ * Move tooltip with cursor and smart positioning
  * @param {Event} event - Mouse event
  * @param {d3.Selection} tooltip - Tooltip selection
  */
 function moveTooltip(event, tooltip) {
+    // Get tooltip dimensions
+    const tooltipNode = tooltip.node();
+    const tooltipRect = tooltipNode.getBoundingClientRect();
+    const tooltipWidth = tooltipRect.width;
+    const tooltipHeight = tooltipRect.height;
+
+    // Get viewport dimensions
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Calculate initial position
+    let left = event.pageX + TOOLTIP_CONFIG.offset.x;
+    let top = event.pageY + TOOLTIP_CONFIG.offset.y;
+
+    // Check if tooltip goes beyond right edge
+    if (left + tooltipWidth > scrollX + viewportWidth) {
+        left = event.pageX - tooltipWidth - Math.abs(TOOLTIP_CONFIG.offset.x);
+    }
+
+    // Check if tooltip goes beyond left edge
+    if (left < scrollX) {
+        left = scrollX + 10;
+    }
+
+    // Check if tooltip goes beyond bottom edge
+    if (top + tooltipHeight > scrollY + viewportHeight) {
+        top = event.pageY - tooltipHeight - Math.abs(TOOLTIP_CONFIG.offset.y);
+    }
+
+    // Check if tooltip goes beyond top edge
+    if (top < scrollY) {
+        top = scrollY + 10;
+    }
+
+    // Apply position
     tooltip
-        .style('left', (event.pageX + TOOLTIP_CONFIG.offset.x) + 'px')
-        .style('top', (event.pageY + TOOLTIP_CONFIG.offset.y) + 'px');
+        .style('left', left + 'px')
+        .style('top', top + 'px');
 }
 
 /**
