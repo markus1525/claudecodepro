@@ -1,13 +1,6 @@
 /* Shared constants for colors, labels, sizes, and formats */
 
-// ============================================================================
-// COLOR SCALES
-// ============================================================================
-
-/**
- * Color scale for offence types
- * Used in Q1 and Q3 visualizations
- */
+// Color scale for offence types (Q1 and Q3)
 const OFFENCE_COLORS = {
     scale: d3.scaleOrdinal()
         .domain(['Speed Fines', 'Mobile Phone Use', 'Non Wearing Seatbelts', 'Unlicensed Driving'])
@@ -21,10 +14,7 @@ const OFFENCE_COLORS = {
     }
 };
 
-/**
- * Color scale for road users
- * Used in Q6 visualization
- */
+// Color scale for road users (Q6)
 const ROAD_USER_COLORS = {
     scale: d3.scaleOrdinal()
         .domain([
@@ -57,9 +47,7 @@ const ROAD_USER_COLORS = {
     }
 };
 
-/**
- * Primary brand colors
- */
+// Brand colors
 const BRAND_COLORS = {
     primary: '#26658c',
     secondary: '#3078a3',
@@ -73,13 +61,7 @@ const BRAND_COLORS = {
     white: '#ffffff'
 };
 
-// ============================================================================
-// STATE INFORMATION
-// ============================================================================
-
-/**
- * Australian states and territories
- */
+// Australian states and territories
 const STATES = {
     codes: ['ACT', 'NSW', 'NT', 'QLD', 'SA', 'TAS', 'VIC', 'WA'],
 
@@ -106,13 +88,7 @@ const STATES = {
     }
 };
 
-// ============================================================================
-// AGE GROUPS
-// ============================================================================
-
-/**
- * Age group definitions
- */
+// Age group definitions
 const AGE_GROUPS = {
     order: ['0-16', '17-25', '26-39', '40-64', '65+'],
 
@@ -133,13 +109,7 @@ const AGE_GROUPS = {
     }
 };
 
-// ============================================================================
-// OFFENCE TYPES
-// ============================================================================
-
-/**
- * Offence type definitions
- */
+// Offence type definitions
 const OFFENCE_TYPES = {
     all: ['Speed Fines', 'Mobile Phone Use', 'Non Wearing Seatbelts', 'Unlicensed Driving'],
 
@@ -151,13 +121,7 @@ const OFFENCE_TYPES = {
     }
 };
 
-// ============================================================================
-// ROAD USER CATEGORIES
-// ============================================================================
-
-/**
- * Road user category definitions
- */
+// Road user categories
 const ROAD_USER_CATEGORIES = {
     all: [
         'Driver',
@@ -180,13 +144,7 @@ const ROAD_USER_CATEGORIES = {
     }
 };
 
-// ============================================================================
-// CRASH TYPES
-// ============================================================================
-
-/**
- * Crash type definitions
- */
+// Crash types
 const CRASH_TYPES = {
     all: ['Single', 'Multiple'],
 
@@ -196,15 +154,8 @@ const CRASH_TYPES = {
     }
 };
 
-// ============================================================================
-// CHART DIMENSIONS
-// ============================================================================
-
-/**
- * Default chart dimensions and margins
- */
+// Chart dimensions and margins
 const CHART_DIMENSIONS = {
-    // Standard margins
     margin: {
         top: 20,
         right: 30,
@@ -212,7 +163,6 @@ const CHART_DIMENSIONS = {
         left: 70
     },
 
-    // Mobile margins (smaller)
     marginMobile: {
         top: 20,
         right: 20,
@@ -220,7 +170,6 @@ const CHART_DIMENSIONS = {
         left: 60
     },
 
-    // Large margins (for legends, etc.)
     marginLarge: {
         top: 20,
         right: 120,
@@ -228,7 +177,6 @@ const CHART_DIMENSIONS = {
         left: 80
     },
 
-    // Default heights
     height: {
         standard: 450,
         medium: 400,
@@ -236,7 +184,6 @@ const CHART_DIMENSIONS = {
         mobile: 400
     },
 
-    // Breakpoints
     breakpoints: {
         mobile: 640,
         tablet: 768,
@@ -244,13 +191,7 @@ const CHART_DIMENSIONS = {
     }
 };
 
-// ============================================================================
-// ANIMATION SETTINGS
-// ============================================================================
-
-/**
- * Animation durations and easing
- */
+// Animation settings
 const ANIMATION = {
     duration: {
         fast: 200,
@@ -270,13 +211,7 @@ const ANIMATION = {
     }
 };
 
-// ============================================================================
-// TOOLTIP SETTINGS
-// ============================================================================
-
-/**
- * Tooltip configuration
- */
+// Tooltip configuration
 const TOOLTIP_CONFIG = {
     offset: {
         x: 15,
@@ -289,15 +224,8 @@ const TOOLTIP_CONFIG = {
     }
 };
 
-// ============================================================================
-// FORMATTING
-// ============================================================================
-
-/**
- * Number and text formatting utilities
- */
+// Number and text formatting
 const FORMAT = {
-    // D3 format strings
     number: d3.format(','),
     numberShort: d3.format('.2s'),
     numberShortOne: d3.format('.1s'),
@@ -306,20 +234,13 @@ const FORMAT = {
     percentage: d3.format('.1%'),
     percentageWhole: d3.format('.0%'),
 
-    // Custom formatters
     fines: (value) => d3.format(',')(value),
     fatalities: (value) => d3.format(',')(value),
     rate: (value) => d3.format('.1f')(value),
     percent: (value) => d3.format('.1f')(value) + '%'
 };
 
-// ============================================================================
-// YEAR RANGE
-// ============================================================================
-
-/**
- * Data year range
- */
+// Data year range
 const YEAR_RANGE = {
     min: 2020,
     max: 2024,

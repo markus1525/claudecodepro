@@ -1,87 +1,82 @@
-/* VISUALISATIONS.CSS - D3.js Chart Styling */
+/* Visualization styles for D3.js charts */
 
-/* Chart container - wrapper for each visualization */
+/* Chart wrapper */
 .chart-container {
-    background-color: #ffffff;
+    background-color: var(--pure-white);
     padding: 2rem;
     margin-bottom: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
 }
 
-/* Chart titles and subtitles */
+/* Chart text */
 .chart-title {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #2c3e50;
+    color: var(--charcoal);
     margin-bottom: 1rem;
     text-align: center;
 }
 
 .chart-subtitle {
     font-size: 1rem;
-    color: #7f8c8d;
+    color: var(--neutral-gray);
     margin-bottom: 1.5rem;
     text-align: center;
 }
 
-/* Chart title styling */
 .chart-main-title {
     font-size: 16px;
     font-weight: 600;
-    fill: #2c3e50;
+    fill: var(--charcoal);
     text-anchor: middle;
 }
 
-/* SVG elements - center and allow overflow for tooltips */
+/* SVG base */
 svg {
     display: block;
     margin: 0 auto;
     overflow: visible;
 }
 
-/* Axis styling - lines and text */
+/* Axes */
 .axis path,
 .axis line {
-    stroke: #95a5a6;         /* Grey axis lines */
+    stroke: var(--medium-gray);
     stroke-width: 1px;
-    shape-rendering: crispEdges;  /* Sharp lines, no anti-aliasing */
+    shape-rendering: crispEdges;
 }
 
 .axis text {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font-primary);
     font-size: 12px;
-    fill: #2c3e50;
+    fill: var(--charcoal);
 }
 
-/* Tick marks on axes */
 .x-axis .tick line,
 .y-axis .tick line {
-    stroke: #ecf0f1;         /* Light grey tick marks */
+    stroke: var(--pale-gray);
     stroke-width: 1px;
 }
 
-/* Axis labels (e.g., "Year", "Fine Count") */
 .axis-label {
     font-size: 14px;
     font-weight: 600;
-    fill: #2c3e50;
+    fill: var(--charcoal);
 }
 
-/* Grid lines - background reference lines */
+/* Grid lines */
 .grid line {
-    stroke: #ecf0f1;
+    stroke: var(--pale-gray);
     stroke-width: 1px;
     stroke-opacity: 0.7;
 }
 
 .grid path {
-    stroke-width: 0;  /* Hide grid path */
+    stroke-width: 0;
 }
 
-/* ========================================================================== */
-/* BAR CHARTS */
-/* ========================================================================== */
+/* Bar charts */
 .bar {
     transition: all 0.3s ease;
     cursor: pointer;
@@ -89,7 +84,7 @@ svg {
 
 .bar:hover {
     opacity: 0.8;
-    stroke: #2c3e50;
+    stroke: var(--charcoal);
     stroke-width: 2px;
 }
 
@@ -98,9 +93,7 @@ svg {
     outline-offset: 2px;
 }
 
-/* ========================================================================== */
-/* LINE CHARTS */
-/* ========================================================================== */
+/* Line charts */
 .line {
     fill: none;
     stroke-width: 2.5px;
@@ -114,7 +107,7 @@ svg {
 }
 
 .dot {
-    fill: #ffffff;
+    fill: var(--pure-white);
     stroke-width: 2px;
     r: 4;
     transition: all 0.3s ease;
@@ -131,9 +124,7 @@ svg {
     outline-offset: 2px;
 }
 
-/* ========================================================================== */
-/* AREA CHARTS */
-/* ========================================================================== */
+/* Area charts */
 .area {
     fill-opacity: 0.6;
     transition: fill-opacity 0.3s ease;
@@ -143,9 +134,7 @@ svg {
     fill-opacity: 0.8;
 }
 
-/* ========================================================================== */
-/* MAPS */
-/* ========================================================================== */
+/* Maps */
 .map-container {
     position: relative;
     width: 100%;
@@ -155,7 +144,7 @@ svg {
 
 .map-path,
 .state-path {
-    stroke: #ffffff;
+    stroke: var(--pure-white);
     stroke-width: 1.5px;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -163,7 +152,7 @@ svg {
 
 .map-path:hover,
 .state-path:hover {
-    stroke: #2c3e50;
+    stroke: var(--charcoal);
     stroke-width: 2.5px;
     filter: brightness(1.1);
 }
@@ -188,17 +177,15 @@ svg {
     pointer-events: none;
 }
 
-/* ========================================================================== */
-/* ANNOTATIONS & LABELS */
-/* ========================================================================== */
+/* Annotations */
 .annotation {
     font-size: 11px;
-    fill: #7f8c8d;
+    fill: var(--neutral-gray);
     pointer-events: none;
 }
 
 .annotation-line {
-    stroke: #95a5a6;
+    stroke: var(--medium-gray);
     stroke-width: 1px;
     stroke-dasharray: 5, 5;
     fill: none;
@@ -206,15 +193,13 @@ svg {
 
 .data-label {
     font-size: 11px;
-    fill: #2c3e50;
+    fill: var(--charcoal);
     font-weight: 600;
     text-anchor: middle;
     pointer-events: none;
 }
 
-/* ========================================================================== */
-/* ANIMATIONS */
-/* ========================================================================== */
+/* Animations */
 .fade-in {
     animation: fadeIn 0.5s ease-in;
 }
@@ -239,15 +224,245 @@ svg {
     }
 }
 
-/* ========================================================================== */
-/* RESPONSIVE DESIGN */
-/* ========================================================================== */
+/* Legend for Q6 */
+#legend-q6 {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 0;
+    user-select: none;
+}
+
+#legend-q6 .legend-item {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    margin: 0.2rem;
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+#legend-q6 .legend-item:hover {
+    background-color: #e8f4f8;
+    border-color: var(--primary-blue);
+    transform: translateY(-1px);
+}
+
+#legend-q6 .legend-item:active {
+    transform: translateY(0);
+}
+
+#legend-q6 .legend-rect {
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+#legend-q6 .legend-text {
+    font-size: 11px;
+    color: var(--charcoal);
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+#legend-q6 .legend-item.inactive {
+    opacity: 0.3;
+}
+
+#legend-q6 .legend-item.inactive .legend-text {
+    text-decoration: line-through;
+    color: var(--medium-gray);
+}
+
+#legend-q6 .legend-item.inactive .legend-rect {
+    opacity: 0.3;
+}
+
+#chart-q6 {
+    padding-bottom: 0.5rem;
+}
+
+#svg-q6 {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Legend for Q1 */
+#legend-q1 {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem !important;
+    margin-top: 1.5rem !important;
+    padding: 1rem 0.5rem !important;
+    user-select: none;
+    width: 100%;
+}
+
+#legend-q1 .legend-item {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+
+#legend-q1 .legend-item:hover {
+    background-color: var(--off-white);
+    border-color: var(--primary-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#legend-q1 .legend-rect {
+    width: 14px !important;
+    height: 14px !important;
+    min-width: 14px !important;
+    min-height: 14px !important;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.2);
+    flex-shrink: 0;
+    display: block !important;
+}
+
+#legend-q1 .legend-text {
+    font-size: 12px !important;
+    color: var(--charcoal) !important;
+    font-weight: 500 !important;
+    white-space: nowrap;
+    line-height: 1.4;
+    font-family: var(--font-primary);
+    display: inline-block !important;
+}
+
+#chart-q1 {
+    padding-bottom: 0.5rem;
+    position: relative;
+}
+
+#svg-q1 {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Legend for Q3 */
+#legend-q3 .legend-item rect {
+    transition: all 0.2s ease;
+}
+
+#legend-q3 .legend-item:hover rect {
+    transform: scale(1.1);
+}
+
+/* Q2 bubble map */
+#svg-q2 {
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+#svg-q2 .map-boundaries path {
+    transition: all 0.3s ease;
+}
+
+#svg-q2 .bubble {
+    transition: all 0.2s ease;
+}
+
+#svg-q2 .state-label {
+    font-family: var(--font-primary);
+    user-select: none;
+}
+
+#svg-q2 .legend text {
+    font-family: var(--font-primary);
+}
+
+#chart-q2 {
+    position: relative;
+    padding: 1rem;
+    background-color: var(--pure-white);
+    border-radius: var(--border-radius);
+}
+
+/* Q5 choropleth map */
+#svg-q5 {
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+#svg-q5 .state-path {
+    transition: all 0.3s ease;
+}
+
+#svg-q5 .state-label,
+#svg-q5 .state-value {
+    font-family: var(--font-primary);
+    user-select: none;
+}
+
+#svg-q5 .legend text {
+    font-family: var(--font-primary);
+}
+
+#svg-q5 .legend-axis path,
+#svg-q5 .legend-axis line {
+    stroke: #999;
+}
+
+#chart-q5 {
+    position: relative;
+    padding: 1rem;
+    background-color: var(--pure-white);
+    border-radius: var(--border-radius);
+}
+
+/* Reset zoom button */
+.reset-zoom-button {
+    transition: opacity 0.3s ease;
+    transform-origin: center;
+}
+
+.reset-zoom-button rect {
+    transition: fill 0.2s ease, filter 0.2s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.reset-zoom-button:hover rect {
+    fill: #1a4563;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.reset-zoom-button text {
+    transition: fill 0.2s ease;
+}
+
+.reset-zoom-button:hover text {
+    fill: var(--pure-white);
+}
+
+/* Responsive - tablet */
 @media (max-width: 968px) {
     .map-container {
         height: 500px;
     }
 }
 
+/* Responsive - mobile */
 @media (max-width: 768px) {
     .chart-container {
         padding: 1rem;
@@ -288,7 +503,6 @@ svg {
         transform-origin: center;
     }
 
-    /* Better touch targets for mobile */
     .bubble {
         min-width: 44px;
         min-height: 44px;
@@ -297,8 +511,29 @@ svg {
     .state-path {
         stroke-width: 2px;
     }
+
+    #svg-q2 .state-label {
+        font-size: 9px;
+    }
+
+    #svg-q2 .legend {
+        transform: scale(0.8);
+    }
+
+    #svg-q5 .state-label {
+        font-size: 9px;
+    }
+
+    #svg-q5 .state-value {
+        font-size: 8px;
+    }
+
+    #svg-q5 .legend {
+        transform: scale(0.8);
+    }
 }
 
+/* Responsive - small mobile */
 @media (max-width: 640px) {
     .map-container {
         height: 400px;
@@ -317,7 +552,7 @@ svg {
     }
 }
 
-/* Mobile phones */
+/* Responsive - very small mobile */
 @media (max-width: 480px) {
     .chart-container {
         padding: 0.75rem;
@@ -352,7 +587,6 @@ svg {
         transform: scale(0.7);
     }
 
-    /* Increase touch target size for very small screens */
     .bar,
     .dot,
     .bubble {
@@ -361,291 +595,11 @@ svg {
     }
 }
 
-/* ACCESSIBILITY - Better for keyboard and screen readers */
-
 /* Focus states for keyboard navigation */
 .bar:focus,
 .line:focus,
 .dot:focus,
 .map-path:focus {
-    outline: 2px solid #3498db;
+    outline: 2px solid var(--primary-blue);
     outline-offset: 2px;
-}
-
-/* Screen reader only - visible to screen readers, hidden visually */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-/* Legend positioning for Q6 chart */
-#legend-q6 {
-    display: flex !important;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 1rem 0;
-    user-select: none;
-}
-
-#legend-q6 .legend-item {
-    display: inline-flex !important;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 0.6rem;
-    margin: 0.2rem;
-    font-size: 11px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
-}
-
-#legend-q6 .legend-item:hover {
-    background-color: #e8f4f8;
-    border-color: #3498db;
-    transform: translateY(-1px);
-}
-
-#legend-q6 .legend-item:active {
-    transform: translateY(0);
-}
-
-#legend-q6 .legend-rect {
-    width: 14px;
-    height: 14px;
-    border-radius: 2px;
-    border: 1px solid rgba(0,0,0,0.1);
-    flex-shrink: 0;
-}
-
-#legend-q6 .legend-text {
-    font-size: 11px;
-    color: #2c3e50;
-    white-space: nowrap;
-    font-weight: 500;
-}
-
-/* Inactive state for legend items */
-#legend-q6 .legend-item.inactive {
-    opacity: 0.3;
-}
-
-#legend-q6 .legend-item.inactive .legend-text {
-    text-decoration: line-through;
-    color: #95a5a6;
-}
-
-#legend-q6 .legend-item.inactive .legend-rect {
-    opacity: 0.3;
-}
-
-/* Ensure chart container has proper spacing */
-#chart-q6 {
-    padding-bottom: 0.5rem;
-}
-
-/* Ensure SVG doesn't overflow */
-#svg-q6 {
-    display: block;
-    margin: 0 auto;
-}
-
-/* Legend for Q1 - positioned below donut chart */
-#legend-q1 {
-    display: flex !important;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem !important;
-    margin-top: 1.5rem !important;
-    padding: 1rem 0.5rem !important;
-    user-select: none;
-    width: 100%;
-}
-
-#legend-q1 .legend-item {
-    display: inline-flex !important;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    font-size: 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
-    background-color: transparent;
-}
-
-#legend-q1 .legend-item:hover {
-    background-color: #f0f0f0;
-    border-color: #3498db;
-    transform: translateY(-2px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-#legend-q1 .legend-rect {
-    width: 14px !important;
-    height: 14px !important;
-    min-width: 14px !important;
-    min-height: 14px !important;
-    border-radius: 2px;
-    border: 1px solid rgba(0,0,0,0.2);
-    flex-shrink: 0;
-    display: block !important;
-}
-
-#legend-q1 .legend-text {
-    font-size: 12px !important;
-    color: #2c3e50 !important;
-    font-weight: 500 !important;
-    white-space: nowrap;
-    line-height: 1.4;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    display: inline-block !important;
-}
-
-/* Ensure chart container has proper spacing */
-#chart-q1 {
-    padding-bottom: 0.5rem;
-    position: relative;
-}
-
-#svg-q1 {
-    display: block;
-    margin: 0 auto;
-}
-
-/* Legend for Q3 - positioned on right side */
-#legend-q3 .legend-item rect {
-    transition: all 0.2s ease;
-}
-
-#legend-q3 .legend-item:hover rect {
-    transform: scale(1.1);
-}
-
-/* Q2 Bubble Map Styles */
-#svg-q2 {
-    display: block;
-    margin: 0 auto;
-    overflow: visible;
-}
-
-#svg-q2 .map-boundaries path {
-    transition: all 0.3s ease;
-}
-
-#svg-q2 .bubble {
-    transition: all 0.2s ease;
-}
-
-#svg-q2 .state-label {
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    user-select: none;
-}
-
-#svg-q2 .legend text {
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-/* Chart container */
-#chart-q2 {
-    position: relative;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 8px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    #svg-q2 .state-label {
-        font-size: 9px;
-    }
-    
-    #svg-q2 .legend {
-        transform: scale(0.8);
-    }
-}
-
-/* Q5 Choropleth Map Styles */
-#svg-q5 {
-    display: block;
-    margin: 0 auto;
-    overflow: visible;
-}
-
-#svg-q5 .state-path {
-    transition: all 0.3s ease;
-}
-
-#svg-q5 .state-label,
-#svg-q5 .state-value {
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    user-select: none;
-}
-
-#svg-q5 .legend text {
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-#svg-q5 .legend-axis path,
-#svg-q5 .legend-axis line {
-    stroke: #999;
-}
-
-/* Chart container */
-#chart-q5 {
-    position: relative;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 8px;
-}
-
-/* Reset Zoom Button Styles */
-.reset-zoom-button {
-    transition: opacity 0.3s ease;
-    /* Removed transform transition to prevent shaking */
-    transform-origin: center;
-}
-
-.reset-zoom-button rect {
-    transition: fill 0.2s ease, filter 0.2s ease;
-    /* Removed 'all' transition to be specific */
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-}
-
-.reset-zoom-button:hover rect {
-    fill: #1a4563;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-}
-
-.reset-zoom-button text {
-    transition: fill 0.2s ease;
-}
-
-.reset-zoom-button:hover text {
-    fill: #ffffff;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    #svg-q5 .state-label {
-        font-size: 9px;
-    }
-    
-    #svg-q5 .state-value {
-        font-size: 8px;
-    }
-    
-    #svg-q5 .legend {
-        transform: scale(0.8);
-    }
 }

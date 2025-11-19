@@ -1,8 +1,6 @@
-/* BASE.CSS - Foundation Styles for All Pages */
+/* Base styles for all pages */
 
-/* ========================================================================== */
-/* CSS VARIABLES */
-/* ========================================================================== */
+/* CSS variables */
 :root {
     /* Primary Blue Colors */
     --primary-blue: #26658c;
@@ -50,9 +48,7 @@
     --transition-speed: 0.3s;
 }
 
-/* ========================================================================== */
-/* RESET & BASE STYLES */
-/* ========================================================================== */
+/* Reset & base styles */
 * {
     margin: 0;
     padding: 0;
@@ -76,9 +72,7 @@ body {
     background: linear-gradient(to bottom, var(--off-white), var(--pure-white));
 }
 
-/* ========================================================================== */
-/* TYPOGRAPHY */
-/* ========================================================================== */
+/* Typography */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 800;
@@ -123,9 +117,7 @@ a:hover {
     color: var(--primary-blue-dark);
 }
 
-/* ========================================================================== */
-/* HEADER & NAVIGATION */
-/* ========================================================================== */
+/* Header & navigation */
 header {
     background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
     color: var(--pure-white);
@@ -223,9 +215,7 @@ nav a.active {
     font-weight: 700;
 }
 
-/* ========================================================================== */
-/* MAIN LAYOUT */
-/* ========================================================================== */
+/* Main layout */
 main {
     max-width: var(--max-width);
     margin: 0 auto;
@@ -255,9 +245,7 @@ section h2 {
     margin-bottom: var(--spacing-md);
 }
 
-/* ========================================================================== */
-/* FOOTER */
-/* ========================================================================== */
+/* Footer */
 footer {
     background: linear-gradient(135deg, var(--primary-blue-dark) 0%, var(--primary-blue) 100%);
     color: var(--pure-white);
@@ -273,9 +261,7 @@ footer p {
     font-size: 0.9rem;
 }
 
-/* ========================================================================== */
-/* HERO SECTION (INDEX & ABOUT) */
-/* ========================================================================== */
+/* Hero section (index & about) */
 .hero-section {
     background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
     color: var(--pure-white);
@@ -372,9 +358,7 @@ footer p {
     line-height: 1.4;
 }
 
-/* ========================================================================== */
-/* DATA SOURCE INFO SECTION (INDEX.HTML ONLY) */
-/* ========================================================================== */
+/* Data source section (index.html only) */
 .data-source-info {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
     border-top: 3px solid var(--primary-blue) !important;
@@ -501,9 +485,7 @@ footer p {
     font-weight: 600;
 }
 
-/* ========================================================================== */
-/* INDEX PAGE COMPONENTS */
-/* ========================================================================== */
+/* Index page components */
 .quick-links-section {
     background: var(--pure-white);
     padding: 3rem 2rem;
@@ -845,9 +827,7 @@ footer p {
     box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
 }
 
-/* ========================================================================== */
-/* ABOUT PAGE COMPONENTS */
-/* ========================================================================== */
+/* About page components */
 .about-overview-section {
     background: var(--pure-white);
     padding: 3rem 2rem;
@@ -1393,9 +1373,20 @@ footer p {
     font-weight: 700;
 }
 
-/* ========================================================================== */
-/* RESPONSIVE DESIGN - TABLET (768px) */
-/* ========================================================================== */
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Responsive - tablet (768px) */
 @media (max-width: 768px) {
     :root {
         --font-size-base: 14px;
@@ -1592,9 +1583,7 @@ footer p {
     }
 }
 
-/* ========================================================================== */
-/* RESPONSIVE DESIGN - MOBILE (480px) */
-/* ========================================================================== */
+/* Responsive - mobile (480px) */
 @media (max-width: 480px) {
     :root {
         --font-size-base: 14px;
