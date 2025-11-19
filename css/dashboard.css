@@ -74,6 +74,151 @@
     gap: 0.75rem;
 }
 
+/* ========================================================================== */
+/* YEAR RANGE SLIDER */
+/* ========================================================================== */
+.year-slider-container {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    margin: 1rem 0 0.5rem 0;
+}
+
+.year-slider-track {
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    background: var(--silver);
+    border-radius: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.year-slider-range {
+    position: absolute;
+    height: 6px;
+    background: var(--primary-blue);
+    border-radius: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: all 0.15s ease;
+}
+
+.year-slider-input {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    top: 0;
+    left: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    pointer-events: none;
+    cursor: pointer;
+}
+
+.year-slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-blue);
+    border: 3px solid var(--pure-white);
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.year-slider-input::-webkit-slider-thumb:hover {
+    background: var(--primary-blue-dark);
+    transform: scale(1.15);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.year-slider-input::-webkit-slider-thumb:active {
+    transform: scale(1.25);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.year-slider-input::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--primary-blue);
+    border: 3px solid var(--pure-white);
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.year-slider-input::-moz-range-thumb:hover {
+    background: var(--primary-blue-dark);
+    transform: scale(1.15);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.year-slider-input::-moz-range-thumb:active {
+    transform: scale(1.25);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.year-slider-input:focus {
+    outline: none;
+}
+
+.year-slider-input:focus::-webkit-slider-thumb {
+    outline: 3px solid rgba(38, 101, 140, 0.3);
+    outline-offset: 2px;
+}
+
+.year-slider-input:focus::-moz-range-thumb {
+    outline: 3px solid rgba(38, 101, 140, 0.3);
+    outline-offset: 2px;
+}
+
+.year-slider-labels {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+}
+
+.year-label {
+    min-width: 42px;
+    text-align: center;
+    padding: 0.25rem 0.5rem;
+    background: var(--off-white);
+    border-radius: 4px;
+    border: 1px solid var(--silver);
+}
+
+.year-label-separator {
+    color: var(--neutral-gray);
+    font-weight: 400;
+}
+
+.year-markers {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    padding: 0 2px;
+}
+
+.year-marker {
+    font-size: 0.75rem;
+    color: var(--neutral-gray);
+    font-weight: 500;
+    user-select: none;
+}
+
 .filter-actions {
     display: flex;
     gap: 0.75rem;
