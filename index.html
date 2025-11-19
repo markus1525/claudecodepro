@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Australian Road Safety Enforcement vs Outcomes Dashboard - Fines and Fatalities Analysis 2024">
+    <title>Road Safety Enforcement vs Outcomes Explorer</title>
+
+    <link rel="icon" type="image/png" href="assets/logo2.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Australian Road Safety Logo" class="logo">
+            <h1>Australian Road Safety: Enforcement vs Outcomes</h1>
+        </div>
+    </header>
+    <nav>
+        <a href="index.html" class="active">Overview</a>
+        <a href="visualizations.html">Visualizations</a>
+        <a href="maps.html">Maps</a>
+        <a href="about.html">About</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h2>Understanding Road Safety Through Data</h2>
+            <p class="hero-subtitle">Explore the relationship between police enforcement and road fatalities across Australia</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">2M+</div>
+                    <div class="stat-label">Annual Fines</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1,200+</div>
+                    <div class="stat-label">Road Fatalities</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">States & Territories</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" style="font-size: 2rem;">2020-2024</div>
+                    <div class="stat-label">Years Analyzed</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Links Section -->
+        <section class="quick-links-section">
+            <h2>Explore the Dashboard</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="7" height="7" rx="1" stroke="#26658c" stroke-width="2"/>
+                            <rect x="3" y="14" width="7" height="7" rx="1" stroke="#26658c" stroke-width="2"/>
+                            <rect x="14" y="3" width="7" height="7" rx="1" stroke="#26658c" stroke-width="2"/>
+                            <rect x="14" y="14" width="7" height="7" rx="1" stroke="#26658c" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4>Interactive Visualizations</h4>
+                    <p>Analyze enforcement patterns, fatality trends, and correlations through dynamic charts including donut charts, line graphs, heatmaps, and stacked bars.</p>
+                    <a href="visualizations.html" class="feature-link">View Charts</a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h4>Geographic Analysis</h4>
+                    <p>Discover regional variations in enforcement activity and fatality rates across Australian states with interactive bubble and choropleth maps.</p>
+                    <a href="maps.html" class="feature-link">View Maps</a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2Z" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h4>Project Information</h4>
+                    <p>Learn about our data sources, methodology, research questions, and the team behind this comprehensive road safety analysis.</p>
+                    <a href="about.html" class="feature-link">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Insights Section -->
+        <section class="insights-section">
+            <h2>Key Research Questions</h2>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-number">01</div>
+                    <h4>Enforcement Patterns</h4>
+                    <p>Where and how do police enforce road safety? Analysis of fines by state, location, age group, and offence type reveals enforcement priorities.</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-number">02</div>
+                    <h4>Safety Outcomes</h4>
+                    <p>Who is most at risk on our roads? Examination of crash types, road user categories, and demographic patterns in fatal accidents.</p>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-number">03</div>
+                    <h4>Enforcement Effectiveness</h4>
+                    <p>Does increased enforcement correlate with reduced fatalities? Statistical analysis comparing enforcement intensity with safety outcomes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Highlights Section -->
+        <section class="highlights-section">
+            <h2>What the Data Reveals</h2>
+            <div class="highlights-list">
+                <div class="highlight-item">
+                    <div class="highlight-icon-container">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="#26658c" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                        </svg>
+                    </div>
+                    <div class="highlight-content">
+                        <h4>Speed Dominates Enforcement</h4>
+                        <p>Over 90% of all traffic fines are speed-related, making it the primary focus of police enforcement activities nationwide.</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon-container">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="9" cy="7" r="4" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="highlight-content">
+                        <h4>Age Group Patterns</h4>
+                        <p>The 40-64 age bracket receives the most fines, while younger drivers (17-25) show higher rates of mobile phone violations.</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon-container">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 17H4C3.46957 17 2.96086 16.7893 2.58579 16.4142C2.21071 16.0391 2 15.5304 2 15V7C2 6.46957 2.21071 5.96086 2.58579 5.58579C2.96086 5.21071 3.46957 5 4 5H18C18.5304 5 19.0391 5.21071 19.4142 5.58579C19.7893 5.96086 20 6.46957 20 7V9" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="7" cy="15" r="2" stroke="#26658c" stroke-width="2"/>
+                            <circle cx="17" cy="17" r="2" stroke="#26658c" stroke-width="2"/>
+                            <path d="M14 9L16 11L20 7" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="highlight-content">
+                        <h4>Single Vehicle Crashes</h4>
+                        <p>Single vehicle accidents account for the majority of road fatalities, with drivers and passengers being the most affected groups.</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon-container">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="highlight-content">
+                        <h4>Upward Trend Concern</h4>
+                        <p>Road fatalities have shown an increasing trend from 2020 to 2024, despite high levels of enforcement activity.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Start Exploring</h2>
+            <p>Dive into the interactive visualizations to uncover insights about road safety enforcement and outcomes across Australia.</p>
+            <div class="cta-buttons">
+                <a href="visualizations.html" class="btn-cta-primary">View Visualizations</a>
+                <a href="maps.html" class="btn-cta-secondary">Explore Maps</a>
+            </div>
+        </section>
+
+        <!-- Data Source Information Section -->
+        <section class="data-source-info">
+            <h3>Data Source Identification</h3>
+            <div class="data-source-intro">
+                <p>We are collecting our data from the <strong>Australian Government's National Road Safety Data Hub</strong>, which is managed by the Bureau of Infrastructure and Transport Research Economics (BITRE).</p>
+            </div>
+            <div class="data-source-content">
+                <div class="source-item">
+                    <h4>Enforcement Data</h4>
+                    <p><strong>Source:</strong> Police Enforcement Dataset</p>
+                    <p><strong>File:</strong> police_enforcement_2024_fines.csv</p>
+                    <p><strong>Records:</strong> 12,179 total records (11,960 processed for 2020-2024)</p>
+                    <p><strong>Time Period:</strong> 2008-2024 (processed: 2020-2024)</p>
+                    <p><strong>Update Frequency:</strong> Annual</p>
+                    <a href="https://datahub.roadsafety.gov.au/safe-systems/safe-road-use/police-enforcement" target="_blank" class="source-link">
+                        Visit Data Hub
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
+                <div class="source-item">
+                    <h4>Fatality Data</h4>
+                    <p><strong>Source:</strong> Australian Road Deaths Database</p>
+                    <p><strong>File:</strong> Australian_Road_Deaths_Database_Fatalities.csv</p>
+                    <p><strong>Records:</strong> 57,852 total records (6,941 processed for 2020-2025)</p>
+                    <p><strong>Time Period:</strong> 1989-2025 (processed: 2020-2025)</p>
+                    <p><strong>Update Frequency:</strong> Monthly</p>
+                    <a href="https://datahub.roadsafety.gov.au/progress-reporting/monthly-road-deaths" target="_blank" class="source-link">
+                        Visit Data Hub
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 COS30045 Data Visualisation Project | Swinburne University of Technology</p>
+        <p>Data source: Bureau of Infrastructure and Transport Research Economics (BITRE) | 2020-2025</p>
+    </footer>
+</body>
+
+</html>

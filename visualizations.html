@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Australian Road Safety: Interactive Dashboard comparing Enforcement vs Outcomes">
+    <title>Visualizations - Road Safety Dashboard</title>
+
+    <link rel="icon" type="image/png" href="assets/logo2.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/visualisations.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Australian Road Safety Logo" class="logo">
+            <h1>Australian Road Safety: Enforcement vs Outcomes</h1>
+        </div>
+    </header>
+    <nav>
+        <a href="index.html">Overview</a>
+        <a href="visualizations.html" class="active" aria-current="page">Visualizations</a>
+        <a href="maps.html">Maps</a>
+        <a href="about.html">About</a>
+    </nav>
+
+    <main>
+        <!-- Filter Panel -->
+        <div class="filter-panel" role="region" aria-label="Data Filters">
+            <h2>Filters</h2>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label for="state-filter" id="state-filter-label">Filter by State</label>
+                    <select id="state-filter" multiple aria-labelledby="state-filter-label" aria-describedby="state-filter-help">
+                        <option value="NSW">New South Wales</option>
+                        <option value="VIC">Victoria</option>
+                        <option value="QLD">Queensland</option>
+                        <option value="WA">Western Australia</option>
+                        <option value="SA">South Australia</option>
+                        <option value="TAS">Tasmania</option>
+                        <option value="ACT">Australian Capital Territory</option>
+                        <option value="NT">Northern Territory</option>
+                    </select>
+                    <small id="state-filter-help" class="sr-only">Hold Ctrl (Cmd on Mac) to select multiple states</small>
+                </div>
+
+                <div class="filter-group">
+                    <label id="year-range-label">Year Range</label>
+                    <div class="year-range-inputs" role="group" aria-labelledby="year-range-label">
+                        <input type="number" id="year-from" min="2020" max="2024" value="2020" aria-label="Year from">
+                        <input type="number" id="year-to" min="2020" max="2024" value="2024" aria-label="Year to">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label style="visibility: hidden;">Actions</label>
+                    <div class="filter-actions">
+                        <button class="btn-filter" id="apply-filters" aria-label="Apply filters">Apply Filters</button>
+                        <button class="btn-clear" id="clear-filters" aria-label="Clear all filters">Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Navigation -->
+        <div class="section-nav" role="navigation" aria-label="Dashboard sections">
+            <a href="#q1-title">
+                <span class="nav-main">Fines by Offence Type</span>
+                <span class="nav-sub">(Donut Chart / Bar Chart)</span>
+            </a>
+            <a href="#q4-title">
+                <span class="nav-main">Fatality Trends (2020-2024)</span>
+                <span class="nav-sub">(Line Chart)</span>
+            </a>
+            <a href="#q3-title">
+                <span class="nav-main">Age Group vs Offence Type</span>
+                <span class="nav-sub">(Heatmap)</span>
+            </a>
+            <a href="#q6-title">
+                <span class="nav-main">Crash Types by Road User</span>
+                <span class="nav-sub">(Stacked Bar Chart)</span>
+            </a>
+            <a href="#comparison" class="nav-special">
+                <span class="nav-main">Comparison</span>
+                <span class="nav-sub">(Dual-Axis / Scatter Plot)</span>
+            </a>
+            <a href="maps.html" class="nav-special nav-maps">
+                <span class="nav-main">View Maps</span>
+                <span class="nav-sub">(Bubble & Choropleth)</span>
+            </a>
+        </div>
+
+        <!-- Split-Screen Layout: Enforcement vs Outcomes -->
+        <div class="enforcement-outcomes-grid">
+            <!-- ENFORCEMENT COLUMN -->
+            <div class="enforcement-column" id="enforcement">
+                <div class="section-header">
+                    <h2>Police Enforcement</h2>
+                    <p>Fines & enforcement activity across Australia</p>
+                </div>
+
+                <!-- Q1: Fines by Offence -->
+                <div class="chart-container" role="region" aria-labelledby="q1-title">
+                    <h3 class="chart-title" id="q1-title">Fines by Offence Type</h3>
+                    <p class="chart-subtitle">Distribution of fines across major offence categories</p>
+                    <div class="chart-content" id="chart-q1" aria-label="Fines by Offence">
+                        <svg id="svg-q1" role="img" aria-labelledby="q1-svg-title q1-svg-desc">
+                            <title id="q1-svg-title">Fines by Offence Type Donut Chart</title>
+                            <desc id="q1-svg-desc">Interactive donut chart showing distribution of fines across Speed, Mobile Phone, Seatbelt and Unlicensed Driving offences</desc>
+                        </svg>
+                        <div class="sr-only">
+                            <table class="data-table-fallback" id="table-q1" aria-label="Fines by Offence Data Table">
+                                <caption>Data table for Fines by Offence</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Offence Type</th>
+                                        <th>Total Fines</th>
+                                        <th>Percentage</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-q1-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <p class="chart-description">Speed fines dominate enforcement activity, accounting for over 90% of all fines issued. Hover over segments to see detailed breakdown.</p>
+                </div>
+
+                <!-- Q3: Age vs Offence Heatmap -->
+                <div class="chart-container" role="region" aria-labelledby="q3-title">
+                    <h3 class="chart-title" id="q3-title">Age Group vs Offence Type</h3>
+                    <p class="chart-subtitle">Who gets fined for what?</p>
+                    <div class="chart-content" id="chart-q3" aria-label="Age vs Offence heatmap">
+                        <svg id="svg-q3" role="img" aria-labelledby="q3-svg-title q3-svg-desc">
+                            <title id="q3-svg-title">Age Group vs Offence Type Heatmap</title>
+                            <desc id="q3-svg-desc">Heatmap showing intensity of fines by age group and offence type with color intensity indicating fine frequency</desc>
+                        </svg>
+                        <div class="sr-only">
+                            <table class="data-table-fallback" id="table-q3" aria-label="Age vs Offence Data Table">
+                                <caption>Data table for Age Group vs Offence Type</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Age Group</th>
+                                        <th>Offence Type</th>
+                                        <th>Total Fines</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-q3-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <p class="chart-description">40-64 age group receives the most speed fines. Younger drivers (17-25) have higher mobile phone violation rates.</p>
+                </div>
+            </div>
+
+            <!-- OUTCOMES COLUMN -->
+            <div class="outcomes-column" id="outcomes">
+                <div class="section-header">
+                    <h2>Road Safety Outcomes</h2>
+                    <p>Fatalities & crash data across Australia</p>
+                </div>
+
+                <!-- Q4: Fatality Trends -->
+                <div class="chart-container" role="region" aria-labelledby="q4-title">
+                    <h3 class="chart-title" id="q4-title">Fatality Trends (2020-2024)</h3>
+                    <p class="chart-subtitle">Annual road deaths across Australia</p>
+                    <div class="chart-content" id="chart-q4" aria-label="Fatality trends line chart">
+                        <svg id="svg-q4" role="img" aria-labelledby="q4-svg-title q4-svg-desc">
+                            <title id="q4-svg-title">Fatality Trends Line Chart</title>
+                            <desc id="q4-svg-desc">Line chart showing total road fatalities from 2020 to 2024 with year-over-year trends</desc>
+                        </svg>
+                        <div class="sr-only">
+                            <table class="data-table-fallback" id="table-q4" aria-label="Fatality Trends Data Table">
+                                <caption>Data table for Fatality Trends</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Year</th>
+                                        <th>Total Fatalities</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-q4-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <p class="chart-description">Road fatalities have shown an upward trend from 2020 to 2024. Use year-range filter to explore specific periods.</p>
+                </div>
+
+                <!-- Q6: Crash Types by Road User -->
+                <div class="chart-container" role="region" aria-labelledby="q6-title">
+                    <h3 class="chart-title" id="q6-title">Crash Types by Road User</h3>
+                    <p class="chart-subtitle">Who is affected in single vs multiple vehicle crashes?</p>
+                    <div class="chart-content" id="chart-q6" aria-label="Crash types stacked bar chart">
+                        <svg id="svg-q6" role="img" aria-labelledby="q6-svg-title q6-svg-desc">
+                            <title id="q6-svg-title">Crash Types by Road User Stacked Bar Chart</title>
+                            <desc id="q6-svg-desc">Stacked bar chart showing distribution of fatalities across crash types and road user categories including drivers, passengers, pedestrians, and motorcyclists</desc>
+                        </svg>
+                        <div class="sr-only">
+                            <table class="data-table-fallback" id="table-q6" aria-label="Crash Types Data Table">
+                                <caption>Data table for Crash Types by Road User</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Crash Type</th>
+                                        <th>Road User</th>
+                                        <th>Fatalities</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-q6-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <p class="chart-description">Single vehicle crashes cause more fatalities overall. Drivers and passengers make up the majority of victims. Click legend to toggle categories.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q7: Comparison Section (Full Width) -->
+        <section id="comparison">
+            <div class="section-header">
+                <h2>Enforcement vs Outcomes</h2>
+                <p>Comparing fines and fatalities across states</p>
+            </div>
+
+            <div class="chart-container" role="region" aria-labelledby="q7-title">
+                <h3 class="chart-title" id="q7-title">Fines vs Fatalities by State</h3>
+                <p class="chart-subtitle">Does more enforcement lead to better outcomes?</p>
+                <div class="chart-content" id="chart-q7" aria-label="Fines vs Fatalities comparison chart">
+                    <svg id="svg-q7" role="img" aria-labelledby="q7-svg-title q7-svg-desc">
+                        <title id="q7-svg-title">Fines vs Fatalities Dual Axis Chart</title>
+                        <desc id="q7-svg-desc">Dual axis chart comparing total fines and total fatalities across Australian states to explore correlation between enforcement and safety outcomes</desc>
+                    </svg>
+                    <div class="sr-only">
+                        <table class="data-table-fallback" id="table-q7" aria-label="Fines vs Fatalities Data Table">
+                            <caption>Data table for Fines vs Fatalities</caption>
+                            <thead>
+                                <tr>
+                                    <th>State</th>
+                                    <th>Total Fines</th>
+                                    <th>Total Fatalities</th>
+                                    <th>Fines per Fatality</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-q7-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="chart-description">This comparison reveals the complex relationship between enforcement activity and road safety outcomes. States with higher enforcement don't always have proportionally lower fatalities.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 COS30045 Data Visualisation Project | Swinburne University of Technology</p>
+        <p>Data source: Bureau of Infrastructure and Transport Research Economics (BITRE) | 2020-2025</p>
+    </footer>
+
+    <!-- D3.js Library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Global State Initialization -->
+    <script src="js/init-global-state.js"></script>
+
+    <!-- Shared Constants and Interactions -->
+    <script src="js/shared-constants.js"></script>
+    <script src="js/interactions.js"></script>
+
+    <!-- Data Loading and Filter Utilities -->
+    <script src="js/data-loader.js"></script>
+
+    <!-- Visualization Scripts -->
+    <script src="js/q1_fines_By_Offence.js"></script>
+    <script src="js/q3_age_offence_heatmap.js"></script>
+    <script src="js/q4_fatalities_trend_by_year.js"></script>
+    <script src="js/q6_crash_types_by_road_user.js"></script>
+    <script src="js/q7_fines_vs_fatalities_by_state.js"></script>
+</body>
+
+</html>

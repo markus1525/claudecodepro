@@ -1,0 +1,594 @@
+/* VISUALISATIONS.CSS - D3.js Chart Styling */
+
+/* Chart container - wrapper for each visualization */
+.chart-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Chart titles and subtitles */
+.chart-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.chart-subtitle {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Chart title styling */
+.chart-main-title {
+    font-size: 16px;
+    font-weight: 600;
+    fill: #2c3e50;
+    text-anchor: middle;
+}
+
+/* SVG elements - center and allow overflow for tooltips */
+svg {
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+/* Axis styling - lines and text */
+.axis path,
+.axis line {
+    stroke: #95a5a6;         /* Grey axis lines */
+    stroke-width: 1px;
+    shape-rendering: crispEdges;  /* Sharp lines, no anti-aliasing */
+}
+
+.axis text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    fill: #2c3e50;
+}
+
+/* Tick marks on axes */
+.x-axis .tick line,
+.y-axis .tick line {
+    stroke: #ecf0f1;         /* Light grey tick marks */
+    stroke-width: 1px;
+}
+
+/* Axis labels (e.g., "Year", "Fine Count") */
+.axis-label {
+    font-size: 14px;
+    font-weight: 600;
+    fill: #2c3e50;
+}
+
+/* Grid lines - background reference lines */
+.grid line {
+    stroke: #ecf0f1;
+    stroke-width: 1px;
+    stroke-opacity: 0.7;
+}
+
+.grid path {
+    stroke-width: 0;  /* Hide grid path */
+}
+
+/* ========================================================================== */
+/* BAR CHARTS */
+/* ========================================================================== */
+.bar {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.bar:hover {
+    opacity: 0.8;
+    stroke: #2c3e50;
+    stroke-width: 2px;
+}
+
+.bar:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+/* ========================================================================== */
+/* LINE CHARTS */
+/* ========================================================================== */
+.line {
+    fill: none;
+    stroke-width: 2.5px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    transition: stroke-width 0.3s ease;
+}
+
+.line:hover {
+    stroke-width: 4px;
+}
+
+.dot {
+    fill: #ffffff;
+    stroke-width: 2px;
+    r: 4;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.dot:hover {
+    r: 6;
+    stroke-width: 3px;
+}
+
+.dot:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+/* ========================================================================== */
+/* AREA CHARTS */
+/* ========================================================================== */
+.area {
+    fill-opacity: 0.6;
+    transition: fill-opacity 0.3s ease;
+}
+
+.area:hover {
+    fill-opacity: 0.8;
+}
+
+/* ========================================================================== */
+/* MAPS */
+/* ========================================================================== */
+.map-container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+}
+
+.map-path,
+.state-path {
+    stroke: #ffffff;
+    stroke-width: 1.5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.map-path:hover,
+.state-path:hover {
+    stroke: #2c3e50;
+    stroke-width: 2.5px;
+    filter: brightness(1.1);
+}
+
+.map-path:focus,
+.state-path:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+.bubble,
+.map-marker {
+    cursor: pointer;
+    transition: r 0.2s ease, fill-opacity 0.2s ease, stroke-width 0.2s ease;
+    /* Removed transform transition to prevent shaking */
+}
+
+.state-label,
+.state-value {
+    font-family: var(--font-primary);
+    user-select: none;
+    pointer-events: none;
+}
+
+/* ========================================================================== */
+/* ANNOTATIONS & LABELS */
+/* ========================================================================== */
+.annotation {
+    font-size: 11px;
+    fill: #7f8c8d;
+    pointer-events: none;
+}
+
+.annotation-line {
+    stroke: #95a5a6;
+    stroke-width: 1px;
+    stroke-dasharray: 5, 5;
+    fill: none;
+}
+
+.data-label {
+    font-size: 11px;
+    fill: #2c3e50;
+    font-weight: 600;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+/* ========================================================================== */
+/* ANIMATIONS */
+/* ========================================================================== */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ========================================================================== */
+/* RESPONSIVE DESIGN */
+/* ========================================================================== */
+@media (max-width: 768px) {
+    .chart-container {
+        padding: 1rem;
+    }
+    
+    .chart-title {
+        font-size: 1.25rem;
+    }
+    
+    .axis text {
+        font-size: 10px;
+    }
+    
+    .legend {
+        font-size: 10px;
+    }
+    
+    .tooltip {
+        font-size: 11px;
+        max-width: 200px;
+    }
+    
+    .map-container {
+        height: 400px;
+    }
+
+    .state-label {
+        font-size: 9px;
+    }
+
+    .state-value {
+        font-size: 8px;
+    }
+
+    svg .legend {
+        transform: scale(0.8);
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    .chart-container {
+        padding: 0.75rem;
+    }
+    
+    .chart-title {
+        font-size: 1.1rem;
+    }
+    
+    .controls-panel {
+        padding: 1rem;
+    }
+    
+    .map-container {
+        height: 300px;
+    }
+    
+    .legend {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* ACCESSIBILITY - Better for keyboard and screen readers */
+
+/* Focus states for keyboard navigation */
+.bar:focus,
+.line:focus,
+.dot:focus,
+.map-path:focus {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+}
+
+/* Screen reader only - visible to screen readers, hidden visually */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Legend positioning for Q6 chart */
+#legend-q6 {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 0;
+    user-select: none;
+}
+
+#legend-q6 .legend-item {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    margin: 0.2rem;
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+#legend-q6 .legend-item:hover {
+    background-color: #e8f4f8;
+    border-color: #3498db;
+    transform: translateY(-1px);
+}
+
+#legend-q6 .legend-item:active {
+    transform: translateY(0);
+}
+
+#legend-q6 .legend-rect {
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+#legend-q6 .legend-text {
+    font-size: 11px;
+    color: #2c3e50;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+/* Inactive state for legend items */
+#legend-q6 .legend-item.inactive {
+    opacity: 0.3;
+}
+
+#legend-q6 .legend-item.inactive .legend-text {
+    text-decoration: line-through;
+    color: #95a5a6;
+}
+
+#legend-q6 .legend-item.inactive .legend-rect {
+    opacity: 0.3;
+}
+
+/* Ensure chart container has proper spacing */
+#chart-q6 {
+    padding-bottom: 0.5rem;
+}
+
+/* Ensure SVG doesn't overflow */
+#svg-q6 {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Legend for Q1 - positioned below donut chart */
+#legend-q1 {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem !important;
+    margin-top: 1.5rem !important;
+    padding: 1rem 0.5rem !important;
+    user-select: none;
+    width: 100%;
+}
+
+#legend-q1 .legend-item {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+
+#legend-q1 .legend-item:hover {
+    background-color: #f0f0f0;
+    border-color: #3498db;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#legend-q1 .legend-rect {
+    width: 14px !important;
+    height: 14px !important;
+    min-width: 14px !important;
+    min-height: 14px !important;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.2);
+    flex-shrink: 0;
+    display: block !important;
+}
+
+#legend-q1 .legend-text {
+    font-size: 12px !important;
+    color: #2c3e50 !important;
+    font-weight: 500 !important;
+    white-space: nowrap;
+    line-height: 1.4;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    display: inline-block !important;
+}
+
+/* Ensure chart container has proper spacing */
+#chart-q1 {
+    padding-bottom: 0.5rem;
+    position: relative;
+}
+
+#svg-q1 {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Legend for Q3 - positioned on right side */
+#legend-q3 .legend-item rect {
+    transition: all 0.2s ease;
+}
+
+#legend-q3 .legend-item:hover rect {
+    transform: scale(1.1);
+}
+
+/* Q2 Bubble Map Styles */
+#svg-q2 {
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+#svg-q2 .map-boundaries path {
+    transition: all 0.3s ease;
+}
+
+#svg-q2 .bubble {
+    transition: all 0.2s ease;
+}
+
+#svg-q2 .state-label {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    user-select: none;
+}
+
+#svg-q2 .legend text {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Chart container */
+#chart-q2 {
+    position: relative;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #svg-q2 .state-label {
+        font-size: 9px;
+    }
+    
+    #svg-q2 .legend {
+        transform: scale(0.8);
+    }
+}
+
+/* Q5 Choropleth Map Styles */
+#svg-q5 {
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+#svg-q5 .state-path {
+    transition: all 0.3s ease;
+}
+
+#svg-q5 .state-label,
+#svg-q5 .state-value {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    user-select: none;
+}
+
+#svg-q5 .legend text {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+#svg-q5 .legend-axis path,
+#svg-q5 .legend-axis line {
+    stroke: #999;
+}
+
+/* Chart container */
+#chart-q5 {
+    position: relative;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+/* Reset Zoom Button Styles */
+.reset-zoom-button {
+    transition: opacity 0.3s ease;
+    /* Removed transform transition to prevent shaking */
+    transform-origin: center;
+}
+
+.reset-zoom-button rect {
+    transition: fill 0.2s ease, filter 0.2s ease;
+    /* Removed 'all' transition to be specific */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.reset-zoom-button:hover rect {
+    fill: #1a4563;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.reset-zoom-button text {
+    transition: fill 0.2s ease;
+}
+
+.reset-zoom-button:hover text {
+    fill: #ffffff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #svg-q5 .state-label {
+        font-size: 9px;
+    }
+    
+    #svg-q5 .state-value {
+        font-size: 8px;
+    }
+    
+    #svg-q5 .legend {
+        transform: scale(0.8);
+    }
+}

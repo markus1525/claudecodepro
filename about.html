@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About the Road Safety Dashboard Project - Data Sources, Methodology, and Team Information">
+    <title>About - Road Safety Dashboard</title>
+
+    <link rel="icon" type="image/png" href="assets/logo2.png">
+
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Australian Road Safety Logo" class="logo">
+            <h1>Australian Road Safety: Enforcement vs Outcomes</h1>
+        </div>
+    </header>
+    <nav>
+        <a href="index.html">Overview</a>
+        <a href="visualizations.html">Visualizations</a>
+        <a href="maps.html">Maps</a>
+        <a href="about.html" class="active">About</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h2>About This Project</h2>
+            <p class="hero-subtitle">An interactive dashboard exploring the relationship between police enforcement and road safety outcomes across Australia</p>
+        </section>
+
+        <!-- Project Overview -->
+        <section class="about-overview-section">
+            <div class="about-content">
+                <h2>Project Overview</h2>
+                <p>This interactive dashboard visualizes the relationship between police road safety enforcement (fines) and actual safety outcomes (fatalities) using comprehensive data from the Australian Road Safety Data Hub. Our goal is to provide insights into enforcement patterns, identify at-risk demographics, and evaluate the effectiveness of current road safety strategies.</p>
+            </div>
+        </section>
+
+        <!-- Data Sources Section -->
+        <section class="data-sources-section">
+            <h2>Data Sources</h2>
+            <p style="text-align: center; color: var(--neutral-gray); margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                We are collecting our data from the <strong>Australian Government's National Road Safety Data Hub</strong>, which is managed by the Bureau of Infrastructure and Transport Research Economics (BITRE).
+            </p>
+            <div class="data-sources-grid">
+                <div class="data-source-card">
+                    <div class="data-source-icon">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <polyline points="14 2 14 8 20 8" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h4>Enforcement Data</h4>
+                    <p><strong>Source:</strong> Police Enforcement Dataset</p>
+                    <p><strong>File:</strong> police_enforcement_2024_fines.csv</p>
+                    <p><strong>Records:</strong> 12,179 total records (11,960 processed for 2020-2024)</p>
+                    <p><strong>Time Period:</strong> 2008-2024 (processed: 2020-2024)</p>
+                    <p><strong>Update Frequency:</strong> Annual</p>
+                    <p class="data-description">Comprehensive records of traffic fines issued across Australian states, including offence types, locations, demographics, and temporal patterns.</p>
+                    <a href="https://datahub.roadsafety.gov.au/safe-systems/safe-road-use/police-enforcement" target="_blank" style="display: inline-flex; align-items: center; gap: 0.3rem; color: var(--primary-blue); text-decoration: none; font-size: 0.9rem; margin-top: 0.5rem; font-weight: 600;">
+                        Visit Data Hub
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="data-source-card">
+                    <div class="data-source-icon">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <polyline points="14 2 14 8 20 8" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h4>Fatality Data</h4>
+                    <p><strong>Source:</strong> Australian Road Deaths Database</p>
+                    <p><strong>File:</strong> Australian_Road_Deaths_Database_Fatalities.csv</p>
+                    <p><strong>Records:</strong> 57,852 total records (6,941 processed for 2020-2025)</p>
+                    <p><strong>Time Period:</strong> 1989-2025 (processed: 2020-2025)</p>
+                    <p><strong>Update Frequency:</strong> Monthly</p>
+                    <p class="data-description">Detailed records of road fatalities including crash types, road user categories, geographic distribution, and temporal trends.</p>
+                    <a href="https://datahub.roadsafety.gov.au/progress-reporting/monthly-road-deaths" target="_blank" style="display: inline-flex; align-items: center; gap: 0.3rem; color: var(--primary-blue); text-decoration: none; font-size: 0.9rem; margin-top: 0.5rem; font-weight: 600;">
+                        Visit Data Hub
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Questions Section -->
+        <section class="research-questions-section">
+            <h2>Key Research Questions</h2>
+            <div class="research-grid">
+                <div class="research-category">
+                    <div class="category-header enforcement-header">
+                        <h3>Enforcement Analysis</h3>
+                        <span class="category-label">Questions 1-3</span>
+                    </div>
+                    <div class="research-items">
+                        <div class="research-item">
+                            <div class="question-number">Q1</div>
+                            <p>How are traffic fines distributed across different offence types?</p>
+                        </div>
+                        <div class="research-item">
+                            <div class="question-number">Q2</div>
+                            <p>Which states show the highest enforcement activity?</p>
+                        </div>
+                        <div class="research-item">
+                            <div class="question-number">Q3</div>
+                            <p>What age groups are most frequently targeted by enforcement?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-category">
+                    <div class="category-header outcomes-header">
+                        <h3>Safety Outcomes</h3>
+                        <span class="category-label">Questions 4-6</span>
+                    </div>
+                    <div class="research-items">
+                        <div class="research-item">
+                            <div class="question-number">Q4</div>
+                            <p>What are the temporal trends in road fatalities over time?</p>
+                        </div>
+                        <div class="research-item">
+                            <div class="question-number">Q5</div>
+                            <p>How do fatality rates vary across Australian states?</p>
+                        </div>
+                        <div class="research-item">
+                            <div class="question-number">Q6</div>
+                            <p>Which crash types and road users experience the highest fatality rates?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-category">
+                    <div class="category-header correlation-header">
+                        <h3>Effectiveness Analysis</h3>
+                        <span class="category-label">Question 7</span>
+                    </div>
+                    <div class="research-items">
+                        <div class="research-item">
+                            <div class="question-number">Q7</div>
+                            <p>Is there a correlation between enforcement intensity and fatality rates across states?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technologies Section -->
+        <section class="technologies-section">
+            <h2>Technologies & Tools</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <polyline points="2 17 12 22 22 17" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <polyline points="2 12 12 17 22 12" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h4>D3.js v7</h4>
+                    <p>Powerful JavaScript library for creating interactive and dynamic data visualizations</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="16 18 22 12 16 6" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <polyline points="8 6 2 12 8 18" stroke="#26658c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h4>HTML5 & CSS3</h4>
+                    <p>Modern web standards ensuring semantic markup and responsive design</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="3" width="20" height="14" rx="2" stroke="#26658c" stroke-width="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21" stroke="#26658c" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="12" y1="17" x2="12" y2="21" stroke="#26658c" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h4>Responsive Design</h4>
+                    <p>Optimized for desktop, tablet, and mobile viewing experiences</p>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="#26658c" stroke-width="2"/>
+                            <path d="M12 6V12L16 14" stroke="#26658c" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h4>Real-time Filtering</h4>
+                    <p>Interactive filters for dynamic data exploration and analysis</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Info Section -->
+        <section class="project-info-section">
+            <h2>Team & Project Information</h2>
+            
+            <!-- Team Members -->
+            <div class="team-section">
+                <h3>Team DV_Group49</h3>
+                <div class="team-grid">
+                    <div class="team-member-card">
+                        <div class="member-avatar">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="8" r="4" stroke="#26658c" stroke-width="2"/>
+                                <path d="M6 21V19C6 16.7909 7.79086 15 10 15H14C16.2091 15 18 16.7909 18 19V21" stroke="#26658c" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h4>Min Thu Kyaw Khaung</h4>
+                        <p class="member-nickname">(Markus)</p>
+                        <p class="member-id">SUT ID: 105684881</p>
+                        <p class="member-id">INTI ID: J23040027</p>
+                        <a href="https://github.com/markus1525" target="_blank" class="github-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#26658c">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                            </svg>
+                            markus1525
+                        </a>
+                    </div>
+
+                    <div class="team-member-card">
+                        <div class="member-avatar">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="8" r="4" stroke="#26658c" stroke-width="2"/>
+                                <path d="M6 21V19C6 16.7909 7.79086 15 10 15H14C16.2091 15 18 16.7909 18 19V21" stroke="#26658c" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h4>Thet Hein Aung</h4>
+                        <p class="member-nickname">(Damian)</p>
+                        <p class="member-id">SUT ID: 105684373</p>
+                        <p class="member-id">INTI ID: J23040150</p>
+                        <a href="https://github.com/sinister-damian" target="_blank" class="github-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#26658c">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                            </svg>
+                            sinister-damian
+                        </a>
+                    </div>
+
+                    <div class="team-member-card">
+                        <div class="member-avatar">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="8" r="4" stroke="#26658c" stroke-width="2"/>
+                                <path d="M6 21V19C6 16.7909 7.79086 15 10 15H14C16.2091 15 18 16.7909 18 19V21" stroke="#26658c" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h4>Sai Lyan Hein</h4>
+                        <p class="member-nickname">(Jack)</p>
+                        <p class="member-id">SUT ID: 105684386</p>
+                        <p class="member-id">INTI ID: J23040369</p>
+                        <a href="https://github.com/sailyanhein" target="_blank" class="github-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#26658c">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                            </svg>
+                            sailyanhein
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Details -->
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>Course</h4>
+                    <p>COS30045 Data Visualisation</p>
+                    <p class="info-detail">Swinburne University of Technology</p>
+                </div>
+                <div class="info-card">
+                    <h4>Lecturer</h4>
+                    <p>Mr. Mohamad Faizal Alias</p>
+                    <p class="info-detail">Unit Coordinator</p>
+                </div>
+            </div>
+
+            <!-- Project Links -->
+            <div class="project-links">
+                <h3>Project Resources</h3>
+                <div class="links-grid">
+                    <a href="https://github.com/COS30045-Inti-Subang/data-visualisation-project-dv_group49" target="_blank" class="resource-btn github-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                        <span>GitHub Repository</span>
+                    </a>
+                    <a href="https://mercury.swin.edu.au/cos30045/s105684881/project-dv_group49" target="_blank" class="resource-btn mercury-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                        <span>Mercury Live Server</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Acknowledgments Section -->
+        <section class="acknowledgments-section">
+            <h2>Acknowledgments</h2>
+            <div class="acknowledgment-content">
+                <div class="acknowledgment-card">
+                    <h4>Special Thanks</h4>
+                    <p>We would like to express our sincere gratitude to <strong>Mr. Mohamad Faizal Alias</strong>, our unit coordinator, for his invaluable guidance, support, and expertise throughout this data visualisation project. His insights and feedback have been instrumental in shaping our understanding of effective data storytelling and interactive visualisation techniques.</p>
+                </div>
+                <div class="acknowledgment-card">
+                    <h4>Institution</h4>
+                    <p>We extend our appreciation to <strong>Swinburne University of Technology</strong> for providing the resources, learning environment, and opportunities that made this project possible. The comprehensive curriculum of COS30045 Data Visualisation has equipped us with the skills and knowledge to create meaningful and impactful data-driven narratives.</p>
+                </div>
+                <div class="acknowledgment-card">
+                    <h4>Data Source</h4>
+                    <p>Our gratitude goes to the <strong>Bureau of Infrastructure and Transport Research Economics (BITRE)</strong> for maintaining and providing access to comprehensive road safety datasets that form the foundation of this analysis. Their commitment to open data enables research and insights that contribute to improved road safety outcomes across Australia.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Explore the Dashboard</h2>
+            <p>Discover insights into road safety enforcement and outcomes through our interactive visualizations</p>
+            <div class="cta-buttons">
+                <a href="visualizations.html" class="btn-cta-primary">View Visualizations</a>
+                <a href="maps.html" class="btn-cta-secondary">Explore Maps</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 COS30045 Data Visualisation Project | Swinburne University of Technology</p>
+        <p>Data source: Bureau of Infrastructure and Transport Research Economics (BITRE) | 2020-2025</p>
+    </footer>
+</body>
+
+</html>

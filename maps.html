@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Geographic Maps - Road Safety Enforcement and Fatalities by State">
+    <title>Maps - Road Safety Dashboard</title>
+
+    <link rel="icon" type="image/png" href="assets/logo2.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/visualisations.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Australian Road Safety Logo" class="logo">
+            <h1>Australian Road Safety: Enforcement vs Outcomes</h1>
+        </div>
+    </header>
+    <nav>
+        <a href="index.html">Overview</a>
+        <a href="visualizations.html">Visualizations</a>
+        <a href="maps.html" class="active" aria-current="page">Maps</a>
+        <a href="about.html">About</a>
+    </nav>
+
+    <main>
+        <!-- Filter Panel -->
+        <div class="filter-panel" role="region" aria-label="Data Filters">
+            <h2>Filters</h2>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label for="state-filter" id="state-filter-label">Filter by State</label>
+                    <select
+                        id="state-filter"
+                        multiple
+                        aria-labelledby="state-filter-label"
+                        aria-describedby="state-filter-help">
+                        <option value="NSW">New South Wales</option>
+                        <option value="VIC">Victoria</option>
+                        <option value="QLD">Queensland</option>
+                        <option value="WA">Western Australia</option>
+                        <option value="SA">South Australia</option>
+                        <option value="TAS">Tasmania</option>
+                        <option value="ACT">Australian Capital Territory</option>
+                        <option value="NT">Northern Territory</option>
+                    </select>
+                    <small id="state-filter-help" class="sr-only">Hold Ctrl (Cmd on Mac) to select multiple states</small>
+                </div>
+
+                <div class="filter-group">
+                    <label id="year-range-label">Year Range</label>
+                    <div class="year-range-inputs" role="group" aria-labelledby="year-range-label">
+                        <input
+                            type="number"
+                            id="year-from"
+                            min="2020"
+                            max="2024"
+                            value="2020"
+                            aria-label="Year from">
+                        <input
+                            type="number"
+                            id="year-to"
+                            min="2020"
+                            max="2024"
+                            value="2024"
+                            aria-label="Year to">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label style="visibility: hidden;">Actions</label>
+                    <div class="filter-actions">
+                        <button class="btn-filter" id="apply-filters" aria-label="Apply filters">
+                            Apply Filters
+                        </button>
+                        <button class="btn-clear" id="clear-filters" aria-label="Clear all filters">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Navigation -->
+        <div class="section-nav" role="navigation" aria-label="Dashboard sections">
+            <a href="#q2-title">
+                <span class="nav-main">Enforcement by State</span>
+                <span class="nav-sub">(Bubble Map)</span>
+            </a>
+            <a href="#q5-title">
+                <span class="nav-main">Fatality Rate by State</span>
+                <span class="nav-sub">(Choropleth Map)</span>
+            </a>
+            <a href="visualizations.html" class="nav-special nav-maps">
+                <span class="nav-main">View Other Visualizations</span>
+                <span class="nav-sub">(Donut, Line, Heatmap, Stacked Bar, Scatter Plot)</span>
+            </a>
+        </div>
+
+        <!-- Maps Section -->
+        <section id="maps-section">
+            <div class="section-header">
+                <h2>Geographic Analysis</h2>
+                <p>Explore enforcement and fatality data across Australian states</p>
+            </div>
+
+            <!-- Q2: Enforcement by State (Bubble Map) -->
+            <div class="chart-container" role="region" aria-labelledby="q2-title">
+                <h3 class="chart-title" id="q2-title">Enforcement by State</h3>
+                <p class="chart-subtitle">Geographic distribution of enforcement intensity</p>
+                <div class="chart-content" id="chart-q2" aria-label="Enforcement by State">
+                    <svg id="svg-q2" role="img" aria-labelledby="q2-svg-title q2-svg-desc">
+                        <title id="q2-svg-title">Enforcement by State Bubble Map</title>
+                        <desc id="q2-svg-desc">Interactive map of Australia showing enforcement intensity by state with bubble sizes representing total fines</desc>
+                    </svg>
+                    <div class="sr-only">
+                        <table class="data-table-fallback" id="table-q2" aria-label="Enforcement by State Data Table">
+                            <caption>Data table for Enforcement by State</caption>
+                            <thead>
+                                <tr>
+                                    <th>State</th>
+                                    <th>Total Fines</th>
+                                    <th>% of National</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-q2-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="chart-description">NSW and VIC lead in total fines issued. Bubble size represents enforcement intensity. Click a state to filter the dashboard.</p>
+            </div>
+
+            <!-- Q5: Fatalities by State (Choropleth) -->
+            <div class="chart-container" role="region" aria-labelledby="q5-title">
+                <h3 class="chart-title" id="q5-title">Fatality Rate by State</h3>
+                <p class="chart-subtitle">Deaths per 100,000 population</p>
+                <div class="chart-content" id="chart-q5" aria-label="Fatality rate choropleth map">
+                    <svg id="svg-q5" role="img" aria-labelledby="q5-svg-title q5-svg-desc">
+                        <title id="q5-svg-title">Fatality Rate Choropleth Map</title>
+                        <desc id="q5-svg-desc">Choropleth map showing fatality rates per 100,000 population across Australian states with color intensity representing severity</desc>
+                    </svg>
+                    <div class="sr-only">
+                        <table class="data-table-fallback" id="table-q5" aria-label="Fatality Rate Data Table">
+                            <caption>Data table for Fatality Rate by State</caption>
+                            <thead>
+                                <tr>
+                                    <th>State</th>
+                                    <th>Total Fatalities</th>
+                                    <th>Rate per 100k</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-q5-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="chart-description">Northern Territory has the highest fatality rate per capita. Hover to see state details and population-adjusted rates.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 COS30045 Data Visualisation Project | Swinburne University of Technology</p>
+        <p>Data source: Bureau of Infrastructure and Transport Research Economics (BITRE) | 2020-2025</p>
+    </footer>
+
+    <!-- D3.js Library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Global State Initialization -->
+    <script src="js/init-global-state.js"></script>
+
+    <!-- Shared Constants and Interactions -->
+    <script src="js/shared-constants.js"></script>
+    <script src="js/interactions.js"></script>
+
+    <!-- Data Loading -->
+    <script src="js/data-loader.js"></script>
+
+    <!-- Map Visualizations -->
+    <script src="js/q2_enforcement_by_state.js"></script>
+    <script src="js/q5_fatalities_by_state.js"></script>
+
+    <script src='https://cdn.plot.ly/plotly-3.2.0.min.js'></script>
+</body>
+
+</html>
