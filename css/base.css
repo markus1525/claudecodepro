@@ -1394,7 +1394,11 @@ footer p {
         --spacing-xl: 2rem;
         --header-height: 170px;
     }
-    
+
+    body {
+        padding-bottom: 2rem;
+    }
+
     header {
         padding: 20px 15px;
         max-height: var(--header-height);
@@ -1592,7 +1596,11 @@ footer p {
         --spacing-lg: 1.25rem;
         --header-height: 120px;
     }
-    
+
+    body {
+        padding-bottom: 3rem;
+    }
+
     header {
         padding: 15px 15px;
         max-height: var(--header-height);
