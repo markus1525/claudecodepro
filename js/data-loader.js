@@ -458,6 +458,65 @@ function initializeFilters() {
 
     updateClearButtonVisibility();
 
+    // Range slider initialization
+    const sliderRange = document.getElementById('slider-range');
+    const yearLabelFrom = document.getElementById('year-label-from');
+    const yearLabelTo = document.getElementById('year-label-to');
+
+    // Function to update the visual range bar
+    function updateSliderRange() {
+        if (!sliderRange) return;
+
+        const min = parseInt(yearFrom.min);
+        const max = parseInt(yearFrom.max);
+        const fromValue = parseInt(yearFrom.value);
+        const toValue = parseInt(yearTo.value);
+
+        const fromPercent = ((fromValue - min) / (max - min)) * 100;
+        const toPercent = ((toValue - min) / (max - min)) * 100;
+
+        sliderRange.style.left = fromPercent + '%';
+        sliderRange.style.width = (toPercent - fromPercent) + '%';
+    }
+
+    // Function to update year labels
+    function updateYearLabels() {
+        if (yearLabelFrom) yearLabelFrom.textContent = yearFrom.value;
+        if (yearLabelTo) yearLabelTo.textContent = yearTo.value;
+    }
+
+    // Initialize slider appearance
+    updateSliderRange();
+    updateYearLabels();
+
+    // Handle year-from slider changes
+    yearFrom.addEventListener('input', function() {
+        const fromValue = parseInt(this.value);
+        const toValue = parseInt(yearTo.value);
+
+        // Prevent handles from crossing
+        if (fromValue > toValue) {
+            this.value = toValue;
+        }
+
+        updateSliderRange();
+        updateYearLabels();
+    });
+
+    // Handle year-to slider changes
+    yearTo.addEventListener('input', function() {
+        const fromValue = parseInt(yearFrom.value);
+        const toValue = parseInt(this.value);
+
+        // Prevent handles from crossing
+        if (toValue < fromValue) {
+            this.value = fromValue;
+        }
+
+        updateSliderRange();
+        updateYearLabels();
+    });
+
     applyBtn.addEventListener('click', () => {
         const selectedStates = Array.from(stateFilter.selectedOptions).map(opt => opt.value);
         window.filterState.states = selectedStates;
@@ -493,6 +552,10 @@ function initializeFilters() {
         window.filterState.states = [];
         window.filterState.yearRange = [2020, 2024];
         window.filterState.offenceTypes = [];
+
+        // Update slider visual state
+        updateSliderRange();
+        updateYearLabels();
 
         // Must call updateClearButtonVisibility before updateAllCharts
         updateClearButtonVisibility();
