@@ -151,7 +151,18 @@
                             .attr('stroke', '#1a1a1a')
                             .style('opacity', 1);
 
-                        showTooltip(event, stateData, tooltip);
+                        const content = `
+            <strong>${stateData.stateName || stateData.State_Name}</strong>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total fatalities:</span>
+                <span class="tooltip-value">${d3.format(',')(stateData.totalFatalities)}</span>
+            </div>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Rate per 100k:</span>
+                <span class="tooltip-value">${d3.format('.1f')(stateData.fatalityRatePer100k)}</span>
+            </div>
+        `;
+                        showTooltip(event, content, tooltip);
                     }
                 })
                 .on('mousemove', (event) => {
@@ -430,51 +441,7 @@
         return tooltip;
     }
 
-    function showTooltip(event, data, tooltip) {
-        const content = `
-            <div style="font-weight: 600; margin-bottom: 6px; font-size: 13px;">${data.stateName}</div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Total Fatalities:</span>
-                <span class="tooltip-value">${d3.format(',')(data.totalFatalities)}</span>
-            </div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Fatality Rate:</span>
-                <span class="tooltip-value">${data.fatalityRatePer100k.toFixed(1)} per 100k</span>
-            </div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Population:</span>
-                <span class="tooltip-value">${data.populationM.toFixed(2)}M</span>
-            </div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Rank:</span>
-                <span class="tooltip-value">#${data.rank}</span>
-            </div>
-            <div style="font-size: 11px; margin-top: 8px; color: #bdc3c7; font-style: italic;">
-                Click to filter
-            </div>
-        `;
 
-        tooltip
-            .html(content)
-            .style('left', (event.pageX + 15) + 'px')
-            .style('top', (event.pageY - 28) + 'px')
-            .transition()
-            .duration(200)
-            .style('opacity', 1);
-    }
-
-    function moveTooltip(event, tooltip) {
-        tooltip
-            .style('left', (event.pageX + 15) + 'px')
-            .style('top', (event.pageY - 28) + 'px');
-    }
-
-    function hideTooltip(tooltip) {
-        tooltip
-            .transition()
-            .duration(200)
-            .style('opacity', 0);
-    }
 
     function updateDataTable(data) {
         const tbody = d3.select('#table-q5-body');

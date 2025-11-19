@@ -148,7 +148,23 @@
                                 return itemText === offenseType ? '#3498db' : 'transparent';
                             });
 
-                        showTooltip(event, d.data, tooltip);
+                        const content = `
+            <strong>${offenseType}</strong>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total fines:</span>
+                <span class="tooltip-value">${d3.format(',')(d.data.totalFines)}</span>
+            </div>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Percentage:</span>
+                <span class="tooltip-value">${d.data.percentage.toFixed(1)}%</span>
+            </div>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Rank:</span>
+                <span class="tooltip-value">#${d.data.rank}</span>
+            </div>
+        `;
+
+                        showTooltip(event, content, tooltip);
                     })
                     .on('mousemove', (event) => {
                         moveTooltip(event, tooltip);
@@ -429,55 +445,6 @@
         return tooltip;
     }
 
-    /**
-     * Show tooltip
-     */
-    function showTooltip(event, data, tooltip) {
-        const content = `
-            <strong>${data.offenseType || data.offenceType}</strong>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Total fines:</span>
-                <span class="tooltip-value">${d3.format(',')(data.totalFines)}</span>
-            </div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Share of all fines:</span>
-                <span class="tooltip-value">${data.percentage.toFixed(1)}%</span>
-            </div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Rank:</span>
-                <span class="tooltip-value">#${data.rank}</span>
-            </div>
-        `;
-
-        tooltip
-            .html(content)
-            .style('left', (event.pageX + 15) + 'px')
-            .style('top', (event.pageY - 28) + 'px')
-            .style('position', 'absolute')
-            .style('pointer-events', 'none')
-            .transition()
-            .duration(200)
-            .style('opacity', 1);
-    }
-
-    /**
-     * Move tooltip with cursor
-     */
-    function moveTooltip(event, tooltip) {
-        tooltip
-            .style('left', (event.pageX + 15) + 'px')
-            .style('top', (event.pageY - 28) + 'px');
-    }
-
-    /**
-     * Hide tooltip
-     */
-    function hideTooltip(tooltip) {
-        tooltip
-            .transition()
-            .duration(200)
-            .style('opacity', 0);
-    }
 
     /**
      * Update data table for screen readers

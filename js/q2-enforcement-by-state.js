@@ -158,7 +158,19 @@
             .attr('fill-opacity', 0.95)
             .attr('stroke-width', 3)
             .attr('r', sizeScale(d.totalFines) * 1.1);
-          showTooltip(event, d, tooltip);
+
+          const content = `
+            <strong>${d.name}</strong>
+            <div class="tooltip-row">
+              <span class="tooltip-label">Total fines:</span>
+              <span class="tooltip-value">${d3.format(',')(d.totalFines)}</span>
+            </div>
+            <div class="tooltip-row">
+              <span class="tooltip-label">% of national:</span>
+              <span class="tooltip-value">${d.percentageOfNational.toFixed(1)}%</span>
+            </div>
+          `;
+          showTooltip(event, content, tooltip);
         })
         .on('mousemove', function(event) {
           moveTooltip(event, tooltip);
@@ -256,47 +268,7 @@
     return tooltip;
   }
 
-  function showTooltip(event, d, tooltip) {
-    const content = `
-      <div style="font-weight: 600; margin-bottom: 6px; font-size: 13px">${d.state}</div>
-      <div class="tooltip-row">
-        <span class="tooltip-label">Total Fines:</span>
-        <span class="tooltip-value">${d3.format(',')(d.totalFines)}</span>
-      </div>
-      <div class="tooltip-row">
-        <span class="tooltip-label">% of National:</span>
-        <span class="tooltip-value">${d.percentageOfNational.toFixed(1)}%</span>
-      </div>
-      <div class="tooltip-row">
-        <span class="tooltip-label">Rank:</span>
-        <span class="tooltip-value">#${d.rank}</span>
-      </div>
-      <div style="font-size: 11px; margin-top: 8px; color: #bdc3c7; font-style: italic;">
-        Click to filter
-      </div>
-    `;
 
-    tooltip
-      .html(content)
-      .style('left', (event.pageX + 15) + 'px')
-      .style('top', (event.pageY - 28) + 'px')
-      .transition()
-      .duration(200)
-      .style('opacity', 1);
-  }
-
-  function moveTooltip(event, tooltip) {
-    tooltip
-      .style('left', (event.pageX + 15) + 'px')
-      .style('top', (event.pageY - 28) + 'px');
-  }
-
-  function hideTooltip(tooltip) {
-    tooltip
-      .transition()
-      .duration(200)
-      .style('opacity', 0);
-  }
 
   function addLegend(svg, data, width, height, sizeScale, isMobile) {
     const legendX = isMobile ? 20 : width - 140;

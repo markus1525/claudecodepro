@@ -111,7 +111,14 @@
                     .attr('r', 8)
                     .attr('fill', '#3078a3');
 
-                showTooltip(event, d, tooltip);
+                const content = `
+            <strong>Year ${d.year}</strong>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total fatalities:</span>
+                <span class="tooltip-value">${d3.format(',')(d.total)}</span>
+            </div>
+        `;
+                showTooltip(event, content, tooltip);
             })
             .on('mousemove', (event) => {
                 moveTooltip(event, tooltip);
@@ -222,42 +229,7 @@
     /**
      * Show tooltip
      */
-    function showTooltip(event, data, tooltip) {
-        const content = `
-            <strong>Year ${data.year}</strong>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Total fatalities:</span>
-                <span class="tooltip-value">${d3.format(',')(data.total)}</span>
-            </div>
-        `;
 
-        tooltip
-            .html(content)
-            .style('left', (event.pageX + 15) + 'px')
-            .style('top', (event.pageY - 28) + 'px')
-            .transition()
-            .duration(200)
-            .style('opacity', 1);
-    }
-
-    /**
-     * Move tooltip
-     */
-    function moveTooltip(event, tooltip) {
-        tooltip
-            .style('left', (event.pageX + 15) + 'px')
-            .style('top', (event.pageY - 28) + 'px');
-    }
-
-    /**
-     * Hide tooltip
-     */
-    function hideTooltip(tooltip) {
-        tooltip
-            .transition()
-            .duration(200)
-            .style('opacity', 0);
-    }
 
     /**
      * Update data table
