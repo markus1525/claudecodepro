@@ -280,7 +280,7 @@ svg {
     white-space: normal;
 }
 
-.tooltip::before {
+/* .tooltip::before {
     content: '';
     position: absolute;
     top: 0;
@@ -289,7 +289,7 @@ svg {
     border: 8px solid transparent;
     border-right-color: var(--primary-blue-darker);
     border-bottom-color: var(--primary-blue-darker);
-}
+} */
 
 .tooltip.show {
     opacity: 1;
