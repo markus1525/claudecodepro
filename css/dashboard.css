@@ -275,7 +275,9 @@ svg {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     max-width: 300px;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 .tooltip::before {
@@ -778,6 +780,19 @@ svg {
     .chart-content {
         padding: 0.75rem;
         min-height: 300px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Mobile tooltip adjustments */
+    .tooltip {
+        max-width: 250px;
+        font-size: 0.8rem;
+        padding: 10px 12px;
+    }
+
+    .tooltip strong {
+        font-size: 0.85rem;
     }
 
     .section-header h2 {
@@ -912,6 +927,28 @@ svg {
     #svg-q3 {
         height: 630px !important;
     }
+
+    /* Touch-friendly sizing for small mobile */
+    .chart-content {
+        min-height: 280px;
+        padding: 0.5rem;
+    }
+
+    /* Smaller tooltip for small screens */
+    .tooltip {
+        max-width: 220px;
+        font-size: 0.75rem;
+        padding: 8px 10px;
+    }
+
+    .tooltip strong {
+        font-size: 0.8rem;
+    }
+
+    .tooltip-row {
+        gap: 0.5rem;
+        font-size: 0.75rem;
+    }
 }
 
 /* Extra Small Mobile */
@@ -957,6 +994,32 @@ svg {
     #legend-q6 .legend-item {
         width: 100%;
         justify-content: flex-start;
+    }
+
+    /* Extra small tooltip */
+    .tooltip {
+        max-width: 200px;
+        font-size: 0.7rem;
+        padding: 6px 8px;
+    }
+
+    .tooltip strong {
+        font-size: 0.75rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .tooltip-row {
+        gap: 0.4rem;
+        font-size: 0.7rem;
+        margin: 0.15rem 0;
+    }
+
+    /* Improve touch targets */
+    .bar,
+    .dot,
+    .bubble,
+    .state-path {
+        touch-action: manipulation;
     }
 }
 
