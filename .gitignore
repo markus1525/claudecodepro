@@ -1,12 +1,6 @@
 # macOS system files
 .DS_Store
 
-# Large raw data files (already processed)
-data/raw_data/
-
-# KNIME workflow files (optional)
-data/KNIME/
-
 # IDE and editor files
 .vscode/
 .idea/
@@ -24,3 +18,4 @@ yarn-error.log*
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+$RECYCLE.BIN/
