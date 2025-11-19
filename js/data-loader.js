@@ -1,7 +1,5 @@
 /* Loads CSV data and updates charts based on filters */
 
-console.log('Loading data-loader');
-
 async function loadAllData() {
     try {
         const [
@@ -34,7 +32,6 @@ async function loadAllData() {
         window.dataStore.q7 = processQ7Data(q7Raw);
 
         window.dataStore.loaded = true;
-        console.log('All data loaded');
         return true;
     } catch (error) {
         console.error('Error loading data:', error);
@@ -153,22 +150,16 @@ function isFilterActive() {
 // Update clear button visibility based on filter state
 function updateClearButtonVisibility() {
     const clearBtn = document.getElementById('clear-filters');
-    if (!clearBtn) {
-        console.warn('Clear button element not found');
-        return;
-    }
+    if (!clearBtn) return;
 
     const hasFilter = isFilterActive();
-    console.log('Filter active:', hasFilter);
-    
+
     if (hasFilter) {
         clearBtn.classList.add('visible');
         clearBtn.style.display = 'inline-block';
-        console.log('Clear button shown');
     } else {
         clearBtn.classList.remove('visible');
         clearBtn.style.display = 'none';
-        console.log('Clear button hidden');
     }
 }
 
@@ -223,12 +214,8 @@ function getFilteredQ2Data() {
     const totalNational = d3.sum([...aggregated.values()], d => d.totalFines);
 
     const result = Array.from(aggregated, ([state, data]) => ({
-        STATE: state,
         state: state,
-        Total_Fines: data.totalFines,
         totalFines: data.totalFines,
-        Latitude: data.latitude,
-        Longitude: data.longitude,
         latitude: data.latitude,
         longitude: data.longitude,
         colorHex: data.colorHex,
@@ -313,22 +300,13 @@ function getFilteredQ5Data() {
             : 0;
 
         return {
-            STATE: state,
             state: state,
-            State: state,
-            State_Name: data.stateName,
             stateName: data.stateName,
-            Total_Fatalities: data.totalFatalities,
             totalFatalities: data.totalFatalities,
-            Latitude: data.latitude,
-            Longitude: data.longitude,
             latitude: data.latitude,
             longitude: data.longitude,
-            Population_M: data.populationM,
             populationM: data.populationM,
-            Fatality_Rate_Per_100k: fatalityRatePer100k,
             fatalityRatePer100k: fatalityRatePer100k,
-            Color_Hex: data.colorHex,
             colorHex: data.colorHex
         };
     });
@@ -376,10 +354,7 @@ function getFilteredQ7Data() {
 
 // Update all charts when filters change
 function updateAllCharts() {
-    if (!window.dataStore.loaded) {
-        console.warn('Data not loaded');
-        return;
-    }
+    if (!window.dataStore.loaded) return;
 
     updateClearButtonVisibility();
 
@@ -412,8 +387,6 @@ function updateAllCharts() {
         if (window.renderQ5) window.renderQ5(filteredData.q5);
         if (window.renderQ6) window.renderQ6(filteredData.q6);
         if (window.renderQ7) window.renderQ7(filteredData.q7);
-
-        console.log('Charts updated');
     } catch (error) {
         console.error('Error updating charts:', error);
         showErrorMessage(error);
@@ -481,10 +454,7 @@ function initializeFilters() {
     const applyBtn = document.getElementById('apply-filters');
     const clearBtn = document.getElementById('clear-filters');
 
-    if (!stateFilter || !yearFrom || !yearTo || !applyBtn || !clearBtn) {
-        console.warn('Filter elements not found');
-        return;
-    }
+    if (!stateFilter || !yearFrom || !yearTo || !applyBtn || !clearBtn) return;
 
     updateClearButtonVisibility();
 
@@ -512,13 +482,10 @@ function initializeFilters() {
 
         window.filterState.yearRange = [fromYear, toYear];
 
-        console.log('Filters applied:', window.filterState);
         updateAllCharts();
     });
 
     clearBtn.addEventListener('click', () => {
-        console.log('Clear button clicked');
-        
         stateFilter.selectedIndex = -1;
         yearFrom.value = 2020;
         yearTo.value = 2024;
@@ -527,8 +494,6 @@ function initializeFilters() {
         window.filterState.yearRange = [2020, 2024];
         window.filterState.offenceTypes = [];
 
-        console.log('Filters reset:', window.filterState);
-        
         // Must call updateClearButtonVisibility before updateAllCharts
         updateClearButtonVisibility();
         updateAllCharts();
@@ -544,8 +509,6 @@ function initializeFilters() {
 }
 
 async function initializeDashboard() {
-    console.log('Initializing dashboard');
-
     const main = document.querySelector('main');
     const loadingDiv = document.createElement('div');
     loadingDiv.className = 'loading-state';
@@ -566,9 +529,8 @@ async function initializeDashboard() {
     if (success) {
         initializeFilters();
         updateAllCharts();
-        console.log('Dashboard ready');
     } else {
-        console.error('Failed to initialize');
+        console.error('Dashboard initialization failed');
     }
 }
 

@@ -123,8 +123,6 @@
             .attr('class', 'map-group');
 
         d3.json('data/raw_data/australia_states.geojson').then(geo => {
-            console.log('Q5 map loaded');
-            
             const states = mapGroup.selectAll('path')
                 .data(geo.features)
                 .enter()
@@ -171,11 +169,9 @@
                 })
                 .on('click', function(event, feature) {
                     event.stopPropagation();
-                    
+
                     const stateCode = STATE_CODE_MAP[feature.properties.STATE_CODE];
-                    
-                    console.log('State clicked:', stateCode);
-                    
+
                     const stateIndex = window.filterState.states.indexOf(stateCode);
                     if (stateIndex > -1) {
                         window.filterState.states.splice(stateIndex, 1);

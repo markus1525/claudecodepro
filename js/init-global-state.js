@@ -6,7 +6,6 @@ if (typeof window.filterState === 'undefined') {
         yearRange: [2020, 2024],
         offenceTypes: []
     };
-    console.log('filterState initialized');
 }
 
 if (typeof window.dataStore === 'undefined') {
@@ -22,5 +21,4 @@ if (typeof window.dataStore === 'undefined') {
         loaded: false,
         error: null
     };
-    console.log('dataStore initialized');
 }

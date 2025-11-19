@@ -174,9 +174,7 @@
         })
         .on('click', function(event, d) {
           event.stopPropagation();
-          
-          console.log('Bubble clicked:', d.code);
-          
+
           const stateIndex = window.filterState.states.indexOf(d.code);
           if (stateIndex > -1) {
             window.filterState.states.splice(stateIndex, 1);
