@@ -621,176 +621,109 @@ Workflow Location:
 
 ### 3.1 Must-Have Features
 
-Based on our analysis of user needs and available data, we defined several features that our visualization dashboard must include.
+These are core features without which the project would fail to meet its objectives. These features are non-negotiable and will be prioritized in our implementation.
 
-#### Seven Core Visualizations
+**Feature 1: Seven Interactive Visualizations**
+* Q1: Donut chart (desktop/tablet) / Bar chart (mobile) showing fines by offence type
+* Q2: Bubble Map showing total enforcement (fines) by state
+* Q3: Heatmap showing age group vs offence type patterns
+* Q4: Line chart showing fatality trends from 2020-2024
+* Q5: Choropleth map showing fatality rates per 100k by state
+* Q6: Stacked bar chart showing crash types and affected road users
+* Q7: Dual-axis chart (desktop) / Scatter plot (mobile) comparing fines vs.fatalities by state
 
-Our dashboard must include seven different types of visualizations. Each visualization serves a specific purpose and answers different questions about the data.
+Status: All 7 visualizations coded and functional
 
-**1. Donut Chart - Offence Type Distribution**
+**Feature 2: State/Territory Filter (COMPLETE)**
+* Users can select one or multiple states to filter all visualizations
+* Default: All states visible
+* Implementation: Multi-select dropdown in filter panel
+* Behavior: When state selected, all charts update to show only that state's data
 
-This visualization shows the breakdown of traffic fines by offence type. Users can see what proportion of fines are for speeding, mobile phone use, drink driving, seatbelt violations, and other offences. This chart must be interactive, allowing users to click on segments to filter other visualizations.
+Status: Fully functional with data-loader.js integration
 
-**2. Bubble Map - Geographic Distribution of Fines**
+**Feature 3: Year Range Selector (COMPLETE)**
+* Two input fields allow users to filter by year range (2020-2024)
+* Default: All years visible
+* Implementation: Two number inputs (year-from, year-to)
+* Behavior: Updates all time-dependent visualizations (Q4, Q7, and aggregates Q1-Q6)
 
-This map shows the geographic distribution of traffic fines across Australia. Bubbles appear at different locations with sizes proportional to the number of fines issued in that area. This helps users quickly identify enforcement hotspots and geographic patterns.
+Status: Fully functional
 
-**3. Heatmap - Age Group vs Offence Type**
+**Feature 4: Interactive Tooltips (COMPLETE)**
+* Hover over any data element shows exact values
+* Tooltip content: Label, value, percentage (where applicable), additional context
+* Implementation: D3.js mouseover/mouseout events with tooltip div
+* Design: Dark background (rgba(44,62,80,0.95)), white text, smooth fade transitions (200ms)
 
-This heatmap displays a matrix showing the relationship between age groups and offence types. Each cell is color-coded based on the number of fines for that combination. This helps users identify which age groups are most prone to which types of violations.
+Status: Implemented across all 7 charts
 
-**4. Line Chart - Temporal Trends**
+**Feature 5: Responsive Layout (COMPLETE)**
+* Dashboard functions across desktop (1200px+), tablet (768-1199px), and mobile (<768px)
+* Desktop: Side-by-side visualizations, full interactivity
+* Tablet: Stacked visualizations, maintained interactivity
+* Mobile: Single-column layout, simplified charts (e.g., bar instead of donut)
+* Implementation: CSS media queries, flexible SVG sizing
 
-This line chart shows how fine counts and crash rates have changed over time from 2020 to 2024. Users can toggle between viewing different metrics and different states. This helps track progress and identify trends.
+Status: Fully responsive with breakpoints at 640px and 768px
 
-**5. Choropleth Map - State-Level Comparison**
+**Feature 6: Clear Navigation and Layout (COMPLETE)**
+* Header: Project title and navigation menu (Overview, Visualizations, Maps, About)
+* Section headers: "Police Enforcement" and "Safety Outcomes"
+* Section navigation: Quick links to jump to specific charts
+* Footer: Data attribution and last updated date
+* Implementation: HTML5 semantic markup, CSS Grid/Flexbox, sticky header
 
-This map shows all Australian states and territories color-coded based on selected metrics like fine rate per capita or fatality rate. This enables quick visual comparison across states and identification of geographic patterns at the state level.
+Status: Complete with 4-page structure
 
-**6. Stacked Bar Chart - State Comparison by Offence Type**
+**Feature 7: Data Validation and Error Handling (COMPLETE)**
+* Verify totals match source data after aggregation
+* Display error messages if CSV files fail to load
+* Handle edge cases (e.g., no data for selected filters)
+* Implementation: JavaScript try-catch blocks, empty state displays, loading indicators
 
-This chart compares all states side by side, with bars broken down by offence type. This allows users to compare both total fine volumes and the composition of violations across states.
+Status: Error handling implemented in data-loader.js
 
-**7. Dual-Axis Chart - Enforcement vs Outcomes**
-
-This chart displays both enforcement metrics (like fine counts) and outcome metrics (like fatalities) on the same chart with two different y-axes. This helps users explore potential relationships between enforcement activities and road safety outcomes.
-
-#### Interactive Features
-
-**Filtering and Selection**
-
-Users must be able to filter the data in multiple ways:
-
-- Filter by state or territory
-- Filter by time period (year or year range)
-- Filter by age group
-- Filter by offence type
-
-When users apply filters, all visualizations must update accordingly to show only the filtered data.
-
-**Cross-Filtering**
-
-When users click on elements in one visualization, it should filter the data shown in other visualizations. For example, clicking on "Speeding" in the donut chart should update all other charts to show only speeding-related data. Users must be able to clear filters easily.
-
-**Tooltips**
-
-All visualizations must include informative tooltips that appear when users hover over elements. Tooltips should show exact values and provide context for understanding the data.
-
-**Responsive Design**
-
-The dashboard must work on different screen sizes:
-
-- Desktop computers (1920x1080 and larger)
-- Tablets in landscape and portrait orientation (768x1024)
-- Mobile phones in portrait orientation (375x667 minimum)
-
-The layout should adapt gracefully, with visualizations resizing or stacking vertically on smaller screens.
-
-#### Data Loading and Performance
-
-**Fast Loading**
-
-The dashboard must load quickly. All data files should be optimized for size. The initial page load should complete in under 3 seconds on a typical broadband connection.
-
-**Smooth Interactions**
-
-All interactions should respond quickly without noticeable lag. Transitions and animations should be smooth and should complete in under 500 milliseconds.
-
-#### Accessibility
-
-**Screen Reader Support**
-
-The dashboard must work with screen readers. All visualizations must have appropriate ARIA labels and descriptions. Users who cannot see the visual charts should be able to access the data through their screen reader.
-
-**Keyboard Navigation**
-
-All interactive elements must be accessible via keyboard. Users should be able to tab through filters, buttons, and interactive chart elements without needing a mouse.
-
-**Color Blindness Considerations**
-
-The color scheme must be distinguishable for users with common types of color blindness. We must not rely solely on color to convey information.
-
-**Text Alternatives**
-
-Each visualization must have a text summary describing the key patterns visible in the chart. This helps users with visual impairments and also helps all users understand what to look for.
-
-#### Documentation and Help
-
-**Clear Labels and Titles**
-
-Every visualization must have a clear title and axis labels. Users should be able to understand what they are looking at without extensive explanation.
-
-**Help Text**
-
-The dashboard should include help information explaining how to use the interactive features and how to interpret the visualizations.
-
-**Data Sources**
-
-Clear attribution to data sources must be visible on the page. Users should be able to find links to the original data sources.
+Delivery Confidence: HIGH - All must-have features are implemented and tested
 
 ### 3.2 Optional Features
 
-In addition to the must-have features, we identified several optional features that would enhance the dashboard if time permits.
+Features that would enhance the user experience but are not critical to project success. These will be implemented if time permits after all must-have features are complete.
 
-#### Advanced Filtering
+**Optional Feature 1: Animated Transitions (IMPLEMENTED)**
+* Status: Smooth D3.js transitions when data updates (bars growing, line drawing, fade-ins)
+* Duration: 500-800ms with easing functions
+* Implementation: Applied to all 7 charts
+* Priority: Medium
+* Time Invested: ~4 hours
 
-**Multi-Select Filters**
+**Optional Feature 2: Legend Interactivity (PARTIAL)**
+* Status: Legends implemented for Q1, Q6 with visual highlighting on hover
+* Limitation: Not fully interactive (click to filter) due to time constraints
+* Priority: Medium
+* Time Invested: ~2 hours
 
-Instead of filtering by one state at a time, allow users to select multiple states for comparison. This would make it easier to compare specific groups of states.
+**Optional Feature 3: Separate Maps Page (IMPLEMENTED)**
+* Status: Created dedicated maps.html page for Q2 and Q5 visualizations
+* Benefit: Maps get larger canvas space for better visibility
+* Priority: High
+* Time Invested: ~1 hours
 
-**Date Range Selector**
+**Optional Feature 4: Accessibility Enhancements (IMPLEMENTED)**
+* Status: ARIA labels, keyboard navigation, data table fallbacks for screen readers
+* Implementation: All interactive elements accessible via Tab key, screen reader-only tables
+* Priority: High (ethical obligation)
+* Time Invested: ~5 hours
 
-Implement a visual date range selector that allows users to drag endpoints to select custom time periods rather than just selecting predefined years.
+**Optional Feature 5: Mobile-Specific Chart Variants (IMPLEMENTED)**
+* Status: Q1 switches from donut to bar chart on mobile, Q7 switches to scatter plot
+* Implementation: JavaScript checkMobile() function with window resize listener
+* Priority: Medium
+* Time Invested: ~3 hours
 
-#### Data Export
-
-**Download Filtered Data**
-
-Allow users to download the currently filtered data as a CSV file. This would enable users to perform their own additional analysis in Excel or other tools.
-
-**Export Visualizations**
-
-Provide buttons to download individual visualizations as PNG or SVG images. This would help users include the charts in reports and presentations.
-
-#### Enhanced Interactivity
-
-**Brushing and Linking**
-
-Implement more advanced linking between charts where users can drag to select ranges in one chart and see how that selection affects other charts.
-
-**Animation Controls**
-
-For the time series visualizations, provide play/pause controls that animate through the years automatically, showing how patterns change over time.
-
-#### Comparison Features
-
-**Side-by-Side Comparison**
-
-Allow users to create two separate views of the dashboard with different filters applied, enabling direct comparison of different states or time periods.
-
-**Benchmarking**
-
-Provide automatic identification of best-performing and worst-performing states on various metrics, with visual highlighting of these outliers.
-
-#### Contextual Information
-
-**News Integration**
-
-Show relevant news articles or policy changes aligned with spikes or changes in the data. This would provide context for understanding why patterns change.
-
-**Weather and Event Data**
-
-Integrate data about major events or weather patterns that might affect road safety, helping users understand external factors.
-
-#### Advanced Analytics
-
-**Trend Prediction**
-
-Use simple statistical methods to project future trends based on historical data, helping policy makers plan ahead.
-
-**Clustering Analysis**
-
-Automatically identify states or regions with similar patterns and group them together for comparison.
+Delivery Strategy:
+* Week 12 (Stand Up 3): Completed all must-haves + 5 optional features
+* Week 13: Polish remaining optional features if time permits
 
 ---
 
