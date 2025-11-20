@@ -148,7 +148,9 @@
 
         // Touch events for mobile
         points.on('touchstart', function(event, d) {
-                event.preventDefault();
+                if (event.cancelable) {
+                    event.preventDefault();
+                }
                 d3.select(this)
                     .attr('r', 8)
                     .attr('fill', '#3078a3');
