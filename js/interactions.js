@@ -484,8 +484,10 @@ function attachScrollFriendlyTouch(selection, config = {}) {
                 }
             } else {
                 // Small movement - show tooltip
-                event.preventDefault(); // Prevent scroll only for small movements
-                
+                if (event.cancelable) {
+                    event.preventDefault(); // Prevent scroll only if we can
+                }
+
                 if (onHoverStart) {
                     onHoverStart(element, event, d);
                 }
