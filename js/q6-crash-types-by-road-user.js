@@ -28,9 +28,7 @@
     let hiddenCategories = new Set();
     let activeCategories = new Set();
 
-    /**
-     * Render Q6 chart
-     */
+    // render the chart
     window.renderQ6 = function(data) {
         if (!data || data.length === 0) {
             d3.select('#chart-q6').html('<div class="empty-state"><p>No data available</p></div>');
@@ -45,9 +43,7 @@
         updateDataTable(data);
     };
 
-    /**
-     * Render stacked bar chart
-     */
+    // draw stacked bar chart
     function renderStackedBar(data) {
         const container = document.getElementById('chart-q6');
         width = container.clientWidth;
@@ -116,7 +112,7 @@
             .attr('fill', d => colorScale(d.key));
 
         groups.selectAll('rect')
-            .data(d => d)
+            .data(d => d.map(segment => Object.assign(segment, { roadUser: d.key })))
             .enter()
             .append('rect')
             .attr('class', 'bar-segment')
@@ -157,10 +153,10 @@
             })
             .call(attachScrollFriendlyTouch, {
                 tooltip: tooltip,
-                getContent: function(d) {
-                    const roadUser = d3.select(this.parentNode).datum().key;
+                getContent: (d) => {
+                    const roadUser = d.roadUser;
                     const value = d.data[roadUser];
-                    
+
                     return `
                         <strong>${d.data.crashType}</strong>
                         <div class="tooltip-row">
@@ -246,9 +242,7 @@
         createLegend(roadUsers, data);
     }
 
-    /**
-     * Create legend - NON-INTERACTIVE
-     */
+    // create the legend (non-interactive)
     function createLegend(categories, data) {
         d3.select('#legend-q6').remove();
         
@@ -296,9 +290,7 @@
         });
     }
 
-    /**
-     * Create tooltip
-     */
+    // create tooltip element
     function createTooltip() {
         let tooltip = d3.select('body').select('.tooltip');
         if (tooltip.empty()) {
@@ -310,14 +302,7 @@
         return tooltip;
     }
 
-    /**
-     * Show tooltip
-     */
-
-
-    /**
-     * Update data table
-     */
+    // update data table
     function updateDataTable(data) {
         const tbody = d3.select('#table-q6-body');
         tbody.selectAll('tr').remove();
@@ -341,9 +326,7 @@
         });
     }
 
-    /**
-     * Handle resize
-     */
+    // handle window resize
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);

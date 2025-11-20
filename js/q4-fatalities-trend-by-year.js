@@ -5,9 +5,7 @@
 
     let width, height;
 
-    /**
-     * Render Q4 chart
-     */
+    // render the chart
     window.renderQ4 = function(data) {
         if (!data || data.length === 0) {
             d3.select('#chart-q4').html('<div class="empty-state"><p>No data available</p></div>');
@@ -24,9 +22,7 @@
         updateDataTable(data);
     };
 
-    /**
-     * Render line chart
-     */
+    // draw the line chart
     function renderLineChart(data) {
         const container = document.getElementById('chart-q4');
         width = container.clientWidth;
@@ -224,9 +220,7 @@
         }
     }
 
-    /**
-     * Create tooltip
-     */
+    // create tooltip element
     function createTooltip() {
         let tooltip = d3.select('body').select('.tooltip');
         if (tooltip.empty()) {
@@ -238,14 +232,7 @@
         return tooltip;
     }
 
-    /**
-     * Show tooltip
-     */
-
-
-    /**
-     * Update data table
-     */
+    // update the data table
     function updateDataTable(data) {
         const tbody = d3.select('#table-q4-body');
         tbody.selectAll('tr').remove();
@@ -260,9 +247,7 @@
             `);
     }
 
-    /**
-     * Handle resize
-     */
+    // handle window resize
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);

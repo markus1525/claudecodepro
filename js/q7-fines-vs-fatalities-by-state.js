@@ -5,16 +5,12 @@
 
     let width, height, isMobile;
 
-    /**
-     * Check if mobile
-     */
+    // check if mobile screen
     function checkMobile() {
         return window.innerWidth < 640;
     }
 
-    /**
-     * Render Q7 chart
-     */
+    // render the chart
     window.renderQ7 = function(data) {
         if (!data || data.length === 0) {
             d3.select('#chart-q7').html('<div class="empty-state"><p>No data available</p></div>');
@@ -38,9 +34,7 @@
         updateDataTable(data);
     };
 
-    /**
-     * Render dual-axis chart (desktop)
-     */
+    // draw dual-axis chart for desktop
     function renderDualAxisChart(data) {
         const container = document.getElementById('chart-q7');
         width = container.clientWidth;
@@ -272,9 +266,7 @@
         addLegend(svg, margin, width);
     }
 
-    /**
-     * Render mobile view (simplified scatter plot)
-     */
+    // draw scatter plot for mobile
     function renderMobileView(data) {
         const container = document.getElementById('chart-q7');
         width = container.clientWidth;
@@ -428,9 +420,7 @@
             .text('Total Fatalities');
     }
 
-    /**
-     * Add legend
-     */
+    // add the legend
     function addLegend(svg, margin, width) {
         const legend = svg.append('g')
             .attr('class', 'legend')
@@ -463,9 +453,7 @@
             .text(d => d.label);
     }
 
-    /**
-     * Create tooltip
-     */
+    // create tooltip element
     function createTooltip() {
         let tooltip = d3.select('body').select('.tooltip');
         if (tooltip.empty()) {
@@ -477,14 +465,7 @@
         return tooltip;
     }
 
-    /**
-     * Show tooltip
-     */
-
-
-    /**
-     * Update data table
-     */
+    // update data table
     function updateDataTable(data) {
         const tbody = d3.select('#table-q7-body');
         tbody.selectAll('tr').remove();
@@ -501,9 +482,7 @@
             `);
     }
 
-    /**
-     * Handle resize
-     */
+    // handle window resize
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);

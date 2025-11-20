@@ -141,7 +141,7 @@
                 .style('opacity', 0)
                 .on('mouseenter', function(event, d) {
                     const stateCode = STATE_CODE_MAP[d.properties.STATE_CODE];
-                    const stateData = dataMap.get(stateCode);
+                    const stateData = dataByCode[stateCode];
 
                     if (stateData) {
                         d3.select(this)
@@ -179,7 +179,7 @@
                     tooltip: tooltip,
                     getContent: (d) => {
                         const stateCode = STATE_CODE_MAP[d.properties.STATE_CODE];
-                        const stateData = dataMap.get(stateCode);
+                        const stateData = dataByCode[stateCode];
                         if (!stateData) return '';
                         
                         return `
@@ -437,8 +437,7 @@
         return tooltip;
     }
 
-
-
+    // update data table
     function updateDataTable(data) {
         const tbody = d3.select('#table-q5-body');
         tbody.selectAll('tr').remove();
