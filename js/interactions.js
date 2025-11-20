@@ -461,8 +461,7 @@ function attachScrollFriendlyTouch(selection, config = {}) {
             touchStartTime = Date.now();
             isScrolling = false;
 
-            // Don't prevent default yet - allow scroll detection
-            event.stopPropagation();
+            // Don't prevent default or stop propagation - allow normal behavior
         });
 
         // Touch move - detect if scrolling
