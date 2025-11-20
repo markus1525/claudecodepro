@@ -731,175 +731,175 @@ Delivery Strategy:
 
 ### 4.1 Design Process and Evolution
 
-Our visualization design went through multiple iterations based on testing and feedback. We started with simple sketches and gradually refined our designs into the final interactive dashboard.
+#### Initial Design Concepts
 
-#### Initial Sketches and Wireframes
+Our initial design thinking focused on three core principles:
+1. Clarity Over Complexity: Each visualization should answer one specific question clearly
+2. Comparison-Friendly: Enable easy comparison between enforcement (actions) and outcomes (consequences)
+3. Progressive Disclosure: Start with overview, allow drilling down into details
 
-In Week 8, we created hand-drawn sketches of possible visualizations. We brainstormed different ways to show the data and sketched out rough ideas on paper. These initial sketches helped us explore different options quickly without committing to code.
+**Initial Brainstorming (Week 9):**
 
-We considered many different visualization types:
+We began by sketching rough ideas for each research question. Our first instinct was to create a "dashboard" with all visualizations visible simultaneously in a grid layout.
 
-- Bar charts for comparing states
-- Pie charts for showing offence type distribution
-- Maps for geographic patterns
-- Line charts for trends over time
-- Scatter plots for correlations
-- Tree maps for hierarchical data
+```
+HEADER: Australian Road Safety Dashboard
+Q1: Pie (Offences)   Q4: Line (Trends)
+Q2: Bubble Map (States)   Q5: Map (Fatalities)
+Q3: Scatter (Age)   Q6: Stacked Bar (Crashes)
+Q7: Dual-Axis (Fines vs Fatalities)
+```
 
-We sketched different layout options for how to arrange multiple visualizations on a single page. We experimented with grid layouts, tabbed interfaces, and scrolling single-page layouts.
+Problems Identified:
+* Too much information at once - overwhelming for users
+* Small charts would lose detail
+* Difficult to focus on specific questions
+* Not mobile-friendly
 
-#### First Digital Prototypes
+#### Alternative Design Sketches
 
-In Week 9, we created our first digital prototypes using D3.js. These were simple, non-interactive versions of our visualizations using a small sample of the data.
+**Alternative 1: Tabbed Interface**
 
-Our first prototype included:
+```
+AUSTRALIAN ROAD SAFETY EXPLORER
+[Q1] [Q2] [Q3] [Q4] [Q5] [Q6] [Q7]
+LARGE SINGLE VISUALIZATION (Active Tab)
+```
 
-- A basic bar chart comparing fine counts across states
-- A simple pie chart showing offence type distribution
-- A rudimentary map with colored states
+Pros:
+* Each visualization gets full screen space
+* Simple, familiar navigation
+* Mobile-friendly
 
-These prototypes were very basic. They had no interactivity, no filtering, and limited styling. However, they allowed us to test our technical approach and identify problems early.
+Cons:
+* No ability to compare multiple visualizations side-by-side
+* Requires many clicks to explore data
+* Loses context of enforcement vs. outcomes relationship
 
-**Problems we discovered:**
+**Alternative 2: Scrolling Story (Scrollytelling)**
 
-- The pie chart was hard to read with many small slices for rare offences
-- The bar chart became cluttered when showing multiple metrics
-- The map needed better visual encoding to show differences clearly
-- We needed consistent color schemes across visualizations
+```
+INTRODUCTION: The Road Safety Challenge
+"How are offences being enforced?"
+[Q1 Visualization - Full Width]
+Narrative text explaining patterns...
+"Where is enforcement concentrated?"
+[Q2 Visualization - Full Width]
+Narrative text explaining patterns...
+...continues for all questions...
+```
 
-#### Iteration Based on Feedback
+Pros:
+* Tells a compelling data story
+* Guides users through findings
+* Engaging narrative flow
 
-We showed our prototypes to our instructor and classmates in Week 10 and received valuable feedback.
+Cons:
+* Reduces interactivity (less exploration, more presentation)
+* Harder to revisit specific visualizations
+* Requires significant narrative writing
+* Doesn't support user-driven questions
 
-**Feedback received:**
+**Alternative 3: Split-Screen with Sections (SELECTED)**
 
-- "The pie chart should be a donut chart to look more modern and leave space for a label in the center"
-- "Add interactive tooltips so we can see exact values"
-- "The colors are too bright and distracting"
-- "It is hard to compare multiple states at once"
-- "Add filtering so we can focus on specific states or time periods"
-- "The mobile layout is broken and unusable"
+```
+AUSTRALIAN ROAD SAFETY EXPLORER
+Enforcement Actions vs Safety Outcomes
+[Filters: State ? | Year Range: 2020-2025]
+ENFORCEMENT (Q1-Q3)   OUTCOMES (Q4-Q6)
+COMPARISON (Q7)
+```
 
-Based on this feedback, we made significant changes:
+Pros:
+* Balances overview and detail
+* Thematic grouping makes relationship clear
+* Filters affect all visualizations (linked interactions)
+* Flexible: Can scroll to see more, or filter to focus
+* Mobile-adaptable (stack sections vertically)
 
-- Changed the pie chart to a donut chart with better labeling
-- Implemented tooltips showing detailed information on hover
-- Developed a more subdued, professional color palette
-- Added the stacked bar chart to enable multi-state comparison
-- Implemented filtering controls and cross-filtering between charts
-- Fixed responsive design issues for mobile devices
+Cons:
+* Slightly more complex layout
+* Requires careful sizing to avoid scrolling overload
 
-#### Second Iteration
+**Why We Selected Alternative 3:**
+1. Addresses Core Goal: Makes enforcement vs. outcomes comparison explicit through layout
+2. User-Driven Exploration: Supports both "tell me about X" (direct navigation) and "let me explore" (filtering) workflows
+3. Scalable: Can expand to add more visualizations without redesign
+4. Balances Simplicity and Power: Not overwhelming, but enables deep analysis
 
-In Week 11, we created a more complete version incorporating the feedback. This version included:
+**Stand Up 3 Update:**
+We further refined Alternative 3 by creating a separate Maps page (maps.html) for Q2 and Q5, giving geographic visualizations more canvas space while keeping the main visualizations page focused on charts.
 
-- All seven visualization types working together
-- Interactive filtering and cross-filtering
-- Consistent styling and color scheme
-- Responsive layout that worked on mobile
-- Tooltips and help text
-
-We conducted another round of testing with a wider group of users including people outside our class.
-
-**New feedback:**
-
-- "The heatmap is confusing, I do not understand what the colors mean"
-- "When I filter by one state, some charts become empty which is confusing"
-- "The map needs labels for the states"
-- "The line chart should allow comparing multiple states at once"
-- "The colors used for different offence types should be consistent across all charts"
-
-We addressed this feedback:
-
-- Added a clear legend and title to the heatmap explaining the color scale
-- Added messages explaining when filters result in no data for certain charts
-- Added state labels to the choropleth map
-- Enhanced the line chart to show multiple states simultaneously
-- Ensured consistent color mapping for offence types across all visualizations
-
-#### Final Design
-
-By Week 12, we arrived at our final design. This design incorporated all the feedback we received and met all our must-have requirements.
-
-The final design features:
-
-- Seven fully interactive visualizations arranged in a logical flow
-- Consistent visual styling with our chosen color palette
-- Smooth animations and transitions
-- Comprehensive tooltips and help text
-- Robust filtering system with clear feedback
-- Fully responsive layout working on all device sizes
-- Accessible features including ARIA labels and keyboard navigation
+Final Structure:
+* index.html - Overview/landing page
+* visualizations.html - Q1, Q3, Q4, Q6, Q7 (charts)
+* maps.html - Q2, Q5 (interactive maps)
+* about.html - Project information
 
 ### 4.2 Visualisation Design and Website Design
 
-Our website design integrates the visualizations into a cohesive, professional dashboard interface.
+#### Chart Types and Justification
 
-#### Layout Structure
+| Question | Chart Type | Visual Encoding | Justification |
+|---|---|---|---|
+| Q1 | Donut Chart (desktop) / Bar Chart (mobile) | Color by offence, angle/length by fines | Shows part-to-whole relationship, donut allows center text for total, bar better for mobile |
+| Q2 | Bubble Map | Bubble size → fines, position by geography, color by state | Geographic context + quantitative, bubble size shows enforcement intensity, intuitive distribution view |
+| Q3 | Heatmap | Color intensity by fine count, x=offence, y=age group | Reveals age-offence patterns through color intensity, supports demographic targeting, shows correlations |
+| Q4 | Line Chart | X=year, Y=fatalities, color by state | Shows temporal trends, line emphasizes continuity, multiple lines enable state comparison |
+| Q5 | Choropleth Map | State fill color → fatality rate per 100k | Geographic standard, color intensity shows risk, familiar to policy makers, normalized by population |
+| Q6 | Stacked Bar Chart | Stack segments by road user, x=crash type, color by user type | Shows part-to-whole + composition, easy comparison between single/multiple crashes, stacked shows victim breakdown |
+| Q7 | Dual-Axis Chart (desktop) / Scatter Plot (mobile) | Desktop: bars=fines (left axis), line=fatalities (right axis), Mobile: X=fines, Y=fatalities, position by values | Dual-axis shows correlation on desktop, scatter reveals relationship patterns on mobile, supports comparison analysis |
 
-The dashboard uses a single-page layout with visualizations arranged vertically. Users scroll down the page to see all visualizations. This approach works well because:
+#### Website Layout and Navigation
 
-- It is simple and intuitive
-- It works well on all device sizes
-- It creates a narrative flow through the data
-- It avoids the complexity of tabs or multiple pages
+**Information Architecture:**
 
-The layout consists of several sections:
+**Navigation Design:**
+* Sticky header: Remains visible when scrolling
+* Navigation tabs: Overview | Visualizations | Maps | About
+* Section navigation: Quick links within pages to jump to specific charts
+* Breadcrumbs: Show current location
+* Smooth scrolling: CSS scroll-behavior: smooth with scroll-margin-top: 120px for anchor targets
 
-**Header Section**
-- Project title and team information
-- Brief description of the dashboard purpose
-- Filter controls for global filtering
+**Color Scheme:**
+* Primary Blue: #26658c - Enforcement theme (conveys authority, action, prevention)
+* Blue Gradient: #3078a3, #5b9fc7, #8bbfdb - Offence types and road users
+* Neutral Gray: #2d2d2d, #737373, #e5e5e5 - Text and backgrounds
+* White: #ffffff - Clean canvas
+* Accessible: All color combinations meet WCAG AA contrast ratio (4.5:1)
 
-**Visualization Sections**
-- Each visualization has its own clearly defined section
-- Section titles explain what the visualization shows
-- Brief explanatory text provides context
+**Typography:**
+* Headings: "Inter" (sans-serif, modern, clean) - 800 weight
+* Body text: "Inter" (sans-serif, highly readable) - 400-600 weight
+* Data labels: "Inter" (consistent throughout)
+* Sizes:
+  - H1: 2rem (32px)
+  - H2: 1.5rem (24px)
+  - H3: 1.25rem (20px)
+  - Body: 1rem (16px)
+  - Small: 0.875rem (14px)
 
-**Footer Section**
-- Data source attribution
-- Links to GitHub repository
-- Contact information
+**Responsive Breakpoints:**
+* Desktop: 1024px+ (full layout, side-by-side sections)
+* Tablet: 768px-1023px (stacked sections, maintained interactivity)
+* Mobile: <768px (single column, simplified charts)
 
-#### Visual Styling
+**Implementation Status (Stand Up 3)**
+HTML Structure: COMPLETE
+* 4 pages implemented (index, visualizations, maps, about)
+* Semantic HTML5 markup
+* ARIA labels for accessibility
 
-**Color Palette**
+CSS Styling: COMPLETE
+* base.css - Core styles, typography, colors, layout
+* dashboard.css - Filter panel, chart containers, grid layouts
+* visualisations.css - SVG styles, tooltips, legends, chart-specific styles
 
-We developed a carefully chosen color palette:
-
-**Primary Colors:**
-- Deep blue (#1f4788) for primary elements and headings
-- Medium blue (#2e7d32) for interactive elements
-- Light blue (#e3f2fd) for backgrounds and highlights
-
-**Data Colors:**
-- For offence types, we use a categorical color scheme with distinct, easily distinguishable colors
-- For sequential data (like the heatmap), we use a blue-green gradient from light to dark
-- For diverging data, we use a blue-orange diverging scheme
-
-**Accessibility Colors:**
-- All color combinations meet WCAG AA contrast standards
-- Colors were tested using color blindness simulators to ensure they work for users with color vision deficiencies
-
-**Typography**
-
-We use clear, readable fonts:
-
-- **Headings**: Roboto Bold for section titles and chart titles
-- **Body Text**: Roboto Regular for explanatory text and labels
-- **Data Labels**: Roboto Mono for numbers to ensure clear readability
-
-All text sizes meet accessibility guidelines:
-- Minimum 14px for body text
-- Minimum 18px for headings
-- Text can be resized up to 200% without breaking the layout
-
-**Spacing and White Space**
-
-We use generous spacing to prevent the interface from feeling cluttered:
-
-- Large margins between visualization sections
-- Adequate padding within each visualization container
+JavaScript Implementation: COMPLETE
+* shared-constants.js - Color scales, state mappings, format utilities
+* interactions.js - Tooltip functions, legend helpers, resize handlers
+* data-loader.js - CSV loading, filtering, state management
+* 7 chart files: q1_fines_By_Offence.js through q7_fines_vs_fatalities_by_state.js
 - Clear separation between interactive controls and visualizations
 
 **Responsive Breakpoints**
