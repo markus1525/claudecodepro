@@ -22,37 +22,36 @@ https://github.com/COS30045-Inti-Subang/data-visualisation-project-dvgroup49
 
 **Year and Semester:** 2025, Semester 4
 
+**Word Count:** ?
+
 ---
 
 ## Table of Contents
 
-1. [Introduction](#1-introduction)
-   - 1.1 Background and Motivation
-   - 1.2 Visualisation Purpose
-   - 1.3 Project Schedule
-
-2. [Data](#2-data)
-   - 2.1 Data Source and Governance
-   - 2.2 Data Processing and Analysis
-   - 2.3 Data Exploration
-
-3. [Requirements](#3-requirements)
-   - 3.1 Must-Have Features
-   - 3.2 Optional Features
-
-4. [Visualization Design](#4-visualization-design)
-   - 4.1 Design Process and Evolution
-   - 4.2 Visualisation Design and Website Design
-   - 4.3 Design Principles
-   - 4.4 Interaction Design
-
-5. [Iteration and Validation](#5-iteration-and-validation)
-
-6. [Conclusion](#6-conclusion)
-
-7. [References](#7-references)
-
-8. [Appendices](#8-appendices)
+1. Introduction	2
+   1.1 Background and Motivation	2
+   1.2 Visualisation Purpose	4
+   1.3 Project Schedule	5
+2. Data	6
+   2.1 Data Source and Governance	6
+   2.2 Data Processing and Analysis	9
+   2.3 Data Exploration	21
+3. Requirements	26
+   3.1 Must-Have Features	26
+   3.2 Optional Features	28
+4. Visualization Design	30
+   4.1 Design Process and Evolution	30
+   4.2 Visualisation Design and Website Design	34
+   4.3 Design Principles	36
+   4.4 Interaction Design	39
+5. Iteration and Validation [Optional - Bonus Points]	42
+6. Conclusion	42
+7. References	42
+8. Appendices	42
+   Appendix A: Gen AI Declaration	42
+   Appendix B: Complete Data Dictionary	42
+   Appendix C: KNIME Workflow Documentation	42
+   Appendix D: Additional Screenshots	42
 
 ---
 
@@ -62,169 +61,104 @@ https://github.com/COS30045-Inti-Subang/data-visualisation-project-dvgroup49
 
 #### Target Audience and Key Tasks
 
-Our visualization dashboard is built for five different groups of users. Each group has specific needs and questions they want to answer using road safety data.
+Our visualisation is designed for five distinct user groups, each with specific information needs:
 
-**1. Policy Makers and Government Officials**
+1. **Policy Makers & Government Officials**
 
-These are people who work in government and make decisions about road safety laws and policies.
+   **Task:** Identify high-risk areas and evaluate enforcement effectiveness to inform road safety legislation
 
-**What they need to do:** They need to find which areas have the most road safety problems. They also need to check if enforcement activities are actually working. This information helps them create better road safety laws.
+   **Need:** Clear comparison between enforcement intensity and safety outcomes by state/region
 
-**What they need from our dashboard:** They need clear comparisons between how much enforcement is happening in each state and what the safety results are. They want to see this information by state and region so they can make targeted decisions.
+2. **Road Safety Analysts & Researchers**
 
-**2. Road Safety Analysts and Researchers**
+   **Task:** Study patterns in traffic violations and relationships between enforcement, demographics, and crash outcomes
 
-These are researchers and analysts who study traffic violations and crash patterns. They want to understand the deeper relationships in the data.
+   **Need:** Detailed drill-down capability, ability to filter by age, offence type, and location
 
-**What they need to do:** They study patterns in traffic violations. They want to understand how enforcement, demographics, and crash outcomes are related to each other.
+3. **Law Enforcement Agencies**
 
-**What they need from our dashboard:** They need detailed information that they can drill down into. They want to be able to filter data by age group, offence type, and location. This helps them find specific patterns and relationships.
+   **Task:** Understand enforcement patterns and optimize resource allocation
 
-**3. Law Enforcement Agencies**
+   **Need:** Geographic distribution of fines, identification of enforcement gaps
 
-These are police departments and traffic enforcement teams who are responsible for road safety enforcement.
+4. **General Public & Media**
 
-**What they need to do:** They need to understand current enforcement patterns. They want to optimize how they use their resources and where they place enforcement efforts.
+   **Task:** Understand road safety issues in their local area and hold officials accountable
 
-**What they need from our dashboard:** They need to see the geographic distribution of fines across Australia. They want to identify gaps in enforcement coverage so they can deploy resources more effectively.
+   **Need:** Intuitive comparisons, local context (state/region level)
 
-**4. General Public and Media**
+5. **Transport Safety Advocates**
 
-These are regular citizens and journalists who want to understand road safety in their local area. They want to hold officials accountable.
+   **Task:** Provide evidence-based arguments for safer roads and identify vulnerable populations
 
-**What they need to do:** They want to understand road safety issues in their own state or region. They want to compare their area to other areas. They may want to use this information to advocate for better road safety.
-
-**What they need from our dashboard:** They need intuitive and easy-to-understand comparisons. They want local context at the state and region level. The visualizations need to be simple enough for non-experts to understand.
-
-**5. Transport Safety Advocates**
-
-These are community organizations and advocacy groups who campaign for safer roads. They need evidence to support their arguments.
-
-**What they need to do:** They need evidence-based arguments to push for safer roads. They want to identify vulnerable populations who are at higher risk. They want to find gaps in enforcement.
-
-**What they need from our dashboard:** They need clear visualizations showing which groups are at risk. They want to see enforcement gaps clearly. They need to understand correlations between enforcement and fatalities.
+   **Need:** Clear visualization of at-risk groups, enforcement gaps, fatality correlations
 
 #### Problem Being Addressed
 
-Road safety is a major problem in Australia. Every year, hundreds of people die and thousands more are injured in road crashes. These crashes cause huge amounts of pain and suffering for families and communities. They also cost the economy billions of dollars through medical care, lost productivity, and property damage.
+The Bureau of Infrastructure and Transport Research Economics (BITRE) collects extensive road safety enforcement data. Since 2023, this includes fine-grained details (specific locations, offender age groups, offence types). However, this new data has not been integrated into publicly accessible visualizations, creating a critical gap:
 
-The government collects massive amounts of data about road safety. This includes information about traffic fines, crashes, fatalities, and enforcement activities. However, this data is often difficult to understand and use. The data sits in spreadsheets and databases where most people cannot access it or make sense of it.
-
-There are several specific problems with how road safety data is currently presented:
-
-**Data is scattered and disconnected.** Information about fines is separate from crash data. Enforcement statistics are kept apart from fatality records. This makes it very hard to see connections between different aspects of road safety. For example, you cannot easily see if areas with more enforcement have fewer crashes.
-
-**Data is not visual.** Most road safety data is presented in tables and reports with lots of numbers. This makes it very hard for most people to understand patterns and trends. Tables of numbers do not show you the big picture or help you spot important relationships.
-
-**Geographic patterns are hidden.** Road safety problems vary a lot across different states and regions in Australia. However, current data presentations make it difficult to see these geographic differences. You cannot easily compare one state to another or see which regions have the biggest problems.
-
-**Temporal trends are unclear.** Road safety changes over time as laws change, enforcement increases, and vehicle technology improves. However, it is difficult to see these trends over time in traditional data presentations. You cannot easily track whether things are getting better or worse.
-
-**Data is not accessible.** Most road safety data is locked away in government reports and academic papers. Regular citizens, journalists, and community groups cannot easily access this information. This makes it hard for people to understand road safety in their own area or to advocate for improvements.
-
-Our project addresses these problems by creating an interactive visualization dashboard. This dashboard brings together data from multiple sources. It presents the data visually using charts and maps that anyone can understand. It allows users to explore the data by state, region, offence type, age group, and time period. This makes patterns and relationships visible that were hidden before.
+* Raw data exists but is not actionable for stakeholders
+* Current public dashboard is outdated and lacks new detailed metrics
+* No visual correlation between enforcement and safety outcomes is currently shown
+* Decision-makers lack evidence to justify resource allocation strategies
 
 #### Importance of the Visualisation
 
-This visualization project is important for several key reasons.
+Road safety is a critical public health issue. By visualizing new enforcement data alongside fatality outcomes:
 
-**It makes data accessible to everyone.** By putting road safety data online in an easy-to-use format, we make this information available to all Australians. Policy makers, researchers, journalists, and regular citizens can all access the same information. This helps create informed public discussion about road safety issues.
-
-**It reveals hidden patterns.** When data is presented visually, patterns become obvious that were hidden in tables of numbers. You can quickly see which states have the highest fine rates, which age groups are most at risk, and how enforcement has changed over time. These visual patterns help people understand the data much faster than reading reports.
-
-**It supports better decision making.** Policy makers and law enforcement agencies can use the dashboard to identify problem areas and allocate resources more effectively. Instead of guessing where to focus enforcement efforts, they can use data to make evidence-based decisions. This leads to better outcomes and more efficient use of public resources.
-
-**It enables comparison and benchmarking.** The dashboard makes it easy to compare different states and regions. This allows everyone to see how their area compares to others. States can learn from regions that are doing well. Areas with high crash rates can be identified for targeted intervention.
-
-**It tracks progress over time.** By showing trends over multiple years, the dashboard helps everyone see whether road safety is improving or getting worse. This accountability is important for measuring the success of road safety programs and policies.
-
-**It empowers advocacy and public engagement.** Community groups and safety advocates can use the visualizations to support their campaigns for safer roads. When people can see clear visual evidence of problems, they are more motivated to push for change. This bottom-up pressure complements top-down policy making.
-
-**It demonstrates effective data visualization principles.** As a university project, this dashboard also serves an educational purpose. It shows how effective visualization design can make complex data understandable and useful. It demonstrates best practices in interactive data presentation, responsive design, and user-centered design.
+* Identifies patterns hidden in spreadsheets (e.g., which age groups drive violations vs. which are at-risk in crashes)
+* Enables evidence-based policy (e.g., should enforcement focus on high-fatality regions or proactive prevention?)
+* Improves transparency by making government data publicly accessible
+* Supports targeted interventions (e.g., is enforcement concentrated in major cities while rural areas have high fatalities?)
+* Evaluates strategy effectiveness (does more enforcement correlate with fewer deaths?)
 
 ### 1.2 Visualisation Purpose
 
-The main purpose of our visualization dashboard is to make Australian road safety data understandable and actionable for everyone who needs it.
+#### Core Research Questions
 
-We want to answer several key questions through our visualizations:
+Our dashboard enables users to answer six interconnected questions about road safety in Australia:
 
-**Where are the road safety problems?** Our geographic visualizations show which states and regions have the highest rates of traffic violations and fatalities. Users can quickly identify hotspots that need attention.
+**Enforcement Questions (from police enforcement data 2020-2024):**
 
-**Who is most at risk?** Our demographic breakdowns show which age groups receive the most fines and are involved in the most fatal crashes. This helps identify vulnerable populations that need targeted interventions.
+1. What are the most common offences being fined? Understanding which violations are most frequently enforced helps identify priority areas for road safety campaigns.
 
-**What types of violations are most common?** Our offence-type visualizations show the breakdown of different traffic violations. This helps enforcement agencies understand what behaviors they need to target.
+2. Where is enforcement concentrated? Which states enforce most in major cities vs remote areas? This reveals potential geographic gaps in enforcement coverage.
 
-**How has enforcement changed over time?** Our temporal visualizations show trends in fine issuance and crash rates over the years from 2020 to 2024. This helps evaluate whether enforcement efforts are increasing or decreasing.
+3. Is there a relationship between age and specific offences? Which age-offence combinations are most problematic? This enables targeted demographic interventions.
 
-**Is enforcement effective?** By showing both enforcement data and crash outcomes together, we help users explore potential relationships between enforcement activities and road safety results.
+**Outcomes Questions (from fatality data 2020-2024):**
 
-**How do different areas compare?** Our comparative visualizations allow users to benchmark different states and regions against each other. This promotes learning from high-performing areas.
+4. How have fatalities changed from 2020-2024? Are there seasonal or yearly trends? This helps evaluate whether road safety is improving over time.
 
-The dashboard is designed to be flexible and interactive. Different users can explore the data in different ways based on their specific needs. A researcher might drill down into detailed patterns for a specific age group and offence type. A policy maker might compare overall trends across states. A journalist might look at data for their local region to write a story.
+5. Which states have highest fatalities? Is there geographic clustering? This identifies regions requiring urgent attention.
 
-By making this data visual and interactive, we transform raw numbers into insights that can drive action. We turn spreadsheets into stories that people can understand and use.
+6. What types of crashes kill the most people? Who is most affected (drivers, pedestrians, motorcyclists, etc.)? This informs vehicle safety standards and infrastructure improvements.
+
+**Comparison Question:**
+
+7. Is there a relationship between enforcement intensity and fatality rates? Do states with more fines have fewer deaths? This evaluates enforcement effectiveness.
+
+#### Key Benefits
+
+* **Accessibility:** Transforms massive spreadsheets into intuitive interactive visualizations accessible to non-technical users
+* **Pattern Discovery:** Reveals relationships between age, offence, location, and crash outcomes not obvious in raw data
+* **Data-Driven Decision Making:** Provides evidence for resource allocation, intervention targeting, and policy development
+* **Comparative Analysis:** Enables direct comparison of enforcement intensity vs. safety outcomes to evaluate strategy effectiveness
+* **Public Transparency:** Makes government data publicly accessible, supporting informed community discourse
+* **Impact on Decision-Making:** Shifts focus from "How much enforcement?" to "Where is enforcement working? Where are gaps?"
 
 ### 1.3 Project Schedule
 
-Our project followed a structured timeline across the semester. This schedule helped us stay organized and make steady progress toward our final deliverable.
+Our work is planned in weekly milestones to avoid last-minute rushes and ensure quality deliverables.
 
-#### Week 7: Project Kickoff and Planning
-- Formed our team of three members
-- Selected our topic: Australian Road Safety Enforcement
-- Identified potential data sources from BITRE and other government sources
-- Created initial project proposal
-- Set up GitHub repository for version control
-- Distributed initial roles and responsibilities
-
-#### Week 8: Data Collection and Requirements
-- Downloaded raw data files from BITRE and other sources
-- Analyzed data structure and contents
-- Identified data quality issues and gaps
-- Created requirements document defining must-have and optional features
-- Sketched initial visualization ideas
-- Set up KNIME workspace for data processing
-
-#### Week 9: Data Processing and Initial Prototyping
-- Cleaned and processed raw data files using KNIME
-- Merged data from multiple sources
-- Created filtered datasets for different visualizations
-- Built first simple prototype visualizations
-- Tested basic D3.js implementations
-- Created initial website structure with HTML/CSS
-
-#### Week 10: Core Visualization Development
-- Implemented donut chart for offence type distribution
-- Developed bubble map for geographic fine distribution
-- Created heatmap for age group and offence type analysis
-- Built line chart for temporal trends
-- Established consistent color scheme and styling
-- Implemented basic interactivity for each chart
-
-#### Week 11: Advanced Features and Integration
-- Added choropleth map for state-level comparisons
-- Implemented stacked bar chart for state comparisons
-- Created dual-axis chart combining fines and fatalities
-- Integrated all visualizations into cohesive dashboard
-- Added cross-filtering and linked interactions
-- Implemented responsive design for different screen sizes
-
-#### Week 12: Refinement and Testing
-- Conducted user testing with classmates and instructors
-- Gathered feedback on usability and clarity
-- Fixed bugs and improved performance
-- Enhanced accessibility features
-- Optimized for mobile devices
-- Added documentation and help text
-
-#### Week 13: Final Polish and Deployment
-- Completed final round of testing
-- Made final design refinements based on feedback
-- Finalized all documentation
-- Deployed to Mercury web server
-- Prepared final presentation
-- Submitted complete project design book
-
-Throughout this schedule, we held regular team meetings twice per week. We used GitHub for version control and collaboration. We maintained consistent communication through our team chat group. This structured approach helped us deliver a high-quality final product on time.
+| Week | Milestone/Deliverable | Tasks |
+|---|---|---|
+| Week 8 | Team Formation | Form team, set up GitHub, review project brief |
+| Week 9 | Data Collection | Download BITRE data, start KNIME workflow, draft introduction |
+| Week 10 | Stand Up 1 | Complete data cleaning, exploratory analysis, calculate statistics. Submit: Draft intro, KNIME file, GitHub link |
+| Week 11 | Stand Up 2 | Create wireframes, design charts, plan interactions. Submit: 50% design book and website, updated datasets |
+| Week 12 | Stand Up 3 | Code D3 visualizations, implement interactions. Submit: 75% Design Book and website, latest version of dataset |
+| Week 13 | Final Submission | Polish design book, finalize website, complete all documentation. Submit: Completed Design Book, working website, all required files |
 
 ---
 
@@ -232,237 +166,454 @@ Throughout this schedule, we held regular team meetings twice per week. We used 
 
 ### 2.1 Data Source and Governance
 
-Our project uses data from several official Australian government sources. All of our data comes from reliable, authoritative sources that regularly publish road safety statistics.
+#### Data Source Identification
 
-#### Primary Data Sources
+We are collecting our data from the Australian Government's National Road Safety Data Hub, which is managed by the Bureau of Infrastructure and Transport Research Economics (BITRE).
 
-**BITRE (Bureau of Infrastructure and Transport Research Economics)**
+**Enforcement Data:**
+https://datahub.roadsafety.gov.au/safe-systems/safe-road-use/police-enforcement
 
-BITRE is our main data source. BITRE is part of the Australian Government Department of Infrastructure and Regional Development. They collect and publish comprehensive road safety statistics for all of Australia.
+**Fatalities Data:**
+https://datahub.roadsafety.gov.au/progress-reporting/monthly-road-deaths
 
-We use the following datasets from BITRE:
+**Collection Method:** We have downloaded the data as two primary tabular (CSV) files from the data hub.
 
-- **Road Deaths Database**: This dataset contains information about every fatal road crash in Australia. It includes details about when and where crashes occurred, the types of vehicles involved, and characteristics of the people who died. This data is updated monthly and goes back many years.
+**Dataset Type:** Both datasets are structured table data, with rows representing individual records and columns representing attributes.
 
-- **Serious Injury Database**: This dataset tracks road crashes that result in hospitalization. It provides context about the severity of road safety problems beyond just fatalities.
+**Core Datasets Used:**
 
-- **State and Territory Reports**: BITRE publishes detailed breakdowns of road safety statistics for each Australian state and territory. These reports include crash rates, fatality rates, and enforcement statistics.
+1. Core Dataset 1 (Enforcement): `police_enforcement_2024_fines.csv` (sourced from the 'Police Enforcement' link)
+2. Core Dataset 2 (Outcomes): `Australian Road Deaths Database Fatalities.csv` (sourced from the 'Monthly Road Deaths' link)
 
-**State and Territory Government Data Portals**
+#### Data Summary Table
 
-We also collected data from individual state government sources to supplement the BITRE data:
+| Dataset | File Name | Total Records | Time Period | Update Frequency |
+|---|---|---|---|---|
+| Police Enforcement | police_enforcement_2024_fines.csv | 12,179 | 2008-2024 | Annual |
+| Road Deaths Database | Australian_Road_Deaths_Database_Fatalities.csv | 57,852 | 1989-2025 | Monthly |
+| Processed (Enforcement) | ProcessedFines.csv | 11,960 | 2020-2024 | N/A (cleaned) |
+| Processed (Fatalities) | ProcessedFatalities.csv | 6,941 | 2020-2025 | N/A (cleaned) |
 
-- **Victoria**: VicRoads and the Department of Justice publish detailed fine and enforcement data
-- **New South Wales**: Transport for NSW and Revenue NSW publish traffic violation statistics
-- **Queensland**: Queensland Police Service publishes enforcement activity reports
-- **Other states**: We collected similar data from South Australia, Western Australia, Tasmania, Northern Territory, and ACT
+#### Data Governance Considerations
 
-This state-level data gives us more detailed information about specific types of traffic violations and enforcement activities that is not available in the national BITRE datasets.
+**Collection Process:**
+* Enforcement data: Aggregated from police citations and automated detection systems across all Australian states/territories
+* Fatality data: Reported by state road authorities and compiled by BITRE from police crash reports
+* Both datasets undergo quality assurance checks before public release
 
-#### Data Collection Period
+**Data Quality Assessment:**
+* Completeness: Enforcement data ~98% complete, fatality data ~99% complete (some missing demographic fields)
+* Accuracy: Government-sourced and validated, no known systematic biases reported
+* Timeliness: Published annually with monthly updates for fatalities
+* Known Issues:
+  - Some early records (pre-2020) have inconsistent age groupings
+  - Fatality data may include delayed reporting (deaths recorded after crash occurred)
+  - Enforcement data reflects detection capability (e.g., camera placement, enforcement resources)
 
-Our data covers the period from 2020 to 2024. This five-year window gives us enough historical data to identify trends while keeping the dataset manageable and focused on recent patterns. The year 2020 is particularly interesting as a starting point because it allows us to see how the COVID-19 pandemic affected road usage and safety.
+**Security, Privacy, and Ethical Considerations:**
+* Privacy: Data is already aggregated/anonymized (no individual identifiers), complies with privacy regulations
+* Ethical Use: We use this data to improve safety, not to stigmatize any demographic group
+* Bias Awareness: Enforcement patterns reflect deployment strategy, not offence rates, visualization acknowledges this limitation
+* Responsible Reporting: Findings contextualized to avoid misinterpretation
 
-#### Data Governance and Ethics
+#### Data-Question Alignment
 
-We carefully considered ethical and legal aspects of using this data:
+Our dataset directly supports all six research questions:
 
-**Public Data Only**: All of our data comes from publicly available sources. We did not request or use any confidential or restricted data.
-
-**No Personal Information**: The datasets we use contain only aggregate statistics. There is no personally identifiable information about individuals who received fines or were involved in crashes. This protects privacy while still allowing meaningful analysis.
-
-**Accurate Representation**: We are careful to represent the data accurately without exaggeration or distortion. Our visualizations show the data as it is, without manipulating it to support a particular agenda.
-
-**Proper Attribution**: We clearly cite all of our data sources and provide links to the original data. This allows users to verify our work and access the source data themselves.
-
-**Responsible Interpretation**: We are careful not to make causal claims that the data does not support. For example, we show correlations between enforcement and crashes, but we do not claim that enforcement directly causes changes in crash rates without additional evidence.
+| Question | Data Source | Relevant Attributes | Supports Answer? |
+|---|---|---|---|
+| Q1: Fines by offence type | Enforcement | OFFENCE_TYPE, FINES_COUNT | Yes |
+| Q2: Geographic enforcement | Enforcement | JURISDICTION, LOCATION, FINES_COUNT | Yes |
+| Q3: Age & offence relationship | Enforcement | AGE_GROUP, OFFENCE_TYPE, FINES_COUNT | Yes |
+| Q4: Fatality trends | Fatalities | YEAR, MONTH, FATALITY_COUNT | Yes |
+| Q5: Fatalities by state | Fatalities | STATE, FATALITY_COUNT | Yes |
+| Q6: Crash types & victims | Fatalities | CRASH_TYPE, ROAD_USER_TYPE, FATALITY_COUNT | Yes |
+| Q7: Fines vs Fatalities | Both | JURISDICTION/STATE, FINES, FATALITIES | Yes |
 
 ### 2.2 Data Processing and Analysis
 
-The raw data we collected required significant processing before it could be used in our visualizations. We used KNIME Analytics Platform to perform this data processing. KNIME is a powerful data analysis tool that allows us to build processing workflows visually.
+#### Key Attributes and Data Types
+
+**Enforcement Data (ProcessedFines.csv):**
+
+| Attribute | Data Type | Example | Description |
+|---|---|---|---|
+| YEAR | Ordinal | 2024 | Calendar year |
+| JURISDICTION | Categorical (Nominal) | NSW | State/territory code (8 values) |
+| LOCATION | Categorical (Ordinal) | Major Cities | Remoteness classification (5 categories) |
+| AGE_GROUP | Ordinal | 25-34 | Offender age bracket (7 categories) |
+| METRIC | Categorical (Nominal) | Speed Fines | Traffic offence category (4 types) |
+| DETECTION_METHOD | Categorical (Nominal) | Auto Detection Camera | How fine was detected (2 categories) |
+| FINES | Quantitative (Ratio) | 45,230 | Total fines issued |
+| CHARGES | Quantitative (Ratio) | 431 | Total charges filed |
+
+**Fatalities Data (ProcessedFatalities.csv):**
+
+| Attribute | Data Type | Example | Description |
+|---|---|---|---|
+| Crash_ID | Nominal | 120221303786 | Unique identifier for each crash |
+| State | Categorical (Nominal) | NSW | State/territory code (8 values) |
+| Month | Ordinal | 3 | Month number (1-12) |
+| Month_Name | Ordinal | March | Month name (text) |
+| Year | Ordinal | 2024 | Calendar year |
+| Crash_Type | Categorical (Nominal) | Single | Type of crash (2 categories) |
+| Road_User | Categorical (Nominal) | Driver | Type of road user (5 categories) |
+| Gender | Categorical (Nominal) | Male | Gender of victim (Male/Female/?) |
+| AgeGroup | Ordinal | 25-34 | Victim age bracket (7 categories + Unknown) |
 
 #### Data Cleaning Process
 
-**Handling Missing Values**
+**Step 1: Identifying Missing Values & Inconsistencies**
 
-The raw datasets had many missing values. We handled these in different ways depending on the context:
+Enforcement Data:
+* Missing age values (1.2%) - Investigated as "Unknown" or actual missing
+* Malformed offence descriptions - Standardized using lookup table
+* Inconsistent state abbreviations - Standardized to 2-letter codes
 
-- For missing state or region information, we excluded those records because geographic location is essential for our visualizations
-- For missing age group information, we created an "Unknown" category rather than excluding the data
-- For missing offence type details, we categorized them as "Other Offences"
-- We documented all our decisions about missing data handling
+Fatalities Data:
+* Gender marked as "Unknown" or blank - Standardized to "?"
+* Truck involvement coded as "-9" for missing - Standardized to "?"
+* Time values corrupted as "99:99:99" - Replaced with "00:00:01" (unknown time)
 
-**Standardizing Formats**
+**Step 2: Normalization & Transformation**
 
-Different data sources used different formats for the same information:
+Age Group Standardization (crucial for cross-dataset comparison):
+* Raw enforcement ages grouped: 0-16, 17-25, 26-39, 40-64, 65 and over
+* Raw fatality ages regrouped to match: 0-16, 17-25, 26-39, 40-64, 65 and over
+* Created unified age categories across both datasets for fair comparison
 
-- State names were sometimes abbreviated (NSW, VIC) and sometimes spelled out (New South Wales, Victoria). We standardized everything to full state names for consistency
-- Dates came in different formats (DD/MM/YYYY, YYYY-MM-DD, etc.). We converted everything to YYYY-MM-DD format
-- Age groups were defined differently across sources. We standardized to consistent age ranges: 17-25, 26-39, 40-64, 65+
-- Offence types had different names across states. We mapped them to consistent categories
+Detection Method Consolidation (Enforcement):
+* Original 8 detection types merged into 2 categories:
+  - "Auto Detection Camera": Average speed camera, Fixed camera, Mobile camera, Red light camera, Fixed or mobile camera
+  - "Manual Detection": Police issued, Not applicable
 
-**Removing Duplicates**
+Offence Type Grouping (Enforcement):
+* Standardized naming:
+  - speed_fines → Speed Fines
+  - mobile_phone_use → Mobile Phone Use
+  - non_wearing_seatbelts → Non Wearing Seatbelts
+  - unlicensed_driving → Unlicensed Driving
 
-We found some duplicate records where the same incident appeared multiple times in the data. We removed these duplicates while being careful not to remove legitimate records that just looked similar.
+**Step 3: Handling Missing Data**
 
-**Validating Data Quality**
+Enforcement Data:
+* Rows with missing JURISDICTION - Dropped (0.3% of data)
+* Rows with missing AGE_GROUP - Coded as "Unknown" to preserve fine counts
+* Rows with missing OFFENCE_TYPE - Coded as "Other"
 
-We performed several validation checks:
+Fatalities Data:
+* Rows with missing STATE - Dropped (0.1% of data)
+* Rows with missing AGE_GROUP - Coded as "Unknown" to preserve fatality counts
 
-- Checked that all dates fell within our expected range (2020-2024)
-- Verified that all state names matched known Australian states and territories
-- Confirmed that numeric values (fine amounts, counts) were reasonable and non-negative
-- Looked for outliers that might indicate data errors
+**Step 4: Data Filtering**
+* Filtered both datasets to years 2020 onwards (for temporal consistency)
+* Rationale: New fine-grained enforcement data only reliable from 2023 onwards, restricting to 2020-2024/5 allows 4 to 5-year comparison and focuses on recent trends most relevant to current policy
 
-#### Data Transformation Process
+**Step 5: Duplicate Removal**
+* No exact duplicates found in enforcement data
+* Cross-checked for logical duplicates (same state + offence + age + date) - None detected
+* Fatality data: Each record represents unique crash victim (no duplicates by design)
 
-After cleaning, we transformed the data into formats suitable for our different visualizations.
+#### KNIME Workflow Implementation - Data Cleaning (Stand Up 1 Completed)
 
-**Aggregation and Summarization**
+Our data processing was completed using KNIME Analytics Platform. Below are descriptions of our workflows:
 
-Most of our visualizations show aggregate statistics rather than individual records:
+**Core Dataset 1: Enforcement Data Cleaning Workflow**
 
-- We calculated total fine counts by state, year, age group, and offence type
-- We computed fatality counts and rates for different demographic groups
-- We calculated average fine amounts for different violation types
-- We created time series data by aggregating counts by year and month
+Process Flow:
 
-**Creating Derived Variables**
+1. CSV Reader → police_enforcement_2024_fines.csv
+   - Input: Raw enforcement data with all columns (2008-2024)
 
-We created new variables that did not exist in the raw data:
+2. Column Filter → Remove Unnecessary Columns
+   - Remove: start_date, end_date, location (detailed text field - kept LOCATION for remoteness)
+   - Keep: YEAR, JURISDICTION, LOCATION, AGE_GROUP, METRIC, DETECTION_METHOD, FINES, CHARGES
 
-- **Fine Rate per Population**: We combined fine count data with population statistics to calculate fines per 100,000 population. This allows fair comparison between states of different sizes
-- **Fatality Rate**: We calculated fatalities per 100,000 population for each state
-- **Enforcement Intensity**: We created a metric combining the number of fines issued with the number of enforcement officers and enforcement hours
-- **Severity Index**: We created a score indicating the overall severity of road safety problems in each region based on multiple factors
+3. Rule Engine #1 → Convert Detection Methods
+   - Rule: IF detection_method IN ("Average speed camera", "Mobile camera", "Red light camera", "Fixed camera", "Fixed or mobile camera") THEN "Auto Detection Camera"
+   - Otherwise: "Manual Detection"
 
-**Filtering and Subsetting**
+4. Rule Engine #2 → Convert "Not applicable" status
+   - Rule: IF applicable_status = "Not applicable" AND detection = "Police issued" THEN "Manual Detection"
 
-We created different filtered datasets for different visualizations:
+5. Rule Engine #3 → Rename All ages to Unknown
+   - Rule: IF AGE_GROUP = " All ages " THEN "Unknown"
 
-- A state-level summary dataset for the choropleth map
-- A time series dataset for the line chart showing trends
-- A detailed demographic dataset for the heatmap
-- A geographic point dataset for the bubble map
-- An offence-type summary for the donut chart
+6. Rule Engine #4 → Standardize METRIC values
+   - Rule: IF METRIC = "non_wearing_seatbelts" THEN "Non Wearing Seatbelts"
+   - Rule: IF METRIC = "speed_fines" THEN "Speed Fines"
+   - Rule: IF METRIC = "unlicensed_driving" THEN "Unlicensed Driving"
+   - Rule: IF METRIC = "mobile_phone_use" THEN "Mobile Phone Use"
 
-#### KNIME Workflow
+7. Row Filter → Filter Out Years Before 2020
+   - Condition: YEAR >= 2020
+   - Result: 11,960 records retained
 
-Our KNIME workflow consisted of several connected nodes:
+8. CSV Writer → ProcessedFines.csv
+   - Output: Clean enforcement data ready for aggregation
 
-1. **File Reader Nodes**: Read CSV files from different data sources
-2. **Column Filter Nodes**: Select only the columns we need
-3. **Row Filter Nodes**: Remove records with critical missing data
-4. **Missing Value Nodes**: Handle missing data appropriately
-5. **String Manipulation Nodes**: Standardize text fields
-6. **GroupBy Nodes**: Aggregate data to appropriate levels
-7. **Joiner Nodes**: Combine data from multiple sources
-8. **Math Formula Nodes**: Calculate derived variables
-9. **CSV Writer Nodes**: Export processed data for use in visualizations
+Data Quality Validation (Stand Up 1):
+- Records count: 11,960 (from original ~12,179 filtered to 2020-2024)
+- No duplicate records detected
+- All required columns present
+- Age standardization: 5 age brackets + "Unknown"
+- Detection methods: 2 categories consolidated
+- METRIC values: 4 standardized categories
 
-This workflow is saved in our GitHub repository so it can be rerun if we need to process updated data in the future.
+**Core Dataset 2: Fatalities Data Cleaning Workflow**
 
-#### Output Data Files
+Process Flow:
 
-The final output of our data processing was a set of clean CSV files:
+1. CSV Reader → Australian_Road_Deaths_Database_Fatalities.csv
+   - Input: Raw fatality data with historical records (1989-2025)
 
-- `state_summary.csv`: State-level aggregate statistics
-- `time_series.csv`: Monthly time series data
-- `age_offence_matrix.csv`: Cross-tabulation of age groups and offence types
-- `geographic_fines.csv`: Geographic coordinates and fine counts for mapping
-- `offence_distribution.csv`: Distribution of fine counts by offence type
-- `combined_metrics.csv`: State-level data combining fines and fatalities
+2. Rule Engine #1 → Replace Unknown Gender
+   - Rule: IF gender = "Unknown" OR gender = "" THEN "?"
+   - Purpose: Standardize missing values
 
-These files are much smaller and cleaner than the raw data. They load quickly and are in exactly the format our D3.js visualizations need.
+3. Rule Engine #2 → Replace Missing Truck Involvement
+   - Rule: IF truck_involvement = "-9" THEN "?"
+   - Purpose: Handle missing categorical values consistently
+
+4. Rule Engine #3 → Replace Malformed Time Values
+   - Rule: IF time = "99:99:99" OR time is invalid THEN "00:00:01"
+   - Purpose: Fix corrupted datetime entries
+
+5. String to Date&Time → Convert Time Format
+   - Converts time string to proper Date&Time object
+   - Enables temporal filtering and aggregation
+
+6. Rule Engine #4 → Group Ages into Standard Brackets
+   - Apply age categorization to create AgeGroup column:
+     0-16, 17-25, 26-39, 40-64, 65+
+   - Unmatched ages → "Unknown"
+
+7. Rule Engine #5 → Add Month Name
+   - Derives month name from month number for readability
+   - IF Month = 1 THEN "January", IF Month = 2 THEN "February", etc.
+
+8. Column Filter → Remove Unnecessary Columns
+   - Keep: Crash_ID, State, Month, Month_Name, Year, Crash_Type, Road_User, Gender, AgeGroup
+   - Remove: Detailed crash location, vehicle details, speed limits, etc.
+
+9. Row Filter → Filter Out Years Before 2020
+   - Condition: YEAR >= 2020
+   - Result: 6,941 records retained
+
+10. Column Resorter → Logical Column Order
+    - Order: Crash_ID, State, Month, Month_Name, Year, Crash_Type, Road_User, Gender, AgeGroup
+
+11. CSV Writer → ProcessedFatalities.csv
+    - Output: Clean fatality data ready for aggregation
+
+Data Quality Validation (Stand Up 1):
+- Records count: 6,941 (from original ~57,852 filtered to 2020-2024)
+- Age standardization: 7 brackets + "Unknown"
+- Missing value handling: ~1% of records retained as "Unknown" vs. dropped
+- Temporal data fixed: Time format validated
+- No logical duplicates detected
+- All required columns present
+
+#### KNIME Aggregation Workflows for Visualizations (Stand Up 2 - In Progress)
+
+For each of our 7 research questions, we created specific aggregated datasets optimized for D3.js visualization.
+
+Aggregation Strategy: Each workflow follows this pattern:
+
+**Q1: Fines by Offence Type (Donut Chart)**
+* Input: ProcessedFines.csv
+* Process: Column Filter → GroupBy (METRIC) → Math Formula (calculate %) → Sorter → CSV Writer
+* Output: Q1_Fines_By_Offence_Overall.csv (4 rows) + Q1_Fines_By_Offence_Detailed.csv (with YEAR, STATE)
+* Columns: Offence_Type, Total_Fines, Percentage
+
+**Q2: Enforcement by State (Bubble Map)**
+* Input: ProcessedFines.csv
+* Process: Column Filter → GroupBy (JURISDICTION, YEAR, STATE) → Rule Engine (add lat/lon) → Sorter → CSV Writer
+* Output: Q2_Enforcement_By_State.csv
+* Columns: State, Year, Total_Fines, Latitude, Longitude, Color_Hex
+
+**Q3: Age vs Offence Relationship (Heatmap)**
+* Input: ProcessedFines.csv
+* Process: Column Filter → GroupBy (AGE_GROUP, METRIC, YEAR, STATE) → CSV Writer
+* Output: Q3_Age_Offence_Heatmap.csv
+* Columns: Age_Group, Offence_Type, Year, State, Fines
+
+**Q4: Fatality Trends by Year (Line Chart)**
+* Input: ProcessedFatalities.csv
+* Process: Column Filter → GroupBy (Year, State) → Column Renamer → Pivot → Math Formula → Sorter → CSV Writer
+* Output: Q4_Fatalities_Trend_By_Year.csv
+* Columns: ACT, NSW, NT, QLD, SA, TAS, VIC, WA, Total
+
+**Q5: Fatalities by State (Choropleth Map)**
+* Input: ProcessedFatalities.csv
+* Process: Column Filter → GroupBy (State) → Column Renamer → Rule Engine (add State_Name, Lat, Lon, Population) → Math Formula (calculate rate) → Rule Engine (add Color_Hex) → Sorter → CSV Writer
+* Output: Q5_Fatalities_By_State.csv
+* Columns: State, Year, Total_Fatalities, State_Name, Latitude, Longitude, Population_M, Fatality_Rate_Per_100k, Color_Hex
+
+**Q6: Crash Types by Road User (Stacked Bar Chart)**
+* Input: ProcessedFatalities.csv
+* Process: Column Filter → GroupBy (Crash_Type, Road_User) → Column Renamer → Pivot → Row Filter (remove Unknown) → Math Formula (sum road users) → Sorter → CSV Writer
+* Output: Q6_Crash_Types_By_Road_User.csv
+* Columns: Crash_Type, Driver, Motorcycle_pillion_passenger, Motorcycle_rider, Passenger, Pedal_cyclist, Pedestrian, Unknown, Total_Fatalities
+
+**Q7: Fines vs Fatalities by State (Dual-Axis / Scatter Plot)**
+* Input: ProcessedFatalities.csv
+* Process:
+  - Workflow 1: Fines → Column Filter → GroupBy (JURISDICTION, YEAR, STATE) → Column Renamer → Sorter → Fines_Table
+  - Workflow 2: Fatalities → Column Filter → GroupBy (State) → Column Renamer → Sorter → Fatalities_Table
+  - Joiner: Join on JURISDICTION = State (inner join)
+  - Column Filter → Math Formula (Fines_Per_Fatality ratio) → Math Formula (Fatality_Rate per 100k) → Math Formula (Fines per Capita) → Sorter → CSV Writer
+* Output: Q7_Fines_vs_Fatalities_By_State.csv
+* Columns: State, Year, Total_Fines, Total_Fatalities, Fines_Per_Fatality
+
+**Generated Datasets (Stand Up 2 - Completed):**
+- Q1_Fines_By_Offence_Overall.csv
+- Q1_Fines_By_Offence_Detailed.csv
+- Q2_Enforcement_By_State.csv
+- Q3_Age_Offence_Heatmap.csv
+- Q4_Fatalities_Trend_By_Year.csv
+- Q5_Fatalities_By_State.csv
+- Q6_Crash_Types_By_Road_User.csv
+- Q7_Fines_vs_Fatalities_By_State.csv
+
+#### KNIME Workflow Files
+
+Our complete data processing workflow is saved as DV_Group49_DataProcessing.knwf and includes:
+* Two parallel processing streams (one for fines, one for fatalities)
+* All cleanup nodes described above
+* Seven aggregation workflows for visualization-specific datasets
+* CSV Writer nodes to output processed files
+* Documentation annotations explaining each step
+
+Workflow Location:
+* GitHub Repository: /data/KNIME/ folder
+* KNIME Hub: https://hub.knime.com/s/uQpubRgqKNzYHP0q
+* Workflow File: DV_Group49_DataProcessing.knwf (attached to submission)
 
 ### 2.3 Data Exploration
 
-Before creating our final visualizations, we explored the data to understand its patterns and characteristics. This exploration helped us design more effective visualizations.
+#### Exploratory Data Analysis
 
-#### Key Patterns Discovered
+**Enforcement Data (ProcessedFines.csv) - Summary Statistics:**
 
-**Geographic Patterns**
+* Total Fines 2020-2024: ~ 22.7 million (across all states and offence types)
+* Distribution by State:
+  - NSW: ~6.4 million fines (28%)
+  - VIC: ~5.9 million fines (26%)
+  - QLD: ~4.9 million fines (21%)
+  - WA: ~3.7 million fines (16%)
+  - SA, TAS, NT, ACT: ~1.8 million combined (9%)
+* Distribution by Offence Type:
+  - Speed Fines: ~20.75 million (91.2%)
+  - Mobile Phone Use: ~1.47 million (6.5%)
+  - Non Wearing Seatbelts: ~418,656 (1.8%)
+  - Unlicensed Driving: ~105,974 (0.5%)
+* Age Group Distribution:
+  - Highest fines: 26-39 age group (~32%)
+  - Second highest: 40-64 age group (~35%)
+  - Third: 17-25 age group (~18%)
+  - Lowest fines: 65+ age group (~6%)
+  - Unknown: ~9%
+* Detection Method:
+  - Auto Detection Camera: ~85% (majority from speed cameras)
+  - Manual Detection: ~15%
 
-Our exploration revealed clear geographic differences in road safety:
+**Fatalities Data (ProcessedFatalities.csv) - Summary Statistics:**
 
-- New South Wales and Victoria have the highest absolute numbers of fines and fatalities, but this is expected because they have the largest populations
-- When adjusted for population, Northern Territory has the highest fatality rate per capita
-- Tasmania has the lowest fine issuance rate, which might indicate lower enforcement rather than better behavior
-- Urban areas have higher fine counts but lower fatality rates than rural areas
+* Total Fatalities 2020-2024: 6,941 deaths
+* Annual Average: ~1,388 deaths per year
+* Distribution by State:
+  - NSW: ~1,777 deaths (26%)
+  - VIC: ~1,481 deaths (21%)
+  - QLD: ~1,653 deaths (24%)
+  - WA: ~983 deaths (14%)
+  - SA: ~533 deaths (8%)
+  - TAS: ~248 deaths (4%)
+  - NT: ~239 deaths (3%)
+  - ACT: ~54 deaths (1%)
+* Age Group at Risk:
+  - Highest fatalities: 40-64 age group (~35%)
+  - Second: 25-39 age group (~25%)
+  - Third: 17-25 age group (~15%)
+  - 65+: ~18%
+  - 0-16: ~7%
+* Crash Type Distribution:
+  - Single vehicle: ~3,811 deaths (55%)
+  - Multiple vehicle: ~3,121 deaths (45%)
+* Road User Distribution:
+  - Drivers: ~3,231 deaths (47%)
+  - Passengers: ~1,122 deaths (16%)
+  - Motorcycle riders: ~1,343 deaths (19%)
+  - Pedestrians: ~797 deaths (11%)
+  - Pedal cyclists: ~220 deaths (3%)
+  - Motorcycle pillion passengers: ~197 deaths (3%)
+* Gender Distribution:
+  - Male: ~5,013 deaths (72%)
+  - Female: ~1,815 deaths (26%)
+  - Unknown: ~113 deaths (2%)
 
-**Demographic Patterns**
+#### Initial Observations and Patterns
 
-We found important patterns across different age groups:
+1. **Age Paradox:**
+   * Finding: Middle-aged drivers (40-64) receive the most fines AND have disproportionately high fatality rates
+   * Implication: This age group is both heavily enforced and at high risk, suggesting enforcement alone may not reduce their crash risk
 
-- The 17-25 age group receives the highest proportion of speeding fines
-- The 26-39 age group has the highest total number of fines across all categories
-- Older drivers (65+) receive fewer fines but have a higher proportion of fines for failure to obey traffic signals
-- Young male drivers are overrepresented in serious crash statistics
+2. **Offence-Outcome Relationship:**
+   * Finding: Speeding accounts for 45% of fines, but we cannot directly link speeding fines to crash causes (data limitation)
+   * Data gap: Crash cause data not available in fatality dataset, can only infer patterns
+   * Visualization opportunity: Show enforcement priorities vs. known crash risk factors
 
-**Offence Type Patterns**
+3. **State Variation:**
+   * Finding: NSW and VIC have highest absolute enforcement AND highest absolute fatalities
+   * Question: More enforcement could indicate:
+     - Response to high crash rates (reactive)
+     - Larger populations (expected)
+     - More aggressive enforcement strategy
+   * Visualization needed: Normalize by population to show per-capita rates
 
-Different types of violations have different patterns:
+4. **Detection Method Insights:**
+   * Finding: 85% of fines from automated cameras
+   * Implication: Automated enforcement enables consistent 24/7 detection, manual enforcement limited by officer availability
 
-- Speeding is by far the most common offence, accounting for over 60% of all fines
-- Mobile phone use while driving has increased significantly from 2020 to 2024
-- Drink driving fines have decreased over the study period
-- Seatbelt violations remain relatively constant
+5. **Vulnerable Road Users:**
+   * Finding: Motorcycle riders (19%) and pedestrians (11%) are overrepresented relative to their mode share
+   * Implication: These groups require targeted safety interventions
 
-**Temporal Patterns**
+6. **Gender Disparity:**
+   * Finding: Males account for 72% of road fatalities
+   * Implication: Gender-specific risk factors and behaviors should be studied further
 
-We identified several interesting trends over time:
+#### Data Challenges Encountered
 
-- Overall fine issuance increased from 2020 to 2024
-- There was a notable drop in both fines and crashes during 2020, likely due to COVID-19 lockdowns
-- Fatality rates have remained relatively stable despite increased enforcement
-- Camera-based enforcement (speed and red light cameras) has increased while traditional traffic stops have decreased
+1. **Age Bracket Mismatch (Resolved):**
+   * Challenge: Enforcement uses different age groupings than fatalities
+   * Resolution: Standardized to consistent age bands
+   * Impact: Enables direct cross-dataset comparison in Q3 visualization
 
-#### Statistical Analysis
+2. **Missing Demographic Data:**
+   * Challenge: ~1-2% of records missing age/gender information
+   * Resolution: Marked as "Unknown" but preserved fine/fatality counts
+   * Impact: Total counts remain accurate, demographic breakdowns note "Unknown" category
 
-We performed basic statistical analysis to quantify patterns:
+3. **Temporal Gaps and Reporting Lag:**
+   * Challenge: 2024 fatality data may be incomplete
+   * Resolution: Aware of potential undercount, noted in data quality discussion
+   * Mitigation: Filter 2024 data for trend analysis if needed
 
-**Correlation Analysis**
+4. **No Individual-Level Linking:**
+   * Challenge: Cannot match "fined driver" to "crash victim"
+   * Limitation: Analysis at aggregate level only
+   * Workaround: Compare population-level patterns (e.g., "Do states with more speeding fines have fewer crashes?")
 
-We calculated correlations between different variables:
+5. **Crash Cause Data Not Available:**
+   * Challenge: Fatality dataset doesn't include crash cause
+   * Impact: Cannot directly link enforcement targeting to crash causes
+   * Workaround: Visualize enforcement priorities alongside general crash patterns
 
-- Fine rate and fatality rate show a weak negative correlation (-0.23) across states. This suggests states with more enforcement might have slightly fewer fatalities, but the relationship is not strong
-- Population density and fine rate show a moderate positive correlation (0.58). More densely populated areas have higher enforcement
-- Camera count and fine count show a strong positive correlation (0.82). States with more cameras issue more fines
-
-**Distribution Analysis**
-
-We examined the distributions of key variables:
-
-- Fine counts follow a highly skewed distribution with a few very common offences (speeding) and many rare ones
-- Fine amounts show a multi-modal distribution with peaks at common fine values ($100, $200, $300, etc.)
-- Age distributions of fined drivers roughly match the overall driving population but with young drivers overrepresented
-
-#### Data Quality Assessment
-
-Our exploration also revealed data quality issues:
-
-**Coverage Gaps**
-
-- Some smaller territories have incomplete data for certain years
-- Serious injury data is less complete than fatality data
-- Some states do not report certain offence types separately
-
-**Consistency Issues**
-
-- Reporting standards changed slightly in 2022, affecting comparability across years
-- Different states use different age grouping in some reports
-- Some categories are defined differently across jurisdictions
-
-**Limitations**
-
-We identified several limitations that affect interpretation:
-
-- We have enforcement data (fines) but not exposure data (how many people committed violations but were not caught)
-- We cannot directly link enforcement actions to crash outcomes for the same individuals
-- Crash data does not include property-damage-only crashes, only injury and fatal crashes
-- We do not have data on enforcement resources (officer hours, camera locations) for all states
-
-These limitations are important to keep in mind when interpreting our visualizations. We make sure to communicate these limitations to users through explanatory text in the dashboard.
+6. **Population Data Required for Normalization:**
+   * Challenge: To calculate per-capita rates, need external population data
+   * Resolution: Sourced 2023 Australian Bureau of Statistics (ABS) state population estimates, added to Q7 workflow
+   * Data: NSW: 8.3M, VIC: 6.7M, QLD: 5.5M, WA: 2.9M, SA: 1.8M, TAS: 0.57M, NT: 0.25M, ACT: 0.46M
 
 ---
 
@@ -470,176 +621,109 @@ These limitations are important to keep in mind when interpreting our visualizat
 
 ### 3.1 Must-Have Features
 
-Based on our analysis of user needs and available data, we defined several features that our visualization dashboard must include.
+These are core features without which the project would fail to meet its objectives. These features are non-negotiable and will be prioritized in our implementation.
 
-#### Seven Core Visualizations
+**Feature 1: Seven Interactive Visualizations**
+* Q1: Donut chart (desktop/tablet) / Bar chart (mobile) showing fines by offence type
+* Q2: Bubble Map showing total enforcement (fines) by state
+* Q3: Heatmap showing age group vs offence type patterns
+* Q4: Line chart showing fatality trends from 2020-2024
+* Q5: Choropleth map showing fatality rates per 100k by state
+* Q6: Stacked bar chart showing crash types and affected road users
+* Q7: Dual-axis chart (desktop) / Scatter plot (mobile) comparing fines vs.fatalities by state
 
-Our dashboard must include seven different types of visualizations. Each visualization serves a specific purpose and answers different questions about the data.
+Status: All 7 visualizations coded and functional
 
-**1. Donut Chart - Offence Type Distribution**
+**Feature 2: State/Territory Filter (COMPLETE)**
+* Users can select one or multiple states to filter all visualizations
+* Default: All states visible
+* Implementation: Multi-select dropdown in filter panel
+* Behavior: When state selected, all charts update to show only that state's data
 
-This visualization shows the breakdown of traffic fines by offence type. Users can see what proportion of fines are for speeding, mobile phone use, drink driving, seatbelt violations, and other offences. This chart must be interactive, allowing users to click on segments to filter other visualizations.
+Status: Fully functional with data-loader.js integration
 
-**2. Bubble Map - Geographic Distribution of Fines**
+**Feature 3: Year Range Selector (COMPLETE)**
+* Two input fields allow users to filter by year range (2020-2024)
+* Default: All years visible
+* Implementation: Two number inputs (year-from, year-to)
+* Behavior: Updates all time-dependent visualizations (Q4, Q7, and aggregates Q1-Q6)
 
-This map shows the geographic distribution of traffic fines across Australia. Bubbles appear at different locations with sizes proportional to the number of fines issued in that area. This helps users quickly identify enforcement hotspots and geographic patterns.
+Status: Fully functional
 
-**3. Heatmap - Age Group vs Offence Type**
+**Feature 4: Interactive Tooltips (COMPLETE)**
+* Hover over any data element shows exact values
+* Tooltip content: Label, value, percentage (where applicable), additional context
+* Implementation: D3.js mouseover/mouseout events with tooltip div
+* Design: Dark background (rgba(44,62,80,0.95)), white text, smooth fade transitions (200ms)
 
-This heatmap displays a matrix showing the relationship between age groups and offence types. Each cell is color-coded based on the number of fines for that combination. This helps users identify which age groups are most prone to which types of violations.
+Status: Implemented across all 7 charts
 
-**4. Line Chart - Temporal Trends**
+**Feature 5: Responsive Layout (COMPLETE)**
+* Dashboard functions across desktop (1200px+), tablet (768-1199px), and mobile (<768px)
+* Desktop: Side-by-side visualizations, full interactivity
+* Tablet: Stacked visualizations, maintained interactivity
+* Mobile: Single-column layout, simplified charts (e.g., bar instead of donut)
+* Implementation: CSS media queries, flexible SVG sizing
 
-This line chart shows how fine counts and crash rates have changed over time from 2020 to 2024. Users can toggle between viewing different metrics and different states. This helps track progress and identify trends.
+Status: Fully responsive with breakpoints at 640px and 768px
 
-**5. Choropleth Map - State-Level Comparison**
+**Feature 6: Clear Navigation and Layout (COMPLETE)**
+* Header: Project title and navigation menu (Overview, Visualizations, Maps, About)
+* Section headers: "Police Enforcement" and "Safety Outcomes"
+* Section navigation: Quick links to jump to specific charts
+* Footer: Data attribution and last updated date
+* Implementation: HTML5 semantic markup, CSS Grid/Flexbox, sticky header
 
-This map shows all Australian states and territories color-coded based on selected metrics like fine rate per capita or fatality rate. This enables quick visual comparison across states and identification of geographic patterns at the state level.
+Status: Complete with 4-page structure
 
-**6. Stacked Bar Chart - State Comparison by Offence Type**
+**Feature 7: Data Validation and Error Handling (COMPLETE)**
+* Verify totals match source data after aggregation
+* Display error messages if CSV files fail to load
+* Handle edge cases (e.g., no data for selected filters)
+* Implementation: JavaScript try-catch blocks, empty state displays, loading indicators
 
-This chart compares all states side by side, with bars broken down by offence type. This allows users to compare both total fine volumes and the composition of violations across states.
+Status: Error handling implemented in data-loader.js
 
-**7. Dual-Axis Chart - Enforcement vs Outcomes**
-
-This chart displays both enforcement metrics (like fine counts) and outcome metrics (like fatalities) on the same chart with two different y-axes. This helps users explore potential relationships between enforcement activities and road safety outcomes.
-
-#### Interactive Features
-
-**Filtering and Selection**
-
-Users must be able to filter the data in multiple ways:
-
-- Filter by state or territory
-- Filter by time period (year or year range)
-- Filter by age group
-- Filter by offence type
-
-When users apply filters, all visualizations must update accordingly to show only the filtered data.
-
-**Cross-Filtering**
-
-When users click on elements in one visualization, it should filter the data shown in other visualizations. For example, clicking on "Speeding" in the donut chart should update all other charts to show only speeding-related data. Users must be able to clear filters easily.
-
-**Tooltips**
-
-All visualizations must include informative tooltips that appear when users hover over elements. Tooltips should show exact values and provide context for understanding the data.
-
-**Responsive Design**
-
-The dashboard must work on different screen sizes:
-
-- Desktop computers (1920x1080 and larger)
-- Tablets in landscape and portrait orientation (768x1024)
-- Mobile phones in portrait orientation (375x667 minimum)
-
-The layout should adapt gracefully, with visualizations resizing or stacking vertically on smaller screens.
-
-#### Data Loading and Performance
-
-**Fast Loading**
-
-The dashboard must load quickly. All data files should be optimized for size. The initial page load should complete in under 3 seconds on a typical broadband connection.
-
-**Smooth Interactions**
-
-All interactions should respond quickly without noticeable lag. Transitions and animations should be smooth and should complete in under 500 milliseconds.
-
-#### Accessibility
-
-**Screen Reader Support**
-
-The dashboard must work with screen readers. All visualizations must have appropriate ARIA labels and descriptions. Users who cannot see the visual charts should be able to access the data through their screen reader.
-
-**Keyboard Navigation**
-
-All interactive elements must be accessible via keyboard. Users should be able to tab through filters, buttons, and interactive chart elements without needing a mouse.
-
-**Color Blindness Considerations**
-
-The color scheme must be distinguishable for users with common types of color blindness. We must not rely solely on color to convey information.
-
-**Text Alternatives**
-
-Each visualization must have a text summary describing the key patterns visible in the chart. This helps users with visual impairments and also helps all users understand what to look for.
-
-#### Documentation and Help
-
-**Clear Labels and Titles**
-
-Every visualization must have a clear title and axis labels. Users should be able to understand what they are looking at without extensive explanation.
-
-**Help Text**
-
-The dashboard should include help information explaining how to use the interactive features and how to interpret the visualizations.
-
-**Data Sources**
-
-Clear attribution to data sources must be visible on the page. Users should be able to find links to the original data sources.
+Delivery Confidence: HIGH - All must-have features are implemented and tested
 
 ### 3.2 Optional Features
 
-In addition to the must-have features, we identified several optional features that would enhance the dashboard if time permits.
+Features that would enhance the user experience but are not critical to project success. These will be implemented if time permits after all must-have features are complete.
 
-#### Advanced Filtering
+**Optional Feature 1: Animated Transitions (IMPLEMENTED)**
+* Status: Smooth D3.js transitions when data updates (bars growing, line drawing, fade-ins)
+* Duration: 500-800ms with easing functions
+* Implementation: Applied to all 7 charts
+* Priority: Medium
+* Time Invested: ~4 hours
 
-**Multi-Select Filters**
+**Optional Feature 2: Legend Interactivity (PARTIAL)**
+* Status: Legends implemented for Q1, Q6 with visual highlighting on hover
+* Limitation: Not fully interactive (click to filter) due to time constraints
+* Priority: Medium
+* Time Invested: ~2 hours
 
-Instead of filtering by one state at a time, allow users to select multiple states for comparison. This would make it easier to compare specific groups of states.
+**Optional Feature 3: Separate Maps Page (IMPLEMENTED)**
+* Status: Created dedicated maps.html page for Q2 and Q5 visualizations
+* Benefit: Maps get larger canvas space for better visibility
+* Priority: High
+* Time Invested: ~1 hours
 
-**Date Range Selector**
+**Optional Feature 4: Accessibility Enhancements (IMPLEMENTED)**
+* Status: ARIA labels, keyboard navigation, data table fallbacks for screen readers
+* Implementation: All interactive elements accessible via Tab key, screen reader-only tables
+* Priority: High (ethical obligation)
+* Time Invested: ~5 hours
 
-Implement a visual date range selector that allows users to drag endpoints to select custom time periods rather than just selecting predefined years.
+**Optional Feature 5: Mobile-Specific Chart Variants (IMPLEMENTED)**
+* Status: Q1 switches from donut to bar chart on mobile, Q7 switches to scatter plot
+* Implementation: JavaScript checkMobile() function with window resize listener
+* Priority: Medium
+* Time Invested: ~3 hours
 
-#### Data Export
-
-**Download Filtered Data**
-
-Allow users to download the currently filtered data as a CSV file. This would enable users to perform their own additional analysis in Excel or other tools.
-
-**Export Visualizations**
-
-Provide buttons to download individual visualizations as PNG or SVG images. This would help users include the charts in reports and presentations.
-
-#### Enhanced Interactivity
-
-**Brushing and Linking**
-
-Implement more advanced linking between charts where users can drag to select ranges in one chart and see how that selection affects other charts.
-
-**Animation Controls**
-
-For the time series visualizations, provide play/pause controls that animate through the years automatically, showing how patterns change over time.
-
-#### Comparison Features
-
-**Side-by-Side Comparison**
-
-Allow users to create two separate views of the dashboard with different filters applied, enabling direct comparison of different states or time periods.
-
-**Benchmarking**
-
-Provide automatic identification of best-performing and worst-performing states on various metrics, with visual highlighting of these outliers.
-
-#### Contextual Information
-
-**News Integration**
-
-Show relevant news articles or policy changes aligned with spikes or changes in the data. This would provide context for understanding why patterns change.
-
-**Weather and Event Data**
-
-Integrate data about major events or weather patterns that might affect road safety, helping users understand external factors.
-
-#### Advanced Analytics
-
-**Trend Prediction**
-
-Use simple statistical methods to project future trends based on historical data, helping policy makers plan ahead.
-
-**Clustering Analysis**
-
-Automatically identify states or regions with similar patterns and group them together for comparison.
+Delivery Strategy:
+* Week 12 (Stand Up 3): Completed all must-haves + 5 optional features
+* Week 13: Polish remaining optional features if time permits
 
 ---
 
@@ -647,398 +731,359 @@ Automatically identify states or regions with similar patterns and group them to
 
 ### 4.1 Design Process and Evolution
 
-Our visualization design went through multiple iterations based on testing and feedback. We started with simple sketches and gradually refined our designs into the final interactive dashboard.
+#### Initial Design Concepts
 
-#### Initial Sketches and Wireframes
+Our initial design thinking focused on three core principles:
+1. Clarity Over Complexity: Each visualization should answer one specific question clearly
+2. Comparison-Friendly: Enable easy comparison between enforcement (actions) and outcomes (consequences)
+3. Progressive Disclosure: Start with overview, allow drilling down into details
 
-In Week 8, we created hand-drawn sketches of possible visualizations. We brainstormed different ways to show the data and sketched out rough ideas on paper. These initial sketches helped us explore different options quickly without committing to code.
+**Initial Brainstorming (Week 9):**
 
-We considered many different visualization types:
+We began by sketching rough ideas for each research question. Our first instinct was to create a "dashboard" with all visualizations visible simultaneously in a grid layout.
 
-- Bar charts for comparing states
-- Pie charts for showing offence type distribution
-- Maps for geographic patterns
-- Line charts for trends over time
-- Scatter plots for correlations
-- Tree maps for hierarchical data
+```
+HEADER: Australian Road Safety Dashboard
+Q1: Pie (Offences)   Q4: Line (Trends)
+Q2: Bubble Map (States)   Q5: Map (Fatalities)
+Q3: Scatter (Age)   Q6: Stacked Bar (Crashes)
+Q7: Dual-Axis (Fines vs Fatalities)
+```
 
-We sketched different layout options for how to arrange multiple visualizations on a single page. We experimented with grid layouts, tabbed interfaces, and scrolling single-page layouts.
+Problems Identified:
+* Too much information at once - overwhelming for users
+* Small charts would lose detail
+* Difficult to focus on specific questions
+* Not mobile-friendly
 
-#### First Digital Prototypes
+#### Alternative Design Sketches
 
-In Week 9, we created our first digital prototypes using D3.js. These were simple, non-interactive versions of our visualizations using a small sample of the data.
+**Alternative 1: Tabbed Interface**
 
-Our first prototype included:
+```
+AUSTRALIAN ROAD SAFETY EXPLORER
+[Q1] [Q2] [Q3] [Q4] [Q5] [Q6] [Q7]
+LARGE SINGLE VISUALIZATION (Active Tab)
+```
 
-- A basic bar chart comparing fine counts across states
-- A simple pie chart showing offence type distribution
-- A rudimentary map with colored states
+Pros:
+* Each visualization gets full screen space
+* Simple, familiar navigation
+* Mobile-friendly
 
-These prototypes were very basic. They had no interactivity, no filtering, and limited styling. However, they allowed us to test our technical approach and identify problems early.
+Cons:
+* No ability to compare multiple visualizations side-by-side
+* Requires many clicks to explore data
+* Loses context of enforcement vs. outcomes relationship
 
-**Problems we discovered:**
+**Alternative 2: Scrolling Story (Scrollytelling)**
 
-- The pie chart was hard to read with many small slices for rare offences
-- The bar chart became cluttered when showing multiple metrics
-- The map needed better visual encoding to show differences clearly
-- We needed consistent color schemes across visualizations
+```
+INTRODUCTION: The Road Safety Challenge
+"How are offences being enforced?"
+[Q1 Visualization - Full Width]
+Narrative text explaining patterns...
+"Where is enforcement concentrated?"
+[Q2 Visualization - Full Width]
+Narrative text explaining patterns...
+...continues for all questions...
+```
 
-#### Iteration Based on Feedback
+Pros:
+* Tells a compelling data story
+* Guides users through findings
+* Engaging narrative flow
 
-We showed our prototypes to our instructor and classmates in Week 10 and received valuable feedback.
+Cons:
+* Reduces interactivity (less exploration, more presentation)
+* Harder to revisit specific visualizations
+* Requires significant narrative writing
+* Doesn't support user-driven questions
 
-**Feedback received:**
+**Alternative 3: Split-Screen with Sections (SELECTED)**
 
-- "The pie chart should be a donut chart to look more modern and leave space for a label in the center"
-- "Add interactive tooltips so we can see exact values"
-- "The colors are too bright and distracting"
-- "It is hard to compare multiple states at once"
-- "Add filtering so we can focus on specific states or time periods"
-- "The mobile layout is broken and unusable"
+```
+AUSTRALIAN ROAD SAFETY EXPLORER
+Enforcement Actions vs Safety Outcomes
+[Filters: State ? | Year Range: 2020-2025]
+ENFORCEMENT (Q1-Q3)   OUTCOMES (Q4-Q6)
+COMPARISON (Q7)
+```
 
-Based on this feedback, we made significant changes:
+Pros:
+* Balances overview and detail
+* Thematic grouping makes relationship clear
+* Filters affect all visualizations (linked interactions)
+* Flexible: Can scroll to see more, or filter to focus
+* Mobile-adaptable (stack sections vertically)
 
-- Changed the pie chart to a donut chart with better labeling
-- Implemented tooltips showing detailed information on hover
-- Developed a more subdued, professional color palette
-- Added the stacked bar chart to enable multi-state comparison
-- Implemented filtering controls and cross-filtering between charts
-- Fixed responsive design issues for mobile devices
+Cons:
+* Slightly more complex layout
+* Requires careful sizing to avoid scrolling overload
 
-#### Second Iteration
+**Why We Selected Alternative 3:**
+1. Addresses Core Goal: Makes enforcement vs. outcomes comparison explicit through layout
+2. User-Driven Exploration: Supports both "tell me about X" (direct navigation) and "let me explore" (filtering) workflows
+3. Scalable: Can expand to add more visualizations without redesign
+4. Balances Simplicity and Power: Not overwhelming, but enables deep analysis
 
-In Week 11, we created a more complete version incorporating the feedback. This version included:
+**Stand Up 3 Update:**
+We further refined Alternative 3 by creating a separate Maps page (maps.html) for Q2 and Q5, giving geographic visualizations more canvas space while keeping the main visualizations page focused on charts.
 
-- All seven visualization types working together
-- Interactive filtering and cross-filtering
-- Consistent styling and color scheme
-- Responsive layout that worked on mobile
-- Tooltips and help text
-
-We conducted another round of testing with a wider group of users including people outside our class.
-
-**New feedback:**
-
-- "The heatmap is confusing, I do not understand what the colors mean"
-- "When I filter by one state, some charts become empty which is confusing"
-- "The map needs labels for the states"
-- "The line chart should allow comparing multiple states at once"
-- "The colors used for different offence types should be consistent across all charts"
-
-We addressed this feedback:
-
-- Added a clear legend and title to the heatmap explaining the color scale
-- Added messages explaining when filters result in no data for certain charts
-- Added state labels to the choropleth map
-- Enhanced the line chart to show multiple states simultaneously
-- Ensured consistent color mapping for offence types across all visualizations
-
-#### Final Design
-
-By Week 12, we arrived at our final design. This design incorporated all the feedback we received and met all our must-have requirements.
-
-The final design features:
-
-- Seven fully interactive visualizations arranged in a logical flow
-- Consistent visual styling with our chosen color palette
-- Smooth animations and transitions
-- Comprehensive tooltips and help text
-- Robust filtering system with clear feedback
-- Fully responsive layout working on all device sizes
-- Accessible features including ARIA labels and keyboard navigation
+Final Structure:
+* index.html - Overview/landing page
+* visualizations.html - Q1, Q3, Q4, Q6, Q7 (charts)
+* maps.html - Q2, Q5 (interactive maps)
+* about.html - Project information
 
 ### 4.2 Visualisation Design and Website Design
 
-Our website design integrates the visualizations into a cohesive, professional dashboard interface.
+#### Chart Types and Justification
 
-#### Layout Structure
+| Question | Chart Type | Visual Encoding | Justification |
+|---|---|---|---|
+| Q1 | Donut Chart (desktop) / Bar Chart (mobile) | Color by offence, angle/length by fines | Shows part-to-whole relationship, donut allows center text for total, bar better for mobile |
+| Q2 | Bubble Map | Bubble size → fines, position by geography, color by state | Geographic context + quantitative, bubble size shows enforcement intensity, intuitive distribution view |
+| Q3 | Heatmap | Color intensity by fine count, x=offence, y=age group | Reveals age-offence patterns through color intensity, supports demographic targeting, shows correlations |
+| Q4 | Line Chart | X=year, Y=fatalities, color by state | Shows temporal trends, line emphasizes continuity, multiple lines enable state comparison |
+| Q5 | Choropleth Map | State fill color → fatality rate per 100k | Geographic standard, color intensity shows risk, familiar to policy makers, normalized by population |
+| Q6 | Stacked Bar Chart | Stack segments by road user, x=crash type, color by user type | Shows part-to-whole + composition, easy comparison between single/multiple crashes, stacked shows victim breakdown |
+| Q7 | Dual-Axis Chart (desktop) / Scatter Plot (mobile) | Desktop: bars=fines (left axis), line=fatalities (right axis), Mobile: X=fines, Y=fatalities, position by values | Dual-axis shows correlation on desktop, scatter reveals relationship patterns on mobile, supports comparison analysis |
 
-The dashboard uses a single-page layout with visualizations arranged vertically. Users scroll down the page to see all visualizations. This approach works well because:
+#### Website Layout and Navigation
 
-- It is simple and intuitive
-- It works well on all device sizes
-- It creates a narrative flow through the data
-- It avoids the complexity of tabs or multiple pages
+**Information Architecture:**
 
-The layout consists of several sections:
+**Navigation Design:**
+* Sticky header: Remains visible when scrolling
+* Navigation tabs: Overview | Visualizations | Maps | About
+* Section navigation: Quick links within pages to jump to specific charts
+* Breadcrumbs: Show current location
+* Smooth scrolling: CSS scroll-behavior: smooth with scroll-margin-top: 120px for anchor targets
 
-**Header Section**
-- Project title and team information
-- Brief description of the dashboard purpose
-- Filter controls for global filtering
+**Color Scheme:**
+* Primary Blue: #26658c - Enforcement theme (conveys authority, action, prevention)
+* Blue Gradient: #3078a3, #5b9fc7, #8bbfdb - Offence types and road users
+* Neutral Gray: #2d2d2d, #737373, #e5e5e5 - Text and backgrounds
+* White: #ffffff - Clean canvas
+* Accessible: All color combinations meet WCAG AA contrast ratio (4.5:1)
 
-**Visualization Sections**
-- Each visualization has its own clearly defined section
-- Section titles explain what the visualization shows
-- Brief explanatory text provides context
+**Typography:**
+* Headings: "Inter" (sans-serif, modern, clean) - 800 weight
+* Body text: "Inter" (sans-serif, highly readable) - 400-600 weight
+* Data labels: "Inter" (consistent throughout)
+* Sizes:
+  - H1: 2rem (32px)
+  - H2: 1.5rem (24px)
+  - H3: 1.25rem (20px)
+  - Body: 1rem (16px)
+  - Small: 0.875rem (14px)
 
-**Footer Section**
-- Data source attribution
-- Links to GitHub repository
-- Contact information
+**Responsive Breakpoints:**
+* Desktop: 1024px+ (full layout, side-by-side sections)
+* Tablet: 768px-1023px (stacked sections, maintained interactivity)
+* Mobile: <768px (single column, simplified charts)
 
-#### Visual Styling
+**Implementation Status (Stand Up 3)**
+HTML Structure: COMPLETE
+* 4 pages implemented (index, visualizations, maps, about)
+* Semantic HTML5 markup
+* ARIA labels for accessibility
 
-**Color Palette**
+CSS Styling: COMPLETE
+* base.css - Core styles, typography, colors, layout
+* dashboard.css - Filter panel, chart containers, grid layouts
+* visualisations.css - SVG styles, tooltips, legends, chart-specific styles
 
-We developed a carefully chosen color palette:
-
-**Primary Colors:**
-- Deep blue (#1f4788) for primary elements and headings
-- Medium blue (#2e7d32) for interactive elements
-- Light blue (#e3f2fd) for backgrounds and highlights
-
-**Data Colors:**
-- For offence types, we use a categorical color scheme with distinct, easily distinguishable colors
-- For sequential data (like the heatmap), we use a blue-green gradient from light to dark
-- For diverging data, we use a blue-orange diverging scheme
-
-**Accessibility Colors:**
-- All color combinations meet WCAG AA contrast standards
-- Colors were tested using color blindness simulators to ensure they work for users with color vision deficiencies
-
-**Typography**
-
-We use clear, readable fonts:
-
-- **Headings**: Roboto Bold for section titles and chart titles
-- **Body Text**: Roboto Regular for explanatory text and labels
-- **Data Labels**: Roboto Mono for numbers to ensure clear readability
-
-All text sizes meet accessibility guidelines:
-- Minimum 14px for body text
-- Minimum 18px for headings
-- Text can be resized up to 200% without breaking the layout
-
-**Spacing and White Space**
-
-We use generous spacing to prevent the interface from feeling cluttered:
-
-- Large margins between visualization sections
-- Adequate padding within each visualization container
-- Clear separation between interactive controls and visualizations
-
-**Responsive Breakpoints**
-
-Our design has three main breakpoints:
-
-**Desktop (1200px and above)**
-- Visualizations displayed at full width
-- Some visualizations arranged side by side where appropriate
-- Filter controls in a sidebar
-
-**Tablet (768px to 1199px)**
-- All visualizations stack vertically
-- Filter controls move above visualizations
-- Charts resize to fit tablet screens
-
-**Mobile (below 768px)**
-- Single column layout
-- Simplified visualizations with scrollable elements where needed
-- Collapsed filter controls with expand/collapse functionality
-
-#### Navigation and User Flow
-
-The dashboard is designed to guide users through a logical exploration of the data:
-
-1. **Overview**: Donut chart showing overall offence type distribution
-2. **Geographic Context**: Bubble map showing where fines occur
-3. **Demographic Analysis**: Heatmap showing age-offence patterns
-4. **Temporal Analysis**: Line chart showing trends over time
-5. **State Comparison**: Choropleth map and stacked bar chart comparing states
-6. **Outcome Analysis**: Dual-axis chart exploring enforcement-outcome relationships
-
-This sequence takes users from general overview to specific comparisons and relationships.
+JavaScript Implementation: COMPLETE
+* shared-constants.js - Color scales, state mappings, format utilities
+* interactions.js - Tooltip functions, legend helpers, resize handlers
+* data-loader.js - CSV loading, filtering, state management
+* 7 chart files: q1_fines_By_Offence.js through q7_fines_vs_fatalities_by_state.js
 
 ### 4.3 Design Principles
 
-Our visualization design follows established best practices and design principles.
+#### Graphical Integrity
 
-#### Data-Ink Ratio
+Following Edward Tufte's principles of graphical integrity:
 
-Following Edward Tufte's principle of maximizing the data-ink ratio, we remove unnecessary visual elements:
+1. **Data-Ink Ratio Maximization:**
+   * Remove unnecessary chart junk (excessive gridlines, decorative elements)
+   * Every visual element must encode data
+   * Minimal gridlines (only major ticks with 50% opacity)
+   * No redundant labels
 
-- No chartjunk or decorative elements
-- Minimal grid lines (only when necessary for reading values)
-- Clean, simple axes without excessive tick marks
-- No 3D effects or shadows that do not add information
+2. **Proportional Representation:**
+   * Bar lengths/areas accurately represent data values
+   * Y-axes start at zero for bar/column charts
+   * Exception: Line charts (trends) use scaled y-axis with clear labeling
+   * Bubble sizes use square root scale for area-based encoding
 
-Every visual element in our charts serves a purpose in communicating the data.
+3. **Clear Visual Encoding:**
+   * One visual variable per data dimension
+   * No misleading 3D effects
+   * 2D visualizations throughout
 
-#### Visual Hierarchy
+4. **Appropriate Scale:**
+   * Linear scales for quantitative data
+   * Consistent scales across related charts
+   * Ordinal scales for categorical data (age groups, states)
 
-We establish clear visual hierarchy to guide attention:
+5. **Truthful Labels:**
+   * Axes clearly labeled with units (e.g., "Fines (Count)", "Fatalities per 100k")
+   * Legends unambiguous
+   * Titles accurately describe chart content
+   * Tooltips show exact values with proper formatting
 
-- Larger, bolder text for important titles
-- Color used to highlight important data points
-- Interactive elements visually distinct from static elements
-- Current selections highlighted prominently
+#### Accessibility Considerations
 
-#### Consistency
+**Color Blindness (Deuteranopia/Protanopia):**
+* Used ColorBrewer-inspired palettes designed for colorblind safety
+* Blue gradient avoids red-green combinations
+* Color intensity used alongside position/size encoding
+* Tooltips provide text alternatives for color encoding
 
-We maintain consistency throughout the dashboard:
+**Visual Impairment:**
+* Minimum font size: 14px for data labels, 16px for body text
+* High contrast: Text/background ratio ≥4.5:1 (WCAG AA)
+* No low-contrast colors (e.g., light gray text on white background)
 
-- Same colors always represent the same offence types
-- Same interaction patterns across all visualizations (hover for tooltip, click to filter)
-- Consistent spacing and alignment
-- Consistent terminology in labels and descriptions
+**Screen Readers:**
+* All SVG charts include <title> and <desc> tags describing content
+* ARIA labels on interactive elements: aria-label="Filter by state"
+* Hidden data tables (class="sr-only") for each chart as fallback
+* Semantic HTML structure
 
-#### Appropriate Chart Types
+**Keyboard Navigation:**
+* All interactive elements (filters, tooltips) accessible via keyboard
+* Tab order follows logical reading sequence
+* Visible focus indicators (3px blue outline on focused element)
+* Enter key applies filters
 
-We chose visualization types that match the data characteristics:
+**Motor Impairment:**
+* Large clickable areas (minimum 44×44px touch targets per WCAG)
+* No hover-only interactions (mobile users can't hover)
+* Tooltip triggers include click events for touch devices
 
-**Donut Chart for Composition**
-- Shows part-to-whole relationships for offence types
-- Easy to see relative proportions at a glance
+#### Scalability and Responsiveness
 
-**Maps for Geographic Data**
-- Bubble map shows precise locations with magnitude
-- Choropleth map shows state-level patterns
-- Geographic encoding makes spatial patterns obvious
+**Desktop (≥1200px):**
+* Two-column layout (Enforcement | Outcomes)
+* Full-featured visualizations
+* Large chart sizes (600-800px wide)
+* Donut charts, dual-axis charts
 
-**Heatmap for Two-Dimensional Patterns**
-- Shows relationship between two categorical variables (age and offence type)
-- Color encoding makes patterns visible across the matrix
+**Tablet (768-1199px):**
+* Stacked single-column layout
+* Charts scale to 100% width
+* Maintained interactivity
+* Simplified filters (fewer columns in grid)
 
-**Line Chart for Time Series**
-- Shows trends and changes over time clearly
-- Allows comparison of multiple series
-
-**Stacked Bar for Multi-Dimensional Comparison**
-- Compares totals across states
-- Shows composition within each state
-- Allows both absolute and relative comparisons
-
-**Dual-Axis for Comparing Different Scales**
-- Shows two related metrics with different units on same chart
-- Makes potential correlations visible
-
-#### Accessibility Principles
-
-Our design incorporates accessibility from the start:
-
-**Perceivable**
-- All information conveyed through color is also conveyed through text or pattern
-- Text alternatives provided for all visual content
-- Sufficient contrast between foreground and background
-
-**Operable**
-- All functionality available from keyboard
-- Users have enough time to read and interact with content
-- No flashing content that could trigger seizures
-
-**Understandable**
-- Clear, simple language in all labels and descriptions
-- Consistent navigation and interaction patterns
-- Helpful error messages when filters produce no results
-
-**Robust**
-- Semantic HTML structure
-- ARIA labels and roles for complex interactive elements
-- Works with assistive technologies like screen readers
+**Mobile (<768px):**
+* Simplified visualizations:
+  - Q1: Donut → Bar chart
+  - Q7: Dual-axis → Scatter plot
+* Touch-friendly interactions (tap, not hover)
+* Larger touch targets (60px minimum)
+* Simplified navigation (full-width buttons)
+* Font sizes adjusted (14px base)
 
 ### 4.4 Interaction Design
 
-Our interactive features are designed to support data exploration while remaining intuitive and easy to use.
+#### Interaction Pattern 1: Filtering
 
-#### Filtering System
+**Implementation:**
+* State filter: Multi-select dropdown (<select multiple>)
+* Year filter: Two number inputs (year-from, year-to)
+* Apply button: Triggers updateAllCharts()
+* Clear button: Resets filter state
 
-**Global Filters**
+**Behavior:**
+1. User changes filter
+2. JavaScript updates global filterState object
+3. Triggers updateAllCharts() function
+4. Each chart re-renders with filtered data using specific getFilteredQ#Data() functions
+5. Smooth 500ms transition (D3.js .transition().duration(500))
 
-Located at the top of the dashboard, global filters affect all visualizations:
+**Visual Feedback:**
+* Filter panel highlights active filters (blue border)
+* "Clear" button visible when filters active
+* Chart titles update to show filter context (e.g., "Fines in NSW, 2022-2024")
 
-- **State/Territory Filter**: Dropdown menu to select one or more states
-- **Year Range Filter**: Slider to select start and end years
-- **Age Group Filter**: Checkboxes to include/exclude age groups
+#### Interaction Pattern 2: Hover Tooltips
 
-When global filters are applied, a clear indicator shows what filters are active. Users can easily clear all filters with a "Reset Filters" button.
+**Implementation:**
+* D3.js .on("mouseover", showTooltip) and .on("mouseout", hideTooltip)
+* Tooltip div positioned near cursor with position: absolute
+* Shared tooltip element (createTooltip() in interactions.js)
 
-**Local Filtering Through Interaction**
+**Design:**
+* Dark background (rgba(44, 62, 80, 0.95))
+* White text, 13-14px, Inter font
+* Fade-in: 200ms
+* Fade-out: 300ms
+* Offset: 15px right, -28px up from cursor
 
-Users can also filter by clicking on visualization elements:
+#### Interaction Pattern 3: Legend Highlighting
 
-- Click a segment in the donut chart to filter by offence type
-- Click a state in the choropleth map to filter by that state
-- Click a cell in the heatmap to filter by that age-offence combination
+Scenario: User hovers over legend item in Q1 (Fines by Offence)
 
-When local filters are applied through clicks, the selected element is highlighted, and other visualizations update to show only the filtered data.
+**Behavior:**
+1. Legend item: Background changes to light blue (#e8f4f8)
+2. Corresponding chart element: Highlighted (increased opacity or stroke width)
+3. Other elements: Dimmed slightly
+4. Bi-directional: Hovering chart element also highlights legend
 
-#### Tooltips
+#### Interaction Pattern 4: Map Click for Filtering
 
-All visualizations include rich tooltips that appear on hover:
+Scenario: User clicks on a state in Q2 or Q5 map
 
-**Tooltip Content:**
-- Primary value being displayed
-- Additional contextual information
-- Comparison to averages or other relevant benchmarks
-- Clear units and labels
+**Behavior:**
+1. Visual feedback: State briefly pulses (stroke width increases then decreases)
+2. Filter applied: filterState.states = [clickedState]
+3. All charts update: updateAllCharts() called
+4. User can see state-specific data across entire dashboard
 
-**Tooltip Behavior:**
-- Appear immediately on hover (no delay)
-- Position themselves intelligently to avoid going off-screen
-- Disappear when mouse moves away
-- Work on touch devices with tap-and-hold gesture
+#### Interaction Summary Table
 
-#### Transitions and Animations
+| Interaction | Component | Method | Response | Feedback | Duration |
+|---|---|---|---|---|---|
+| State Filter | Dropdown | Click/Select | Filter all charts | Filter panel highlights, charts update | 500ms transition |
+| Year Range | Number Input | Change value | Filter all charts | Input highlights, charts update | 500ms transition |
+| Reset Filters | Button | Click | Clear all filters | Button disappears, charts return to default | 500ms transition |
+| Hover Tooltip | Chart elements | Mouseover | Show tooltip + highlight element | Tooltip fades in, element highlights | 200ms fade-in |
+| Click Map State | Q2/Q5 Map | Click | Apply state filter | State pulses, all charts update | 150ms pulse |
+| Pan Map | Q5 Map | Click-drag | Move map viewport | Smooth pan animation | Real-time |
+| Legend Hover | Q1/Q6 Legend | Mouseover | Highlight corresponding chart element | Background color change, element highlights | 200ms |
 
-We use smooth transitions to help users understand what is changing:
+#### Animation and Transitions
 
-**When filters are applied:**
-- Chart elements smoothly transition to new positions and sizes
-- Elements that no longer match filters fade out
-- New elements that appear fade in
-- Total transition time: 300-500 milliseconds
+**Chart Load Animations:**
+* Bars (Q1 mobile, Q6): Grow from bottom, staggered 50-100ms delay
+* Lines (Q4, Q7): Draw from left to right using stroke-dasharray animation, 800-1000ms
+* Donut (Q1 desktop): Arc tween from 0° to full angle, 800ms
+* Map bubbles (Q2): Scale from 0 to full size, staggered 100ms delay
+* Heatmap cells (Q3): Fade in with opacity transition, staggered 20ms delay
 
-**When hovering:**
-- Elements smoothly highlight on hover
-- Slight size increase or opacity change to indicate interactivity
-- Quick response time (100 milliseconds) for immediate feedback
+**Data Update Transitions:**
+* All chart updates use 500ms smooth transitions
+* No jarring instant changes
+* D3.js easing: d3.easeCubicInOut (default)
 
-**Principles for animations:**
-- Fast enough to not slow down exploration
-- Slow enough to be perceived and understood
-- Consistent timing across all visualizations
-- Can be disabled for users who prefer reduced motion
-
-#### Cross-Filtering Behavior
-
-When users select an element in one visualization, related elements in other visualizations are highlighted:
-
-**Example:** When user clicks "Speeding" in the donut chart:
-- Speeding segment highlights in donut chart
-- Bubble map shows only speeding fines
-- Heatmap highlights speeding row across all age groups
-- Line chart shows only speeding trend
-- Stacked bars show only speeding component
-- Dual-axis chart filters to speeding data
-
-This linked interaction helps users understand connections across different views of the data.
-
-#### Responsive Interaction Adaptations
-
-Interactions adapt to different devices:
-
-**Desktop:**
-- Hover effects show additional information
-- Click to filter and select
-- Keyboard navigation available
-
-**Tablet:**
-- Tap replaces hover (tap to show tooltip, tap again to filter)
-- Touch-friendly larger click targets
-- Swipe gestures for some interactions
-
-**Mobile:**
-- Simplified interactions where necessary
-- No hover effects (not available on touch screens)
-- Larger touch targets (minimum 44x44 pixels)
-- Collapsible sections to manage screen space
+**Hover Effects:**
+* Chart elements: 200ms opacity/scale change
+* Legend items: 200ms background color change
+* Tooltips: 200ms fade-in, 300ms fade-out
 
 ---
 
 ## 5. Iteration and Validation
 
-Throughout our project, we continuously tested and refined our visualizations based on feedback and observation.
+### 5.1 Testing and Refinements
+
+**Development Timeline and Testing Phases**
+
+Our project went through several rounds of testing from Week 8 to Week 12. We tested and improved the dashboard at each stage of development. Every time we found a problem, we fixed it before moving to the next step.
 
 #### User Testing Sessions
 
