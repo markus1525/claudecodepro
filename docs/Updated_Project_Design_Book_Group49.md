@@ -900,229 +900,190 @@ JavaScript Implementation: COMPLETE
 * interactions.js - Tooltip functions, legend helpers, resize handlers
 * data-loader.js - CSV loading, filtering, state management
 * 7 chart files: q1_fines_By_Offence.js through q7_fines_vs_fatalities_by_state.js
-- Clear separation between interactive controls and visualizations
-
-**Responsive Breakpoints**
-
-Our design has three main breakpoints:
-
-**Desktop (1200px and above)**
-- Visualizations displayed at full width
-- Some visualizations arranged side by side where appropriate
-- Filter controls in a sidebar
-
-**Tablet (768px to 1199px)**
-- All visualizations stack vertically
-- Filter controls move above visualizations
-- Charts resize to fit tablet screens
-
-**Mobile (below 768px)**
-- Single column layout
-- Simplified visualizations with scrollable elements where needed
-- Collapsed filter controls with expand/collapse functionality
-
-#### Navigation and User Flow
-
-The dashboard is designed to guide users through a logical exploration of the data:
-
-1. **Overview**: Donut chart showing overall offence type distribution
-2. **Geographic Context**: Bubble map showing where fines occur
-3. **Demographic Analysis**: Heatmap showing age-offence patterns
-4. **Temporal Analysis**: Line chart showing trends over time
-5. **State Comparison**: Choropleth map and stacked bar chart comparing states
-6. **Outcome Analysis**: Dual-axis chart exploring enforcement-outcome relationships
-
-This sequence takes users from general overview to specific comparisons and relationships.
 
 ### 4.3 Design Principles
 
-Our visualization design follows established best practices and design principles.
+#### Graphical Integrity
 
-#### Data-Ink Ratio
+Following Edward Tufte's principles of graphical integrity:
 
-Following Edward Tufte's principle of maximizing the data-ink ratio, we remove unnecessary visual elements:
+1. **Data-Ink Ratio Maximization:**
+   * Remove unnecessary chart junk (excessive gridlines, decorative elements)
+   * Every visual element must encode data
+   * Minimal gridlines (only major ticks with 50% opacity)
+   * No redundant labels
 
-- No chartjunk or decorative elements
-- Minimal grid lines (only when necessary for reading values)
-- Clean, simple axes without excessive tick marks
-- No 3D effects or shadows that do not add information
+2. **Proportional Representation:**
+   * Bar lengths/areas accurately represent data values
+   * Y-axes start at zero for bar/column charts
+   * Exception: Line charts (trends) use scaled y-axis with clear labeling
+   * Bubble sizes use square root scale for area-based encoding
 
-Every visual element in our charts serves a purpose in communicating the data.
+3. **Clear Visual Encoding:**
+   * One visual variable per data dimension
+   * No misleading 3D effects
+   * 2D visualizations throughout
 
-#### Visual Hierarchy
+4. **Appropriate Scale:**
+   * Linear scales for quantitative data
+   * Consistent scales across related charts
+   * Ordinal scales for categorical data (age groups, states)
 
-We establish clear visual hierarchy to guide attention:
+5. **Truthful Labels:**
+   * Axes clearly labeled with units (e.g., "Fines (Count)", "Fatalities per 100k")
+   * Legends unambiguous
+   * Titles accurately describe chart content
+   * Tooltips show exact values with proper formatting
 
-- Larger, bolder text for important titles
-- Color used to highlight important data points
-- Interactive elements visually distinct from static elements
-- Current selections highlighted prominently
+#### Accessibility Considerations
 
-#### Consistency
+**Color Blindness (Deuteranopia/Protanopia):**
+* Used ColorBrewer-inspired palettes designed for colorblind safety
+* Blue gradient avoids red-green combinations
+* Color intensity used alongside position/size encoding
+* Tooltips provide text alternatives for color encoding
 
-We maintain consistency throughout the dashboard:
+**Visual Impairment:**
+* Minimum font size: 14px for data labels, 16px for body text
+* High contrast: Text/background ratio ≥4.5:1 (WCAG AA)
+* No low-contrast colors (e.g., light gray text on white background)
 
-- Same colors always represent the same offence types
-- Same interaction patterns across all visualizations (hover for tooltip, click to filter)
-- Consistent spacing and alignment
-- Consistent terminology in labels and descriptions
+**Screen Readers:**
+* All SVG charts include <title> and <desc> tags describing content
+* ARIA labels on interactive elements: aria-label="Filter by state"
+* Hidden data tables (class="sr-only") for each chart as fallback
+* Semantic HTML structure
 
-#### Appropriate Chart Types
+**Keyboard Navigation:**
+* All interactive elements (filters, tooltips) accessible via keyboard
+* Tab order follows logical reading sequence
+* Visible focus indicators (3px blue outline on focused element)
+* Enter key applies filters
 
-We chose visualization types that match the data characteristics:
+**Motor Impairment:**
+* Large clickable areas (minimum 44×44px touch targets per WCAG)
+* No hover-only interactions (mobile users can't hover)
+* Tooltip triggers include click events for touch devices
 
-**Donut Chart for Composition**
-- Shows part-to-whole relationships for offence types
-- Easy to see relative proportions at a glance
+#### Scalability and Responsiveness
 
-**Maps for Geographic Data**
-- Bubble map shows precise locations with magnitude
-- Choropleth map shows state-level patterns
-- Geographic encoding makes spatial patterns obvious
+**Desktop (≥1200px):**
+* Two-column layout (Enforcement | Outcomes)
+* Full-featured visualizations
+* Large chart sizes (600-800px wide)
+* Donut charts, dual-axis charts
 
-**Heatmap for Two-Dimensional Patterns**
-- Shows relationship between two categorical variables (age and offence type)
-- Color encoding makes patterns visible across the matrix
+**Tablet (768-1199px):**
+* Stacked single-column layout
+* Charts scale to 100% width
+* Maintained interactivity
+* Simplified filters (fewer columns in grid)
 
-**Line Chart for Time Series**
-- Shows trends and changes over time clearly
-- Allows comparison of multiple series
-
-**Stacked Bar for Multi-Dimensional Comparison**
-- Compares totals across states
-- Shows composition within each state
-- Allows both absolute and relative comparisons
-
-**Dual-Axis for Comparing Different Scales**
-- Shows two related metrics with different units on same chart
-- Makes potential correlations visible
-
-#### Accessibility Principles
-
-Our design incorporates accessibility from the start:
-
-**Perceivable**
-- All information conveyed through color is also conveyed through text or pattern
-- Text alternatives provided for all visual content
-- Sufficient contrast between foreground and background
-
-**Operable**
-- All functionality available from keyboard
-- Users have enough time to read and interact with content
-- No flashing content that could trigger seizures
-
-**Understandable**
-- Clear, simple language in all labels and descriptions
-- Consistent navigation and interaction patterns
-- Helpful error messages when filters produce no results
-
-**Robust**
-- Semantic HTML structure
-- ARIA labels and roles for complex interactive elements
-- Works with assistive technologies like screen readers
+**Mobile (<768px):**
+* Simplified visualizations:
+  - Q1: Donut → Bar chart
+  - Q7: Dual-axis → Scatter plot
+* Touch-friendly interactions (tap, not hover)
+* Larger touch targets (60px minimum)
+* Simplified navigation (full-width buttons)
+* Font sizes adjusted (14px base)
 
 ### 4.4 Interaction Design
 
-Our interactive features are designed to support data exploration while remaining intuitive and easy to use.
+#### Interaction Pattern 1: Filtering
 
-#### Filtering System
+**Implementation:**
+* State filter: Multi-select dropdown (<select multiple>)
+* Year filter: Two number inputs (year-from, year-to)
+* Apply button: Triggers updateAllCharts()
+* Clear button: Resets filter state
 
-**Global Filters**
+**Behavior:**
+1. User changes filter
+2. JavaScript updates global filterState object
+3. Triggers updateAllCharts() function
+4. Each chart re-renders with filtered data using specific getFilteredQ#Data() functions
+5. Smooth 500ms transition (D3.js .transition().duration(500))
 
-Located at the top of the dashboard, global filters affect all visualizations:
+**Visual Feedback:**
+* Filter panel highlights active filters (blue border)
+* "Clear" button visible when filters active
+* Chart titles update to show filter context (e.g., "Fines in NSW, 2022-2024")
 
-- **State/Territory Filter**: Dropdown menu to select one or more states
-- **Year Range Filter**: Slider to select start and end years
-- **Age Group Filter**: Checkboxes to include/exclude age groups
+#### Interaction Pattern 2: Hover Tooltips
 
-When global filters are applied, a clear indicator shows what filters are active. Users can easily clear all filters with a "Reset Filters" button.
+**Implementation:**
+* D3.js .on("mouseover", showTooltip) and .on("mouseout", hideTooltip)
+* Tooltip div positioned near cursor with position: absolute
+* Shared tooltip element (createTooltip() in interactions.js)
 
-**Local Filtering Through Interaction**
+**Design:**
+* Dark background (rgba(44, 62, 80, 0.95))
+* White text, 13-14px, Inter font
+* Fade-in: 200ms
+* Fade-out: 300ms
+* Offset: 15px right, -28px up from cursor
 
-Users can also filter by clicking on visualization elements:
+#### Interaction Pattern 3: Legend Highlighting
 
-- Click a segment in the donut chart to filter by offence type
-- Click a state in the choropleth map to filter by that state
-- Click a cell in the heatmap to filter by that age-offence combination
+Scenario: User hovers over legend item in Q1 (Fines by Offence)
 
-When local filters are applied through clicks, the selected element is highlighted, and other visualizations update to show only the filtered data.
+**Behavior:**
+1. Legend item: Background changes to light blue (#e8f4f8)
+2. Corresponding chart element: Highlighted (increased opacity or stroke width)
+3. Other elements: Dimmed slightly
+4. Bi-directional: Hovering chart element also highlights legend
 
-#### Tooltips
+#### Interaction Pattern 4: Map Click for Filtering
 
-All visualizations include rich tooltips that appear on hover:
+Scenario: User clicks on a state in Q2 or Q5 map
 
-**Tooltip Content:**
-- Primary value being displayed
-- Additional contextual information
-- Comparison to averages or other relevant benchmarks
-- Clear units and labels
+**Behavior:**
+1. Visual feedback: State briefly pulses (stroke width increases then decreases)
+2. Filter applied: filterState.states = [clickedState]
+3. All charts update: updateAllCharts() called
+4. User can see state-specific data across entire dashboard
 
-**Tooltip Behavior:**
-- Appear immediately on hover (no delay)
-- Position themselves intelligently to avoid going off-screen
-- Disappear when mouse moves away
-- Work on touch devices with tap-and-hold gesture
+#### Interaction Summary Table
 
-#### Transitions and Animations
+| Interaction | Component | Method | Response | Feedback | Duration |
+|---|---|---|---|---|---|
+| State Filter | Dropdown | Click/Select | Filter all charts | Filter panel highlights, charts update | 500ms transition |
+| Year Range | Number Input | Change value | Filter all charts | Input highlights, charts update | 500ms transition |
+| Reset Filters | Button | Click | Clear all filters | Button disappears, charts return to default | 500ms transition |
+| Hover Tooltip | Chart elements | Mouseover | Show tooltip + highlight element | Tooltip fades in, element highlights | 200ms fade-in |
+| Click Map State | Q2/Q5 Map | Click | Apply state filter | State pulses, all charts update | 150ms pulse |
+| Pan Map | Q5 Map | Click-drag | Move map viewport | Smooth pan animation | Real-time |
+| Legend Hover | Q1/Q6 Legend | Mouseover | Highlight corresponding chart element | Background color change, element highlights | 200ms |
 
-We use smooth transitions to help users understand what is changing:
+#### Animation and Transitions
 
-**When filters are applied:**
-- Chart elements smoothly transition to new positions and sizes
-- Elements that no longer match filters fade out
-- New elements that appear fade in
-- Total transition time: 300-500 milliseconds
+**Chart Load Animations:**
+* Bars (Q1 mobile, Q6): Grow from bottom, staggered 50-100ms delay
+* Lines (Q4, Q7): Draw from left to right using stroke-dasharray animation, 800-1000ms
+* Donut (Q1 desktop): Arc tween from 0° to full angle, 800ms
+* Map bubbles (Q2): Scale from 0 to full size, staggered 100ms delay
+* Heatmap cells (Q3): Fade in with opacity transition, staggered 20ms delay
 
-**When hovering:**
-- Elements smoothly highlight on hover
-- Slight size increase or opacity change to indicate interactivity
-- Quick response time (100 milliseconds) for immediate feedback
+**Data Update Transitions:**
+* All chart updates use 500ms smooth transitions
+* No jarring instant changes
+* D3.js easing: d3.easeCubicInOut (default)
 
-**Principles for animations:**
-- Fast enough to not slow down exploration
-- Slow enough to be perceived and understood
-- Consistent timing across all visualizations
-- Can be disabled for users who prefer reduced motion
-
-#### Cross-Filtering Behavior
-
-When users select an element in one visualization, related elements in other visualizations are highlighted:
-
-**Example:** When user clicks "Speeding" in the donut chart:
-- Speeding segment highlights in donut chart
-- Bubble map shows only speeding fines
-- Heatmap highlights speeding row across all age groups
-- Line chart shows only speeding trend
-- Stacked bars show only speeding component
-- Dual-axis chart filters to speeding data
-
-This linked interaction helps users understand connections across different views of the data.
-
-#### Responsive Interaction Adaptations
-
-Interactions adapt to different devices:
-
-**Desktop:**
-- Hover effects show additional information
-- Click to filter and select
-- Keyboard navigation available
-
-**Tablet:**
-- Tap replaces hover (tap to show tooltip, tap again to filter)
-- Touch-friendly larger click targets
-- Swipe gestures for some interactions
-
-**Mobile:**
-- Simplified interactions where necessary
-- No hover effects (not available on touch screens)
-- Larger touch targets (minimum 44x44 pixels)
-- Collapsible sections to manage screen space
+**Hover Effects:**
+* Chart elements: 200ms opacity/scale change
+* Legend items: 200ms background color change
+* Tooltips: 200ms fade-in, 300ms fade-out
 
 ---
 
 ## 5. Iteration and Validation
 
-Throughout our project, we continuously tested and refined our visualizations based on feedback and observation.
+### 5.1 Testing and Refinements
+
+**Development Timeline and Testing Phases**
+
+Our project went through several rounds of testing from Week 8 to Week 12. We tested and improved the dashboard at each stage of development. Every time we found a problem, we fixed it before moving to the next step.
 
 #### User Testing Sessions
 
