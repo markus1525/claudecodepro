@@ -20,18 +20,61 @@ Interactive dashboard visualizing Australian road safety enforcement (2020-2024)
 ## Folder Structure
 
 ```
-data-visualisation-project-dvgroup49/
+project-dv_group49/
+├── /assets/
+│   ├── logo.png
+│   └── logo2.png
+│   ├── markus.png
+│   ├── damian.png
+│   └── jack.png
+├── /css/
+│   ├── base.css
+│   ├── dashboard.css
+│   └── visualisations.css
 ├── /data/
-│   ├── /raw/ (original CSVs)
-│   ├── /processed/ (cleaned data)
-│   ├── /aggregated/ (Q1-Q7 visualization CSVs)
-│   └── /KNIME/ (DV_Group49_DataProcessing.knwf)
-├── /website/
-│   ├── index.html, visualizations.html, maps.html, about.html
-│   ├── /css/ (base.css, dashboard.css, visualisations.css)
-│   ├── /js/ (7 chart files, data-loader.js, interactions.js)
-└── /docs/ (Design Book)
+│   ├── ProcessedFines.csv
+│   ├── ProcessedFatalities.csv
+│   ├── Q1_Fines_By_Offence_Overall.csv
+│   ├── Q1_Fines_By_Offence_Detailed.csv
+│   ├── Q2_Enforcement_By_State.csv
+│   ├── Q3_Age_Offence_Heatmap.csv
+│   ├── Q4_Fatalities_Trend_By_Year.csv
+│   ├── Q5_Fatalities_By_State.csv
+│   ├── Q6_Crash_Types_By_Road_User.csv
+│   ├── Q7_Fines_vs_Fatalities_By_State.csv
+│   ├── /KNIME/
+│   │   └── DV_Group49_DataProcessing.knwf
+│   └── /raw_data/
+│       └── australia_states.geojson
+├── /docs/
+│   └── Project Design Book Group49.docx
+├── /js/
+│   ├── data-loader.js
+│   ├── init-global-state.js
+│   ├── interactions.js
+│   ├── shared-constants.js
+│   ├── q1-fines-by-offence.js
+│   ├── q2-enforcement-by-state.js
+│   ├── q3-age-offence-heatmap.js
+│   ├── q4-fatalities-trend-by-year.js
+│   ├── q5-fatalities-by-state.js
+│   ├── q6-crash-types-by-road-user.js
+│   └── q7-fines-vs-fatalities-by-state.js
+├── index.html
+├── visualizations.html
+├── maps.html
+├── about.html
+├── .gitignore
+└── README.md
 ```
+
+**Key Files:**
+- **HTML Pages:** 4 pages (index, visualizations, maps, about)
+- **CSS:** 3 stylesheets (base, dashboard, visualisations)
+- **JavaScript:** 11 files (4 utilities + 7 chart files)
+- **Data:** 2 processed datasets + 8 aggregated CSVs + 1 GeoJSON
+- **Assets:** 2 logo files
+- **Docs:** Design book (Word document)
 
 ---
 
@@ -75,4 +118,3 @@ Q1: Fines by Offence | Q2: Enforcement Map | Q3: Age vs Offence Heatmap | Q4: Fa
 **Features:** Interactive tooltips, state/year filtering, responsive design, accessibility (WCAG AA)
 
 ---
-# claudecodepro

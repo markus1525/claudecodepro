@@ -494,7 +494,7 @@ footer p {
 
 .quick-links-section h2 {
     text-align: center;
-    color: var(--primary-blue);
+    color: var (--primary-blue);
     margin-bottom: 2.5rem;
 }
 
@@ -849,7 +849,7 @@ footer p {
 .about-content p {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: var(--neutral-gray);
+    color: var (--neutral-gray);
 }
 
 .data-sources-section {
@@ -1139,11 +1139,15 @@ footer p {
 
 .team-member-card {
     background: var(--pure-white);
-    padding: 2rem;
+    padding: 2rem 1.5rem;
     border-radius: 12px;
     text-align: center;
     border: 2px solid var(--pale-gray);
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: auto;
 }
 
 .team-member-card:hover {
@@ -1153,24 +1157,37 @@ footer p {
 }
 
 .member-avatar {
-    width: 80px;
-    height: 80px;
-    background: rgba(38, 101, 140, 0.1);
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem;
+    overflow: hidden;
+    border: 4px solid var(--primary-blue);
+    box-shadow: 0 4px 12px rgba(38, 101, 140, 0.2);
     transition: all 0.3s ease;
 }
 
 .team-member-card:hover .member-avatar {
-    background: var(--primary-blue);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(38, 101, 140, 0.3);
 }
 
-.team-member-card:hover .member-avatar svg path,
-.team-member-card:hover .member-avatar svg circle {
-    stroke: var(--pure-white);
+.team-member-card:hover .member-photo {
+    transform: scale(1.1);
+}
+
+.member-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+/* Fallback SVG styling (if image fails to load) */
+.member-avatar svg {
+    display: block;
+    margin: 30px auto;
 }
 
 .team-member-card h4 {
@@ -1206,6 +1223,7 @@ footer p {
     font-size: 0.9rem;
     font-weight: 600;
     transition: all 0.3s ease;
+    margin-top: auto;
 }
 
 .github-link:hover {
@@ -1215,6 +1233,53 @@ footer p {
 
 .github-link:hover svg {
     fill: var(--pure-white);
+}
+
+/* Member responsibilities */
+.member-responsibilities {
+    width: 100%;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: var(--off-white);
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-blue);
+    text-align: left;
+}
+
+.member-responsibilities h5 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin: 0 0 0.75rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.member-responsibilities ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.member-responsibilities li {
+    font-size: 0.9rem;
+    color: var(--neutral-gray);
+    padding: 0.4rem 0;
+    padding-left: 1.8rem; /* Increased from 1.5rem */
+    position: relative;
+    line-height: 1.6; /* Increased from 1.5 */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.member-responsibilities li::before {
+    content: "→";
+    position: absolute;
+    left: 0.25rem; /* Slightly indented from edge */
+    top: 0.4rem; /* Align with text baseline */
+    color: var(--primary-blue);
+    font-weight: bold;
+    font-size: 1rem;
 }
 
 .info-grid {
@@ -1581,6 +1646,29 @@ footer p {
         font-size: 0.9rem;
         padding: 0.25rem 0.6rem;
     }
+
+    .member-responsibilities {
+        padding: 0.75rem;
+        margin: 1rem 0;
+    }
+    
+    .member-responsibilities h5 {
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .member-responsibilities li {
+        font-size: 0.85rem;
+        padding: 0.35rem 0;
+        padding-left: 1.6rem; /* Adjusted for mobile */
+        line-height: 1.5;
+    }
+    
+    .member-responsibilities li::before {
+        left: 0.2rem;
+        top: 0.35rem;
+        font-size: 0.9rem;
+    }
 }
 
 /* Responsive - mobile (480px) */
@@ -1694,6 +1782,29 @@ footer p {
     }
     .category-label {
         font-size: 0.9rem;
+    }
+
+    .member-responsibilities {
+        padding: 0.6rem;
+        margin: 0.75rem 0;
+    }
+    
+    .member-responsibilities h5 {
+        font-size: 0.8rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .member-responsibilities li {
+        font-size: 0.8rem;
+        padding: 0.3rem 0;
+        padding-left: 1.5rem; /* Further adjusted for small mobile */
+        line-height: 1.4;
+    }
+    
+    .member-responsibilities li::before {
+        left: 0.15rem;
+        top: 0.3rem;
+        font-size: 0.85rem;
     }
 }
 
