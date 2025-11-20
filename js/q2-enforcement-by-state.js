@@ -153,11 +153,8 @@
         .style('cursor', 'pointer')
         .on('mouseenter', function(event, d) {
           d3.select(this)
-            .transition()
-            .duration(200)
-            .attr('fill-opacity', 0.95)
-            .attr('stroke-width', 3)
-            .attr('r', sizeScale(d.totalFines) * 1.1);
+            .attr('opacity', 1)
+            .attr('stroke-width', 3);
 
           const content = `
             <strong>${d.state}</strong>
@@ -172,49 +169,36 @@
           `;
           showTooltip(event, content, tooltip);
         })
-        .on('mousemove', function(event) {
+        .on('mousemove', (event) => {
           moveTooltip(event, tooltip);
         })
-        .on('mouseleave', function(event, d) {
+        .on('mouseleave', function() {
           d3.select(this)
-            .transition()
-            .duration(200)
-            .attr('fill-opacity', 0.7)
-            .attr('stroke-width', 2)
-            .attr('r', sizeScale(d.totalFines));
+            .attr('opacity', 0.7)
+            .attr('stroke-width', 2);
           hideTooltip(tooltip);
         })
-        .on('click', function(event, d) {
-          event.stopPropagation();
-
-          const stateIndex = window.filterState.states.indexOf(d.code);
-          if (stateIndex > -1) {
-            window.filterState.states.splice(stateIndex, 1);
-          } else {
-            window.filterState.states = [d.code];
+        .call(attachScrollFriendlyTouch, {
+          tooltip: tooltip,
+          getContent: (d) => `
+            <strong>${d.state}</strong>
+            <div class="tooltip-row">
+              <span class="tooltip-label">Total fines:</span>
+              <span class="tooltip-value">${d3.format(',')(d.totalFines)}</span>
+            </div>
+            <div class="tooltip-row">
+              <span class="tooltip-label">% of national:</span>
+              <span class="tooltip-value">${d.percentageOfNational.toFixed(1)}%</span>
+            </div>
+          `,
+          onHoverStart: (element) => {
+            element.attr('opacity', 1).attr('stroke-width', 3);
+          },
+          onHoverEnd: (element) => {
+            element.attr('opacity', 0.7).attr('stroke-width', 2);
           }
-
-          const stateFilter = document.getElementById('state-filter');
-          if (stateFilter) {
-            Array.from(stateFilter.options).forEach(option => {
-              option.selected = (option.value === d.code && stateIndex === -1);
-            });
-          }
-
-          d3.select(this)
-            .transition()
-            .duration(150)
-            .attr('r', sizeScale(d.totalFines) * 1.2)
-            .transition()
-            .duration(150)
-            .attr('r', sizeScale(d.totalFines));
-
-          if (typeof window.updateAllCharts === 'function') {
-            window.updateAllCharts();
-          }
-        });
-
-      bubbles.transition()
+        })
+        .transition()
         .duration(800)
         .delay((d, i) => i * 100)
         .attr('r', d => sizeScale(d.totalFines));
@@ -267,8 +251,6 @@
     }
     return tooltip;
   }
-
-
 
   function addLegend(svg, data, width, height, sizeScale, isMobile) {
     const legendX = isMobile ? 20 : width - 140;

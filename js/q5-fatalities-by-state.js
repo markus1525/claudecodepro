@@ -139,29 +139,30 @@
                 .attr('stroke-width', 1.5)
                 .style('cursor', 'pointer')
                 .style('opacity', 0)
-                .on('mouseenter', function(event, feature) {
-                    const stateCode = STATE_CODE_MAP[feature.properties.STATE_CODE];
-                    const stateData = dataByCode[stateCode];
-                    
+                .on('mouseenter', function(event, d) {
+                    const stateCode = STATE_CODE_MAP[d.properties.STATE_CODE];
+                    const stateData = dataMap.get(stateCode);
+
                     if (stateData) {
                         d3.select(this)
-                            .transition()
-                            .duration(200)
                             .attr('stroke-width', 3)
-                            .attr('stroke', '#1a1a1a')
-                            .style('opacity', 1);
+                            .attr('stroke', '#2d2d2d');
 
                         const content = `
-            <strong>${stateData.stateName || stateData.State_Name}</strong>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Total fatalities:</span>
-                <span class="tooltip-value">${d3.format(',')(stateData.totalFatalities)}</span>
-            </div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Rate per 100k:</span>
-                <span class="tooltip-value">${d3.format('.1f')(stateData.fatalityRatePer100k)}</span>
-            </div>
-        `;
+                            <strong>${stateData.stateName}</strong>
+                            <div class="tooltip-row">
+                                <span class="tooltip-label">Total fatalities:</span>
+                                <span class="tooltip-value">${d3.format(',')(stateData.totalFatalities)}</span>
+                            </div>
+                            <div class="tooltip-row">
+                                <span class="tooltip-label">Rate per 100k:</span>
+                                <span class="tooltip-value">${stateData.fatalityRatePer100k.toFixed(2)}</span>
+                            </div>
+                            <div class="tooltip-row">
+                                <span class="tooltip-label">Rank:</span>
+                                <span class="tooltip-value">#${stateData.rank}</span>
+                            </div>
+                        `;
                         showTooltip(event, content, tooltip);
                     }
                 })
@@ -170,43 +171,38 @@
                 })
                 .on('mouseleave', function() {
                     d3.select(this)
-                        .transition()
-                        .duration(200)
-                        .attr('stroke-width', 1.5)
-                        .attr('stroke', '#2c3e50')
-                        .style('opacity', 0.9);
-
+                        .attr('stroke-width', 1)
+                        .attr('stroke', '#ffffff');
                     hideTooltip(tooltip);
                 })
-                .on('click', function(event, feature) {
-                    event.stopPropagation();
-
-                    const stateCode = STATE_CODE_MAP[feature.properties.STATE_CODE];
-
-                    const stateIndex = window.filterState.states.indexOf(stateCode);
-                    if (stateIndex > -1) {
-                        window.filterState.states.splice(stateIndex, 1);
-                    } else {
-                        window.filterState.states = [stateCode];
-                    }
-
-                    const stateFilter = document.getElementById('state-filter');
-                    if (stateFilter) {
-                        Array.from(stateFilter.options).forEach(option => {
-                            option.selected = (option.value === stateCode && stateIndex === -1);
-                        });
-                    }
-
-                    d3.select(this)
-                        .transition()
-                        .duration(150)
-                        .attr('stroke-width', 5)
-                        .transition()
-                        .duration(150)
-                        .attr('stroke-width', 3);
-
-                    if (typeof window.updateAllCharts === 'function') {
-                        window.updateAllCharts();
+                .call(attachScrollFriendlyTouch, {
+                    tooltip: tooltip,
+                    getContent: (d) => {
+                        const stateCode = STATE_CODE_MAP[d.properties.STATE_CODE];
+                        const stateData = dataMap.get(stateCode);
+                        if (!stateData) return '';
+                        
+                        return `
+                            <strong>${stateData.stateName}</strong>
+                            <div class="tooltip-row">
+                                <span class="tooltip-label">Total fatalities:</span>
+                                <span class="tooltip-value">${d3.format(',')(stateData.totalFatalities)}</span>
+                            </div>
+                            <div class="tooltip-row">
+                                <span class="tooltip-label">Rate per 100k:</span>
+                                <span class="tooltip-value">${stateData.fatalityRatePer100k.toFixed(2)}</span>
+                            </div>
+                            <div class="tooltip-row">
+                                <span class="tooltip-label">Rank:</span>
+                                <span class="tooltip-value">#${stateData.rank}</span>
+                            </div>
+                        `;
+                    },
+                    onHoverStart: (element) => {
+                        element.attr('stroke-width', 3).attr('stroke', '#2d2d2d');
+                    },
+                    onHoverEnd: (element) => {
+                        element.attr('stroke-width', 1).attr('stroke', '#ffffff');
                     }
                 })
                 .transition()

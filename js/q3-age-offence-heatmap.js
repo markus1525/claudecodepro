@@ -83,75 +83,59 @@
         const tooltip = createTooltip();
 
         // Draw heatmap cells
-        ageGroupOrder.forEach(ageGroup => {
-            offenceTypes.forEach(offenceType => {
-                const key = `${ageGroup}-${offenceType}`;
-                const fines = dataMap.get(key) || 0;
+        const cells = g.selectAll('rect')
+            .data(data)
+            .enter()
+            .append('rect')
+            .attr('x', d => xScale(d.offenceType))
+            .attr('y', d => yScale(d.ageGroup))
+            .attr('width', xScale.bandwidth())
+            .attr('height', yScale.bandwidth())
+            .attr('fill', d => d.fines > 0 ? colorScale(d.fines) : '#f0f0f0')
+            .attr('stroke', '#ffffff')
+            .attr('stroke-width', 2)
+            .attr('rx', 4)
+            .style('cursor', 'pointer')
+            .style('opacity', 0)
+            .on('mouseenter', function(event, d) {
+                d3.select(this).attr('stroke', '#2d2d2d').attr('stroke-width', 2);
 
-                g.append('rect')
-                    .attr('x', xScale(offenceType))
-                    .attr('y', yScale(ageGroup))
-                    .attr('width', xScale.bandwidth())
-                    .attr('height', yScale.bandwidth())
-                    .attr('fill', fines > 0 ? colorScale(fines) : '#f0f0f0')
-                    .attr('stroke', '#ffffff')
-                    .attr('stroke-width', 2)
-                    .attr('rx', 4)
-                    .style('cursor', 'pointer')
-                    .style('opacity', 0)
-                    .on('mouseenter', function(event) {
-                        d3.select(this)
-                            .attr('stroke', '#26658c')
-                            .attr('stroke-width', 3);
-
-                        const content = `
-            <strong>${ageGroup} years</strong>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Offence:</span>
-                <span class="tooltip-value">${offenceType}</span>
-            </div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Total fines:</span>
-                <span class="tooltip-value">${d3.format(',')(fines)}</span>
-            </div>
-        `;
-                        showTooltip(event, content, tooltip);
-                    })
-                    .on('mousemove', (event) => {
-                        moveTooltip(event, tooltip);
-                    })
-                    .on('mouseleave', function() {
-                        d3.select(this)
-                            .attr('stroke', '#ffffff')
-                            .attr('stroke-width', 2);
-
-                        hideTooltip(tooltip);
-                    })
-                    .transition()
-                    .duration(500)
-                    .delay((ageGroupOrder.indexOf(ageGroup) + offenceTypes.indexOf(offenceType)) * 20)
-                    .style('opacity', 1);
-
-                // Add text labels for high values (hide on mobile)
-                if (!isMobile && fines > maxFines * 0.3) {
-                    g.append('text')
-                        .attr('x', xScale(offenceType) + xScale.bandwidth() / 2)
-                        .attr('y', yScale(ageGroup) + yScale.bandwidth() / 2)
-                        .attr('text-anchor', 'middle')
-                        .attr('dy', '0.35em')
-                        .attr('font-size', '11px')
-                        .attr('font-weight', '600')
-                        .attr('fill', fines > maxFines * 0.7 ? '#ffffff' : '#2d2d2d')
-                        .style('pointer-events', 'none')
-                        .text(d3.format('.2s')(fines))
-                        .style('opacity', 0)
-                        .transition()
-                        .duration(500)
-                        .delay((ageGroupOrder.indexOf(ageGroup) + offenceTypes.indexOf(offenceType)) * 20 + 500)
-                        .style('opacity', 1);
+                const content = `
+                    <strong>${d.ageGroup} - ${d.offenceType}</strong>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Total fines:</span>
+                        <span class="tooltip-value">${d3.format(',')(d.fines)}</span>
+                    </div>
+                `;
+                showTooltip(event, content, tooltip);
+            })
+            .on('mousemove', (event) => {
+                moveTooltip(event, tooltip);
+            })
+            .on('mouseleave', function() {
+                d3.select(this).attr('stroke', '#ffffff').attr('stroke-width', 2);
+                hideTooltip(tooltip);
+            })
+            .call(attachScrollFriendlyTouch, {
+                tooltip: tooltip,
+                getContent: (d) => `
+                    <strong>${d.ageGroup} - ${d.offenceType}</strong>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Total fines:</span>
+                        <span class="tooltip-value">${d3.format(',')(d.fines)}</span>
+                    </div>
+                `,
+                onHoverStart: (element) => {
+                    element.attr('stroke', '#2d2d2d').attr('stroke-width', 2);
+                },
+                onHoverEnd: (element) => {
+                    element.attr('stroke', '#ffffff').attr('stroke-width', 2);
                 }
-            });
-        });
+            })
+            .transition()
+            .duration(500)
+            .delay((d, i) => (ageGroupOrder.indexOf(d.ageGroup) + offenceTypes.indexOf(d.offenceType)) * 20)
+            .style('opacity', 1);
 
         // X axis
         const xAxis = g.append('g')

@@ -554,3 +554,166 @@ function animateBars(bars, yScale, heightFn, innerHeight) {
         .attr('y', d => yScale(heightFn(d)))
         .attr('height', d => innerHeight - yScale(heightFn(d)));
 }
+
+// ============================================================================
+// CENTRALIZED TOUCH HANDLERS (SCROLL-FRIENDLY)
+// ============================================================================
+
+/**
+ * Attach scroll-friendly touch handlers to chart elements
+ * @param {d3.Selection} selection - D3 selection of chart elements
+ * @param {Object} config - Configuration object
+ * @param {Function} config.onTap - Callback when element is tapped (receives event, data)
+ * @param {Function} config.onHoverStart - Callback when hover starts (receives element selection, event, data)
+ * @param {Function} config.onHoverEnd - Callback when hover ends (receives element selection)
+ * @param {d3.Selection} config.tooltip - Tooltip element
+ * @param {Function} config.getContent - Function to generate tooltip content (receives data)
+ */
+function attachScrollFriendlyTouch(selection, config = {}) {
+    const {
+        onTap = null,
+        onHoverStart = null,
+        onHoverEnd = null,
+        tooltip = createTooltip(),
+        getContent = () => '',
+        tapThreshold = 10, // pixels of movement allowed before considering it a scroll
+        tapTimeThreshold = 500 // ms - max time for a tap
+    } = config;
+
+    selection.each(function() {
+        const element = d3.select(this);
+        let touchStartY = null;
+        let touchStartX = null;
+        let touchStartTime = null;
+        let isScrolling = false;
+
+        // Touch start
+        element.on('touchstart', function(event, d) {
+            const touch = event.touches[0];
+            touchStartY = touch.pageY;
+            touchStartX = touch.pageX;
+            touchStartTime = Date.now();
+            isScrolling = false;
+
+            // Don't prevent default yet - allow scroll detection
+            event.stopPropagation();
+        });
+
+        // Touch move - detect if scrolling
+        element.on('touchmove', function(event, d) {
+            if (!touchStartY || !touchStartX) return;
+
+            const touch = event.touches[0];
+            const moveY = Math.abs(touch.pageY - touchStartY);
+            const moveX = Math.abs(touch.pageX - touchStartX);
+
+            // If significant vertical movement, user is scrolling
+            if (moveY > tapThreshold || moveX > tapThreshold) {
+                isScrolling = true;
+                
+                // Clean up any active tooltip or hover state
+                hideTooltip(tooltip);
+                if (onHoverEnd) {
+                    onHoverEnd(element);
+                }
+            } else {
+                // Small movement - show tooltip
+                event.preventDefault(); // Prevent scroll only for small movements
+                
+                if (onHoverStart) {
+                    onHoverStart(element, event, d);
+                }
+
+                const content = getContent(d);
+                if (content) {
+                    showTooltip({ pageX: touch.pageX, pageY: touch.pageY }, content, tooltip);
+                }
+            }
+        });
+
+        // Touch end
+        element.on('touchend', function(event, d) {
+            const touchDuration = Date.now() - touchStartTime;
+
+            // If not scrolling and touch was quick, it's a tap
+            if (!isScrolling && touchDuration < tapTimeThreshold) {
+                if (onTap) {
+                    onTap(event, d);
+                }
+                
+                // Show tooltip briefly on tap
+                const content = getContent(d);
+                if (content) {
+                    if (onHoverStart) {
+                        onHoverStart(element, event, d);
+                    }
+                    
+                    const touch = event.changedTouches[0];
+                    showTooltip({ pageX: touch.pageX, pageY: touch.pageY }, content, tooltip);
+
+                    // Auto-hide after 2 seconds
+                    setTimeout(() => {
+                        hideTooltip(tooltip);
+                        if (onHoverEnd) {
+                            onHoverEnd(element);
+                        }
+                    }, 2000);
+                }
+            } else {
+                // Was scrolling - just clean up
+                hideTooltip(tooltip);
+                if (onHoverEnd) {
+                    onHoverEnd(element);
+                }
+            }
+
+            // Reset tracking variables
+            touchStartY = null;
+            touchStartX = null;
+            touchStartTime = null;
+            isScrolling = false;
+        });
+
+        // Touch cancel (e.g., phone call)
+        element.on('touchcancel', function() {
+            hideTooltip(tooltip);
+            if (onHoverEnd) {
+                onHoverEnd(element);
+            }
+            touchStartY = null;
+            touchStartX = null;
+            touchStartTime = null;
+            isScrolling = false;
+        });
+    });
+
+    return selection;
+}
+
+// ============================================================================
+// UPDATED GLOBAL TOUCH HANDLER
+// ============================================================================
+
+// Close tooltips when tapping outside charts
+document.addEventListener('touchstart', function(event) {
+    const chartElement = event.target.closest('.bar, .arc, .bubble, .state-path, .bar-segment, .data-point, .scatter-point, circle[class*="point"], rect[class*="bar"], .scatter-point, .point-fatalities');
+    
+    if (!chartElement) {
+        const tooltip = d3.select('body').select('.tooltip');
+        if (!tooltip.empty() && tooltip.style('opacity') !== '0') {
+            hideTooltip(tooltip);
+        }
+    }
+}, { passive: true });
+
+// Close tooltip on page scroll
+let scrollTimeout;
+window.addEventListener('scroll', function() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        const tooltip = d3.select('body').select('.tooltip');
+        if (!tooltip.empty()) {
+            hideTooltip(tooltip);
+        }
+    }, 100);
+}, { passive: true });

@@ -107,85 +107,21 @@
         const arcs = g.selectAll('.arc')
             .data(pie(data))
             .enter()
-            .append('g')
+            .append('path')
             .attr('class', 'arc')
-            .attr('data-offense', d => d.data.offenseType);
-
-        arcs.append('path')
-            .attr('d', arc)
             .attr('fill', d => colorScale(d.data.offenseType))
-            .attr('stroke', '#fff')
+            .attr('stroke', '#ffffff')
             .attr('stroke-width', 2)
             .style('cursor', 'pointer')
-            .transition()
-            .duration(800)
-            .attrTween('d', function(d) {
-                const interpolate = d3.interpolate({startAngle: 0, endAngle: 0}, d);
-                return function(t) {
-                    return arc(interpolate(t));
-                };
-            })
-            .on('end', function() {
-                // Attach event handlers AFTER animation completes
-                d3.select(this)
-                    .on('mouseenter', function(event, d) {
-                        const offenseType = d.data.offenseType;
-                        
-                        // Highlight slice
-                        d3.select(this)
-                            .transition()
-                            .duration(200)
-                            .attr('d', arcHover);
+            .attr('d', arc)
+            .each(function(d) { this._current = d; });
 
-                        // Highlight corresponding legend item
-                        d3.selectAll('#legend-q1 .legend-item')
-                            .style('background-color', function() {
-                                const itemText = d3.select(this).select('.legend-text').text();
-                                return itemText === offenseType ? '#e8f4f8' : 'transparent';
-                            })
-                            .style('border-color', function() {
-                                const itemText = d3.select(this).select('.legend-text').text();
-                                return itemText === offenseType ? '#3498db' : 'transparent';
-                            });
-
-                        const content = `
-            <strong>${offenseType}</strong>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Total fines:</span>
-                <span class="tooltip-value">${d3.format(',')(d.data.totalFines)}</span>
-            </div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Percentage:</span>
-                <span class="tooltip-value">${d.data.percentage.toFixed(1)}%</span>
-            </div>
-            <div class="tooltip-row">
-                <span class="tooltip-label">Rank:</span>
-                <span class="tooltip-value">#${d.data.rank}</span>
-            </div>
-        `;
-
-                        showTooltip(event, content, tooltip);
-                    })
-                    .on('mousemove', (event) => {
-                        moveTooltip(event, tooltip);
-                    })
-                    .on('mouseleave', function() {
-                        d3.select(this)
-                            .transition()
-                            .duration(200)
-                            .attr('d', arc);
-
-                        // Reset legend items
-                        d3.selectAll('#legend-q1 .legend-item')
-                            .style('background-color', 'transparent')
-                            .style('border-color', 'transparent');
-
-                        hideTooltip(tooltip);
-                    });
-            });
-
-        // Add percentage labels on slices
-        arcs.append('text')
+        // ADD TEXT LABELS BEFORE TRANSITION
+        g.selectAll('.arc-label')
+            .data(pie(data))
+            .enter()
+            .append('text')
+            .attr('class', 'arc-label')
             .attr('transform', d => `translate(${arc.centroid(d)})`)
             .attr('text-anchor', 'middle')
             .attr('dy', '0.35em')
@@ -203,6 +139,74 @@
             .delay(800)
             .duration(400)
             .style('opacity', 1);
+
+        // NOW DO THE ARC ANIMATION
+        arcs.transition()
+            .duration(800)
+            .delay((d, i) => i * 100)
+            .attrTween('d', function(d) {
+                const i = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+                return function(t) { return arc(i(t)); };
+            })
+            .on('end', function(d) {
+                d3.select(this)
+                    .on('mouseenter', function(event, d) {
+                        d3.select(this)
+                            .transition()
+                            .duration(200)
+                            .attr('d', arcHover);
+
+                        const total = d3.sum(data, item => item.totalFines);
+                        const percentage = (d.data.totalFines / total * 100).toFixed(1);
+
+                        const content = `
+                            <strong>${d.data.offenseType}</strong>
+                            <div class="tooltip-row">
+                                <span class="tooltip-label">Total fines:</span>
+                                <span class="tooltip-value">${d3.format(',')(d.data.totalFines)}</span>
+                            </div>
+                            <div class="tooltip-row">
+                                <span class="tooltip-label">Percentage:</span>
+                                <span class="tooltip-value">${percentage}%</span>
+                            </div>
+                        `;
+                        showTooltip(event, content, tooltip);
+                    })
+                    .on('mousemove', (event) => {
+                        moveTooltip(event, tooltip);
+                    })
+                    .on('mouseleave', function() {
+                        d3.select(this)
+                            .transition()
+                            .duration(200)
+                            .attr('d', arc);
+                        hideTooltip(tooltip);
+                    })
+                    .call(attachScrollFriendlyTouch, {
+                        tooltip: tooltip,
+                        getContent: (d) => {
+                            const total = d3.sum(data, item => item.totalFines);
+                            const percentage = (d.data.totalFines / total * 100).toFixed(1);
+                            return `
+                                <strong>${d.data.offenseType}</strong>
+                                <div class="tooltip-row">
+                                    <span class="tooltip-label">Total fines:</span>
+                                    <span class="tooltip-value">${d3.format(',')(d.data.totalFines)}</span>
+                                </div>
+                                <div class="tooltip-row">
+                                    <span class="tooltip-label">Percentage:</span>
+                                    <span class="tooltip-value">${percentage}%</span>
+                                </div>
+                            `;
+                        },
+                        onHoverStart: (element) => {
+                            element.transition().duration(200).attr('d', arcHover);
+                        },
+                        onHoverEnd: (element) => {
+                            element.transition().duration(200).attr('d', arc);
+                        }
+                    });
+            });
 
         // Add center text showing total
         const total = d3.sum(data, d => d.totalFines);
@@ -282,7 +286,18 @@
             .style('cursor', 'pointer')
             .on('mouseenter', function(event, d) {
                 d3.select(this).attr('opacity', 0.8);
-                showTooltip(event, d, tooltip);
+                const content = `
+                    <strong>${d.offenseType}</strong>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Total fines:</span>
+                        <span class="tooltip-value">${d3.format(',')(d.totalFines)}</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Percentage:</span>
+                        <span class="tooltip-value">${d.percentage.toFixed(1)}%</span>
+                    </div>
+                `;
+                showTooltip(event, content, tooltip);
             })
             .on('mousemove', (event) => {
                 moveTooltip(event, tooltip);
@@ -290,6 +305,26 @@
             .on('mouseleave', function() {
                 d3.select(this).attr('opacity', 1);
                 hideTooltip(tooltip);
+            })
+            .call(attachScrollFriendlyTouch, {
+                tooltip: tooltip,
+                getContent: (d) => `
+                    <strong>${d.offenseType}</strong>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Total fines:</span>
+                        <span class="tooltip-value">${d3.format(',')(d.totalFines)}</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Percentage:</span>
+                        <span class="tooltip-value">${d.percentage.toFixed(1)}%</span>
+                    </div>
+                `,
+                onHoverStart: (element) => {
+                    element.attr('opacity', 0.8);
+                },
+                onHoverEnd: (element) => {
+                    element.attr('opacity', 1);
+                }
             })
             .transition()
             .duration(500)

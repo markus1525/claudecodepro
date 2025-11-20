@@ -155,17 +155,30 @@
                 d3.select(this).attr('opacity', 1);
                 hideTooltip(tooltip);
             })
-            .on('touchstart', function(event) {
-                event.preventDefault();
-                const roadUser = d3.select(this.parentNode).datum().key;
-                const value = d3.select(this).datum().data[roadUser];
-
-                const tooltipData = {
-                    crashType: d3.select(this).datum().data.crashType,
-                    roadUser: roadUser,
-                    fatalities: value
-                };
-                showTooltip(event.touches[0], tooltipData, tooltip);
+            .call(attachScrollFriendlyTouch, {
+                tooltip: tooltip,
+                getContent: function(d) {
+                    const roadUser = d3.select(this.parentNode).datum().key;
+                    const value = d.data[roadUser];
+                    
+                    return `
+                        <strong>${d.data.crashType}</strong>
+                        <div class="tooltip-row">
+                            <span class="tooltip-label">Road user:</span>
+                            <span class="tooltip-value">${roadUser}</span>
+                        </div>
+                        <div class="tooltip-row">
+                            <span class="tooltip-label">Fatalities:</span>
+                            <span class="tooltip-value">${d3.format(',')(value)}</span>
+                        </div>
+                    `;
+                },
+                onHoverStart: (element) => {
+                    element.attr('opacity', 0.8);
+                },
+                onHoverEnd: (element) => {
+                    element.attr('opacity', 1);
+                }
             })
             .transition()
             .duration(500)

@@ -113,6 +113,26 @@
                 d3.select(this).attr('fill-opacity', 0.7);
                 hideTooltip(tooltip);
             })
+            .call(attachScrollFriendlyTouch, {
+                tooltip: tooltip,
+                getContent: (d) => `
+                    <strong>${d.state}</strong>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Total fines:</span>
+                        <span class="tooltip-value">${d3.format(',')(d.totalFines)}</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Fines per fatality:</span>
+                        <span class="tooltip-value">${d3.format(',')(d.finesPerFatality.toFixed(0))}</span>
+                    </div>
+                `,
+                onHoverStart: (element) => {
+                    element.attr('fill-opacity', 1);
+                },
+                onHoverEnd: (element) => {
+                    element.attr('fill-opacity', 0.7);
+                }
+            })
             .transition()
             .duration(500)
             .delay((d, i) => i * 50)
@@ -166,8 +186,8 @@
                 <span class="tooltip-value">${d3.format(',')(d.totalFatalities)}</span>
             </div>
             <div class="tooltip-row">
-                <span class="tooltip-label">Total fines:</span>
-                <span class="tooltip-value">${d3.format(',')(d.totalFines)}</span>
+                <span class="tooltip-label">Fines per fatality:</span>
+                <span class="tooltip-value">${d3.format(',')(d.finesPerFatality.toFixed(0))}</span>
             </div>
         `;
                 showTooltip(event, content, tooltip);
@@ -178,6 +198,26 @@
             .on('mouseleave', function() {
                 d3.select(this).attr('r', 6);
                 hideTooltip(tooltip);
+            })
+            .call(attachScrollFriendlyTouch, {
+                tooltip: tooltip,
+                getContent: (d) => `
+            <strong>${d.state}</strong>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total fatalities:</span>
+                <span class="tooltip-value">${d3.format(',')(d.totalFatalities)}</span>
+            </div>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Fines per fatality:</span>
+                <span class="tooltip-value">${d3.format(',')(d.finesPerFatality.toFixed(0))}</span>
+            </div>
+        `,
+                onHoverStart: (element) => {
+                    element.attr('r', 8);
+                },
+                onHoverEnd: (element) => {
+                    element.attr('r', 6);
+                }
             })
             .transition()
             .duration(300)
@@ -212,7 +252,7 @@
             .attr('class', 'axis-label')
             .attr('transform', 'rotate(-90)')
             .attr('x', -innerHeight / 2)
-            .attr('y', -60)
+            .attr('y', -50)
             .attr('text-anchor', 'middle')
             .style('fill', '#26658c')
             .style('font-weight', '600')
@@ -222,7 +262,7 @@
             .attr('class', 'axis-label')
             .attr('transform', 'rotate(-90)')
             .attr('x', -innerHeight / 2)
-            .attr('y', innerWidth + 75)
+            .attr('y', innerWidth + 60)
             .attr('text-anchor', 'middle')
             .style('fill', '#d32f2f')
             .style('font-weight', '600')
@@ -308,6 +348,30 @@
                     .attr('fill-opacity', 0.7)
                     .attr('r', 8);
                 hideTooltip(tooltip);
+            })
+            .call(attachScrollFriendlyTouch, {
+                tooltip: tooltip,
+                getContent: (d) => `
+                    <strong>${d.state}</strong>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Total fines:</span>
+                        <span class="tooltip-value">${d3.format(',')(d.totalFines)}</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Total fatalities:</span>
+                        <span class="tooltip-value">${d3.format(',')(d.totalFatalities)}</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Ratio:</span>
+                        <span class="tooltip-value">${d3.format(',')(d.finesPerFatality.toFixed(0))} fines/fatality</span>
+                    </div>
+                `,
+                onHoverStart: (element) => {
+                    element.attr('fill-opacity', 1).attr('r', 10);
+                },
+                onHoverEnd: (element) => {
+                    element.attr('fill-opacity', 0.7).attr('r', 8);
+                }
             })
             .transition()
             .duration(500)

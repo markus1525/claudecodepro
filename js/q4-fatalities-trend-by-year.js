@@ -72,11 +72,12 @@
 
         // Animate line
         const totalLength = path.node().getTotalLength();
+        const pathDuration = 1000; // Define pathDuration
         path
             .attr('stroke-dasharray', totalLength + ' ' + totalLength)
             .attr('stroke-dashoffset', totalLength)
             .transition()
-            .duration(1000)
+            .duration(pathDuration) // Use the variable here
             .ease(d3.easeLinear)
             .attr('stroke-dashoffset', 0);
 
@@ -100,16 +101,14 @@
             .append('circle')
             .attr('class', 'data-point')
             .attr('cx', d => xScale(d.year))
-            .attr('cy', d => yScale(d.total))
-            .attr('r', 0)
-            .attr('fill', '#26658c')
+            .attr('cy', innerHeight)
+            .attr('r', 5)
+            .attr('fill', '#d32f2f')
             .attr('stroke', '#ffffff')
             .attr('stroke-width', 2)
             .style('cursor', 'pointer')
             .on('mouseenter', function(event, d) {
-                d3.select(this)
-                    .attr('r', 8)
-                    .attr('fill', '#3078a3');
+                d3.select(this).attr('r', 8);
 
                 const content = `
             <strong>Year ${d.year}</strong>
@@ -124,16 +123,29 @@
                 moveTooltip(event, tooltip);
             })
             .on('mouseleave', function() {
-                d3.select(this)
-                    .attr('r', 6)
-                    .attr('fill', '#26658c');
-
+                d3.select(this).attr('r', 5);
                 hideTooltip(tooltip);
             })
+            .call(attachScrollFriendlyTouch, {
+                tooltip: tooltip,
+                getContent: (d) => `
+            <strong>Year ${d.year}</strong>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total fatalities:</span>
+                <span class="tooltip-value">${d3.format(',')(d.total)}</span>
+            </div>
+        `,
+                onHoverStart: (element) => {
+                    element.attr('r', 8);
+                },
+                onHoverEnd: (element) => {
+                    element.attr('r', 5);
+                }
+            })
             .transition()
-            .duration(500)
-            .delay((d, i) => i * 100 + 1000)
-            .attr('r', 6);
+            .duration(800)
+            .delay((d, i) => pathDuration + (i * 100)) // Now this works
+            .attr('cy', d => yScale(d.total));
 
         // X axis
         g.append('g')
