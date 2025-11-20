@@ -14,6 +14,7 @@ Interactive dashboard visualizing Australian road safety enforcement (2020-2024)
 
 **Website:** https://mercury.swin.edu.au/cos30045/s105684881/project-dv_group49  
 **GitHub:** https://github.com/COS30045-Inti-Subang/data-visualisation-project-dv_group49
+**KNIME Hub:** https://hub.knime.com/s/uQpubRgqKNzYHP0q
 
 ---
 
