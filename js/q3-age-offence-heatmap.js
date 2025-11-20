@@ -14,9 +14,7 @@
 
     let width, height;
 
-    /**
-     * Render Q3 chart (heatmap)
-     */
+    // main render function
     window.renderQ3 = function(data) {
         if (!data || data.length === 0) {
             d3.select('#chart-q3').html('<div class="empty-state"><p>No data available</p></div>');
@@ -30,9 +28,7 @@
         updateDataTable(data);
     };
 
-    /**
-     * Render heatmap
-     */
+    // draw the heatmap
     function renderHeatmap(data) {
         const container = document.getElementById('chart-q3');
         width = container.clientWidth;
@@ -192,9 +188,7 @@
         addColorLegend(svg, width, height, margin, colorScale, minFines, maxFines, innerWidth, innerHeight, isMobile);
     }
 
-    /**
-     * Add color legend for heatmap - POSITIONED RESPONSIVELY
-     */
+    // add the color legend
     function addColorLegend(svg, width, height, margin, colorScale, minFines, maxFines, innerWidth, innerHeight, isMobile) {
         const legendWidth = isMobile ? 15 : 20;
         const legendHeight = isMobile ? 150 : 200;
@@ -266,9 +260,7 @@
             .style('font-size', isMobile ? '8px' : '10px');
     }
 
-    /**
-     * Create tooltip
-     */
+    // create tooltip element
     function createTooltip() {
         let tooltip = d3.select('body').select('.tooltip');
         if (tooltip.empty()) {
@@ -280,14 +272,7 @@
         return tooltip;
     }
 
-    /**
-     * Show tooltip
-     */
-
-
-    /**
-     * Update data table
-     */
+    // update the data table
     function updateDataTable(data) {
         const tbody = d3.select('#table-q3-body');
         tbody.selectAll('tr').remove();
@@ -303,9 +288,7 @@
             `);
     }
 
-    /**
-     * Handle resize
-     */
+    // handle window resize
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);

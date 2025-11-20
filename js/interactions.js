@@ -1,6 +1,6 @@
-/* Shared interaction helpers for tooltips, legends, and resize */
+/* helper functions for tooltips, legends, and responsive stuff */
 
-// Create or get existing tooltip
+// grab the tooltip or make a new one if it doesn't exist
 function createTooltip() {
     let tooltip = d3.select('body').select('.tooltip');
     if (tooltip.empty()) {
@@ -14,7 +14,7 @@ function createTooltip() {
     return tooltip;
 }
 
-// Show tooltip with smart positioning that avoids viewport edges
+// show tooltip and make sure it doesn't go off screen
 function showTooltip(event, content, tooltip = null) {
     if (!tooltip) {
         tooltip = createTooltip();
@@ -63,7 +63,7 @@ function showTooltip(event, content, tooltip = null) {
         .style('opacity', 1);
 }
 
-// Move tooltip with cursor (with smart positioning)
+// move tooltip to follow the mouse
 function moveTooltip(event, tooltip) {
     const tooltipNode = tooltip.node();
     const tooltipRect = tooltipNode.getBoundingClientRect();
@@ -105,10 +105,7 @@ function moveTooltip(event, tooltip) {
         .style('top', top + 'px');
 }
 
-/**
- * Hide tooltip
- * @param {d3.Selection} tooltip - Tooltip selection
- */
+// hide the tooltip
 function hideTooltip(tooltip) {
     tooltip
         .transition()
@@ -116,13 +113,7 @@ function hideTooltip(tooltip) {
         .style('opacity', 0);
 }
 
-/**
- * Format tooltip content for fines data
- * @param {Object} data - Data object
- * @param {string} data.title - Tooltip title
- * @param {Array} data.rows - Array of {label, value} objects
- * @returns {string} HTML string
- */
+// format tooltip content with title and rows
 function formatTooltipContent(data) {
     const rows = data.rows.map(row => `
         <div class="tooltip-row">
@@ -137,11 +128,7 @@ function formatTooltipContent(data) {
     `;
 }
 
-/**
- * Format tooltip for offence data
- * @param {Object} d - Data point
- * @returns {string} HTML string
- */
+// tooltip for offense/offence type data
 function tooltipOffenceContent(d) {
     return formatTooltipContent({
         title: d.offenceType,
@@ -152,11 +139,7 @@ function tooltipOffenceContent(d) {
     });
 }
 
-/**
- * Format tooltip for state data
- * @param {Object} d - Data point
- * @returns {string} HTML string
- */
+// tooltip for state data
 function tooltipStateContent(d) {
     return formatTooltipContent({
         title: STATES.names[d.state] || d.state,
@@ -167,11 +150,7 @@ function tooltipStateContent(d) {
     });
 }
 
-/**
- * Format tooltip for fatality data
- * @param {Object} d - Data point
- * @returns {string} HTML string
- */
+// tooltip for fatality data
 function tooltipFatalityContent(d) {
     const rows = [
         { label: 'Total fatalities', value: FORMAT.fatalities(d.totalFatalities) }
@@ -187,11 +166,7 @@ function tooltipFatalityContent(d) {
     });
 }
 
-/**
- * Format tooltip for age-offence scatter data
- * @param {Object} d - Data point
- * @returns {string} HTML string
- */
+// tooltip for age group and offence type data
 function tooltipAgeOffenceContent(d) {
     const rows = [
         { label: 'Offence', value: d.offenceType },
@@ -208,11 +183,7 @@ function tooltipAgeOffenceContent(d) {
     });
 }
 
-/**
- * Format tooltip for crash type data
- * @param {Object} d - Data point
- * @returns {string} HTML string
- */
+// tooltip for crash type data
 function tooltipCrashTypeContent(d) {
     return formatTooltipContent({
         title: d.crashType,
@@ -223,18 +194,9 @@ function tooltipCrashTypeContent(d) {
     });
 }
 
-// ============================================================================
-// LEGEND FUNCTIONS
-// ============================================================================
+// legend helper functions
 
-/**
- * Create a standard legend
- * @param {d3.Selection} svg - SVG selection to append legend to
- * @param {Array} items - Array of legend items
- * @param {Function} colorScale - D3 color scale
- * @param {Object} options - Configuration options
- * @returns {d3.Selection} Legend group selection
- */
+// make a legend with boxes and labels
 function createLegend(svg, items, colorScale, options = {}) {
     const defaults = {
         x: 20,
@@ -292,15 +254,7 @@ function createLegend(svg, items, colorScale, options = {}) {
     return legend;
 }
 
-/**
- * Create a mobile-friendly legend (compact layout)
- * @param {d3.Selection} svg - SVG selection
- * @param {Array} items - Legend items
- * @param {Function} colorScale - Color scale
- * @param {number} width - Container width
- * @param {number} height - Container height
- * @returns {d3.Selection} Legend group
- */
+// compact legend for smaller screens
 function createMobileLegend(svg, items, colorScale, width, height) {
     return createLegend(svg, items, colorScale, {
         x: 20,
@@ -316,15 +270,7 @@ function createMobileLegend(svg, items, colorScale, width, height) {
     });
 }
 
-/**
- * Create a desktop legend (positioned on the right)
- * @param {d3.Selection} svg - SVG selection
- * @param {Array} items - Legend items
- * @param {Function} colorScale - Color scale
- * @param {number} width - Container width
- * @param {Object} margin - Margins object
- * @returns {d3.Selection} Legend group
- */
+// legend for desktop (positioned on right side)
 function createDesktopLegend(svg, items, colorScale, width, margin) {
     return createLegend(svg, items, colorScale, {
         x: width - margin.right + 10,
@@ -335,16 +281,7 @@ function createDesktopLegend(svg, items, colorScale, width, margin) {
     });
 }
 
-/**
- * Create an interactive legend (toggleable categories)
- * @param {d3.Selection} svg - SVG selection
- * @param {Array} items - Legend items
- * @param {Function} colorScale - Color scale
- * @param {Set} hiddenCategories - Set of hidden category names
- * @param {Function} onToggle - Callback when category toggled
- * @param {Object} options - Additional options
- * @returns {d3.Selection} Legend group
- */
+// legend that can be clicked to hide/show categories
 function createInteractiveLegend(svg, items, colorScale, hiddenCategories, onToggle, options = {}) {
     const legend = createLegend(svg, items, colorScale, {
         ...options,
@@ -381,16 +318,9 @@ function createInteractiveLegend(svg, items, colorScale, hiddenCategories, onTog
     return legend;
 }
 
-// ============================================================================
-// RESIZE HANDLER
-// ============================================================================
+// resize handling
 
-/**
- * Create a debounced resize handler
- * @param {Function} callback - Function to call on resize
- * @param {number} delay - Debounce delay in ms (default: 250)
- * @returns {Function} Event handler function
- */
+// prevent resize from firing too often
 function createResizeHandler(callback, delay = 250) {
     let resizeTimeout;
 
@@ -400,50 +330,32 @@ function createResizeHandler(callback, delay = 250) {
     };
 }
 
-/**
- * Check if current viewport is mobile
- * @returns {boolean} True if mobile
- */
+// check if we're on a mobile screen
 function isMobile() {
     return window.innerWidth < CHART_DIMENSIONS.breakpoints.mobile;
 }
 
-/**
- * Check if current viewport is tablet
- * @returns {boolean} True if tablet
- */
+// check if we're on a tablet screen
 function isTablet() {
     const width = window.innerWidth;
     return width >= CHART_DIMENSIONS.breakpoints.mobile &&
            width < CHART_DIMENSIONS.breakpoints.desktop;
 }
 
-/**
- * Check if current viewport is desktop
- * @returns {boolean} True if desktop
- */
+// check if we're on a desktop screen
 function isDesktop() {
     return window.innerWidth >= CHART_DIMENSIONS.breakpoints.desktop;
 }
 
-// ============================================================================
-// EMPTY STATE HELPERS
-// ============================================================================
+// empty state handling
 
-/**
- * Show empty state message in a chart container
- * @param {string} selector - Container selector
- * @param {string} message - Message to display
- */
+// show a message when there's no data
 function showEmptyState(selector, message = 'No data available') {
     d3.select(selector)
         .html(`<div class="empty-state"><p>${message}</p></div>`);
 }
 
-/**
- * Show loading state in a chart container
- * @param {string} selector - Container selector
- */
+// show a loading spinner
 function showLoadingState(selector) {
     d3.select(selector)
         .html(`
@@ -454,35 +366,19 @@ function showLoadingState(selector) {
         `);
 }
 
-// ============================================================================
-// AXIS HELPERS
-// ============================================================================
+// axis formatting
 
-/**
- * Format axis tick with SI prefix
- * @param {number} value - Value to format
- * @returns {string} Formatted string
- */
+// format numbers on axis (like 1k, 1M)
 function formatAxisTick(value) {
     return d3.format('.2s')(value);
 }
 
-/**
- * Format axis tick as percentage
- * @param {number} value - Value to format
- * @returns {string} Formatted percentage
- */
+// format axis tick as percentage
 function formatAxisTickPercent(value) {
     return d3.format('.0%')(value);
 }
 
-/**
- * Add grid lines to a chart
- * @param {d3.Selection} g - Chart group selection
- * @param {d3.Scale} scale - Y scale
- * @param {number} width - Inner width
- * @param {number} ticks - Number of ticks
- */
+// add horizontal grid lines to chart
 function addGridLines(g, scale, width, ticks = 6) {
     g.append('g')
         .attr('class', 'grid')
@@ -495,16 +391,9 @@ function addGridLines(g, scale, width, ticks = 6) {
         );
 }
 
-// ============================================================================
-// ACCESSIBILITY HELPERS
-// ============================================================================
+// accessibility - data tables for screen readers
 
-/**
- * Update data table for screen readers
- * @param {string} tableId - Table body ID
- * @param {Array} data - Data array
- * @param {Function} rowFormatter - Function to format each row
- */
+// update the data table
 function updateDataTable(tableId, data, rowFormatter) {
     const tbody = d3.select(`#${tableId}`);
     tbody.selectAll('tr').remove();
@@ -516,15 +405,9 @@ function updateDataTable(tableId, data, rowFormatter) {
         .html(rowFormatter);
 }
 
-// ============================================================================
-// ANIMATION HELPERS
-// ============================================================================
+// animation helpers
 
-/**
- * Animate line drawing
- * @param {d3.Selection} path - Path selection
- * @param {number} duration - Animation duration
- */
+// animate a line being drawn
 function animateLineDraw(path, duration = ANIMATION.duration.slow) {
     const totalLength = path.node().getTotalLength();
 
@@ -537,13 +420,7 @@ function animateLineDraw(path, duration = ANIMATION.duration.slow) {
         .attr('stroke-dashoffset', 0);
 }
 
-/**
- * Animate bars growing from bottom
- * @param {d3.Selection} bars - Bar selection
- * @param {Function} yScale - Y scale
- * @param {Function} heightFn - Function to get bar height
- * @param {number} innerHeight - Chart inner height
- */
+// animate bars growing up from the bottom
 function animateBars(bars, yScale, heightFn, innerHeight) {
     bars
         .attr('y', innerHeight)
@@ -555,20 +432,9 @@ function animateBars(bars, yScale, heightFn, innerHeight) {
         .attr('height', d => innerHeight - yScale(heightFn(d)));
 }
 
-// ============================================================================
-// CENTRALIZED TOUCH HANDLERS (SCROLL-FRIENDLY)
-// ============================================================================
+// touch handling for mobile devices
 
-/**
- * Attach scroll-friendly touch handlers to chart elements
- * @param {d3.Selection} selection - D3 selection of chart elements
- * @param {Object} config - Configuration object
- * @param {Function} config.onTap - Callback when element is tapped (receives event, data)
- * @param {Function} config.onHoverStart - Callback when hover starts (receives element selection, event, data)
- * @param {Function} config.onHoverEnd - Callback when hover ends (receives element selection)
- * @param {d3.Selection} config.tooltip - Tooltip element
- * @param {Function} config.getContent - Function to generate tooltip content (receives data)
- */
+// add touch events that work with scrolling
 function attachScrollFriendlyTouch(selection, config = {}) {
     const {
         onTap = null,
@@ -690,11 +556,7 @@ function attachScrollFriendlyTouch(selection, config = {}) {
     return selection;
 }
 
-// ============================================================================
-// UPDATED GLOBAL TOUCH HANDLER
-// ============================================================================
-
-// Close tooltips when tapping outside charts
+// close tooltip when tapping outside chart areas
 document.addEventListener('touchstart', function(event) {
     const chartElement = event.target.closest('.bar, .arc, .bubble, .state-path, .bar-segment, .data-point, .scatter-point, circle[class*="point"], rect[class*="bar"], .scatter-point, .point-fatalities');
     
@@ -706,7 +568,7 @@ document.addEventListener('touchstart', function(event) {
     }
 }, { passive: true });
 
-// Close tooltip on page scroll
+// close tooltip when user scrolls
 let scrollTimeout;
 window.addEventListener('scroll', function() {
     clearTimeout(scrollTimeout);
