@@ -271,8 +271,8 @@
 
 
   function addLegend(svg, data, width, height, sizeScale, isMobile) {
-    const legendX = isMobile ? Math.min(20, (width - 100) / 2) : width - 140;
-    const legendY = isMobile ? height - 140 : 70; // Lower on mobile to avoid title overlap
+    const legendX = isMobile ? 20 : width - 140;
+    const legendY = isMobile ? height - 150 : 70; // Lower on mobile to avoid title overlap
 
     const legend = svg.append('g')
       .attr('class', 'legend')

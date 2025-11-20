@@ -380,10 +380,10 @@
     }
 
     function addColorLegend(svg, colorScale, width, height) {
-        const legendWidth = isMobile ? Math.min(140, width - 40) : 200;
+        const legendWidth = isMobile ? 140 : 200;
         const legendHeight = isMobile ? 12 : 15;
         const legendX = isMobile ? (width - legendWidth) / 2 : width - legendWidth - 20;
-        const legendY = isMobile ? height - 45 : height - 60; // Higher on mobile to avoid overlap with instructions
+        const legendY = isMobile ? height - 50 : height - 60; // Higher on mobile to avoid overlap
 
         const legend = svg.append('g')
             .attr('class', 'legend')
@@ -392,10 +392,10 @@
         legend.append('text')
             .attr('x', 0)
             .attr('y', -10)
-            .style('font-size', isMobile ? '9px' : '11px')
+            .style('font-size', isMobile ? '10px' : '11px')
             .style('font-weight', '600')
             .style('fill', '#2c3e50')
-            .text(isMobile ? 'Rate/100k' : 'Rate per 100k');
+            .text('Rate per 100k');
 
         const thresholds = [0, 3, 4, 5, 6, 8, 12];
         const boxWidth = legendWidth / (thresholds.length - 1);
