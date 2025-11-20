@@ -175,13 +175,26 @@
                         .attr('stroke', '#ffffff');
                     hideTooltip(tooltip);
                 })
+                .on('click', function(event, d) {
+                    const stateCode = STATE_CODE_MAP[d.properties.STATE_CODE];
+                    if (stateCode) {
+                        // Toggle state filter
+                        const stateIndex = window.filterState.states.indexOf(stateCode);
+                        if (stateIndex > -1) {
+                            window.filterState.states.splice(stateIndex, 1);
+                        } else {
+                            window.filterState.states.push(stateCode);
+                        }
+                        updateAllCharts();
+                    }
+                })
                 .call(attachScrollFriendlyTouch, {
                     tooltip: tooltip,
                     getContent: (d) => {
                         const stateCode = STATE_CODE_MAP[d.properties.STATE_CODE];
                         const stateData = dataByCode[stateCode];
                         if (!stateData) return '';
-                        
+
                         return `
                             <strong>${stateData.stateName}</strong>
                             <div class="tooltip-row">
@@ -197,6 +210,19 @@
                                 <span class="tooltip-value">#${stateData.rank}</span>
                             </div>
                         `;
+                    },
+                    onTap: (event, d) => {
+                        const stateCode = STATE_CODE_MAP[d.properties.STATE_CODE];
+                        if (stateCode) {
+                            // Toggle state filter on tap
+                            const stateIndex = window.filterState.states.indexOf(stateCode);
+                            if (stateIndex > -1) {
+                                window.filterState.states.splice(stateIndex, 1);
+                            } else {
+                                window.filterState.states.push(stateCode);
+                            }
+                            updateAllCharts();
+                        }
                     },
                     onHoverStart: (element) => {
                         element.attr('stroke-width', 3).attr('stroke', '#2d2d2d');
