@@ -88,7 +88,7 @@
                 const key = `${ageGroup}-${offenceType}`;
                 const fines = dataMap.get(key) || 0;
 
-                g.append('rect')
+                const rect = g.append('rect')
                     .attr('x', xScale(offenceType))
                     .attr('y', yScale(ageGroup))
                     .attr('width', xScale.bandwidth())
@@ -98,8 +98,10 @@
                     .attr('stroke-width', 2)
                     .attr('rx', 4)
                     .style('cursor', 'pointer')
-                    .style('opacity', 0)
-                    .on('mouseenter', function(event) {
+                    .style('opacity', 0);
+
+                // Mouse events
+                rect.on('mouseenter', function(event) {
                         d3.select(this)
                             .attr('stroke', '#26658c')
                             .attr('stroke-width', 3);
@@ -126,6 +128,35 @@
                             .attr('stroke-width', 2);
 
                         hideTooltip(tooltip);
+                    });
+
+                // Touch events for mobile
+                rect.on('touchstart', function(event) {
+                        event.preventDefault();
+                        d3.select(this)
+                            .attr('stroke', '#26658c')
+                            .attr('stroke-width', 3);
+
+                        const content = `
+            <strong>${ageGroup} years</strong>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Offence:</span>
+                <span class="tooltip-value">${offenceType}</span>
+            </div>
+            <div class="tooltip-row">
+                <span class="tooltip-label">Total fines:</span>
+                <span class="tooltip-value">${d3.format(',')(fines)}</span>
+            </div>
+        `;
+                        const touch = event.touches[0];
+                        showTooltip(touch, content, tooltip);
+                    })
+                    .on('touchend', function() {
+                        d3.select(this)
+                            .attr('stroke', '#ffffff')
+                            .attr('stroke-width', 2);
+
+                        setTimeout(() => hideTooltip(tooltip), 1500);
                     })
                     .transition()
                     .duration(500)
