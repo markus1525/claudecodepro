@@ -133,7 +133,7 @@
       const maxVal = d3.max(centroidData, d => d.totalFines) || 1;
       const sizeScale = d3.scaleSqrt()
         .domain([0, maxVal])
-        .range([0, isMobile ? 45 : 50]);
+        .range([0, isMobile ? 25 : 50]);
 
       const bubbles = svgEl.append('g')
         .attr('class', 'bubbles')
@@ -303,9 +303,9 @@
     const lowState = sortedData[sortedData.length - 1];
 
     const sizeExamples = isMobile ? [
-      { value: highState.totalFines, label: 'High', radius: 17, color: colorScale(highState.code) },
-      { value: mediumState.totalFines, label: 'Med', radius: 11, color: colorScale(mediumState.code) },
-      { value: lowState.totalFines, label: 'Low', radius: 6, color: colorScale(lowState.code) }
+      { value: highState.totalFines, label: 'High', radius: 14, color: colorScale(highState.code) },
+      { value: mediumState.totalFines, label: 'Med', radius: 9, color: colorScale(mediumState.code) },
+      { value: lowState.totalFines, label: 'Low', radius: 5, color: colorScale(lowState.code) }
     ] : [
       { value: highState.totalFines, label: 'High', radius: 18, color: colorScale(highState.code) },
       { value: mediumState.totalFines, label: 'Medium', radius: 12, color: colorScale(mediumState.code) },
