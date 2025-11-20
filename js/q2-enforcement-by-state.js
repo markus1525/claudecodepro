@@ -178,6 +178,16 @@
             .attr('stroke-width', 2);
           hideTooltip(tooltip);
         })
+        .on('click', function(event, d) {
+          // Toggle state filter
+          const stateIndex = window.filterState.states.indexOf(d.code);
+          if (stateIndex > -1) {
+            window.filterState.states.splice(stateIndex, 1);
+          } else {
+            window.filterState.states.push(d.code);
+          }
+          updateAllCharts();
+        })
         .call(attachScrollFriendlyTouch, {
           tooltip: tooltip,
           getContent: (d) => `
@@ -191,6 +201,16 @@
               <span class="tooltip-value">${d.percentageOfNational.toFixed(1)}%</span>
             </div>
           `,
+          onTap: (event, d) => {
+            // Toggle state filter on tap
+            const stateIndex = window.filterState.states.indexOf(d.code);
+            if (stateIndex > -1) {
+              window.filterState.states.splice(stateIndex, 1);
+            } else {
+              window.filterState.states.push(d.code);
+            }
+            updateAllCharts();
+          },
           onHoverStart: (element) => {
             element.attr('opacity', 1).attr('stroke-width', 3);
           },
