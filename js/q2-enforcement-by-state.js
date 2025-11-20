@@ -160,7 +160,7 @@
             .attr('r', sizeScale(d.totalFines) * 1.1);
 
           const content = `
-            <strong>${d.name}</strong>
+            <strong>${d.state}</strong>
             <div class="tooltip-row">
               <span class="tooltip-label">Total fines:</span>
               <span class="tooltip-value">${d3.format(',')(d.totalFines)}</span>
